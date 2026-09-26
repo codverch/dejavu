@@ -75,6 +75,30 @@ uint64_t prior_pid = 0;
 
 Flag roi_dump_began = FALSE;
 Counter roi_dump_ID = 0;
+Counter memtrace_pass_dump_ID = 0;
+
+// Warm execution: which pass over the trace each core is on (0 = first, cold).
+static uns memtrace_pass[MAX_NUM_PROCS];
+
+/* At end of trace, start the next pass if MEMTRACE_REPEAT asks for one: a fresh
+   reader on the same trace, with every microarchitectural structure (caches,
+   TLBs, predictors, uop cache, prefetchers) left exactly as pass N-1 left it. */
+static bool memtrace_next_pass(int proc_id) {
+  if (memtrace_pass[proc_id] + 1 >= MEMTRACE_REPEAT)
+    return false;
+  // Cumulative stats as of the end of this pass (cycle_count is the fetch-side
+  // boundary; per-pass numbers are differences of consecutive .pass.<k> dumps).
+  memtrace_pass_dump_ID = memtrace_pass[proc_id] + 1;
+  dump_stats(proc_id, TRUE, global_stat_array[proc_id], NUM_GLOBAL_STATS);
+  memtrace_pass_dump_ID = 0;
+  memtrace_pass[proc_id]++;
+  std::cout << "MEMTRACE_REPEAT: pass " << memtrace_pass[proc_id] + 1 << " of " << MEMTRACE_REPEAT
+            << " begins after ins_id=" << ins_id << " ins_id_fetched=" << ins_id_fetched << std::endl;
+  // The previous reader is intentionally not deleted (TraceReader has no virtual
+  // destructor); one leaked reader per pass is negligible for a few passes.
+  trace_readers[proc_id] = new TraceReaderMemtrace(std::string(trace_files[proc_id]), 1);
+  return true;
+}
 
 /**************************************************************************************/
 /* Private Functions */
@@ -169,10 +193,13 @@ int roi(const ctype_pin_inst* pi) {
   return is_xchg_rcx_rcx(pi) ? 1 : 0;
 }
 
-int memtrace_trace_read(int proc_id, ctype_pin_inst* next_onpath_pi) {
+enum { READ_END_OF_TRACE = 0, READ_OK = 1, READ_END_OF_ROI = 2 };
+
+// One instruction of the traced thread from the current reader.
+static int memtrace_read_one(int proc_id, ctype_pin_inst* next_onpath_pi) {
   InstInfo* insi;
 
-  do {
+  while (true) {
     insi = const_cast<InstInfo*>(trace_readers[proc_id]->nextInstruction());
 
     if (prior_pid == 0) {
@@ -186,7 +213,7 @@ int memtrace_trace_read(int proc_id, ctype_pin_inst* next_onpath_pi) {
     if (insi->valid) {
       if (insi->last_inst_from_trace) {
         std::cout << "Reached end of trace (last_inst) pc=0x" << std::hex << insi->pc << std::dec << std::endl;
-        return 0;  // don't simulate the sentinel instruction
+        return READ_END_OF_TRACE;  // don't simulate the sentinel instruction
       }
       ins_id++;
       if (insi->fetched_instruction) {
@@ -194,9 +221,11 @@ int memtrace_trace_read(int proc_id, ctype_pin_inst* next_onpath_pi) {
       }
     } else {
       std::cout << "Reached end of trace pc=0x" << std::hex << insi->pc << std::dec << std::endl;
-      return 0;  // end of trace
+      return READ_END_OF_TRACE;
     }
-  } while (insi->pid != prior_pid || insi->tid != prior_tid);
+    if (insi->pid == prior_pid && insi->tid == prior_tid)
+      break;
+  }
 
   // Static info (basic_info, deps, simd, cf, etc.) is pre-built in
   // processInst / processDrIsaInst and cached via ctype_inst_map.
@@ -221,8 +250,78 @@ int memtrace_trace_read(int proc_id, ctype_pin_inst* next_onpath_pi) {
 
   // End of ROI
   if (roi(next_onpath_pi))
-    return 0;
+    return READ_END_OF_ROI;
 
+  return READ_OK;
+}
+
+/* Frontend entry point. With MEMTRACE_REPEAT == 1 this is exactly the old
+   behaviour. For repeats, a pass must end on a control-flow op so the jump to
+   the next pass's head is a taken transfer (otherwise the fetch-target builder
+   sees a fall-through into an unrelated address: ft.cc sequential-address
+   assert). The frontend therefore holds back every instruction after the most
+   recent control-flow op: an op is delivered only once a later control-flow op
+   has been read. At end of trace the held non-control-flow tail is dropped
+   (a handful of straight-line instructions, e.g. the exit_group syscall), and
+   the last control-flow op is redirected, taken, to the next pass's first PC.
+   Its direction and target are dynamic fields, so this works for PCs whose
+   uops Scarab has already cached; the cost is one redirect per boundary, as a
+   new process would pay. */
+#include <deque>
+static std::deque<ctype_pin_inst> held[MAX_NUM_PROCS];
+static Flag trace_done[MAX_NUM_PROCS];
+static uint64_t dropped_tail[MAX_NUM_PROCS];
+
+static bool cf_in_tail_after_front(int proc_id) {
+  auto& q = held[proc_id];
+  for (size_t k = 1; k < q.size(); k++)
+    if (q[k].cf_type != NOT_CF)
+      return true;
+  return false;
+}
+
+int memtrace_trace_read(int proc_id, ctype_pin_inst* next_onpath_pi) {
+  if (MEMTRACE_REPEAT <= 1)
+    return memtrace_read_one(proc_id, next_onpath_pi) == READ_OK;
+
+  auto& q = held[proc_id];
+  while (!trace_done[proc_id] && !cf_in_tail_after_front(proc_id)) {
+    ctype_pin_inst pi;
+    int r = memtrace_read_one(proc_id, &pi);
+    if (r == READ_OK) {
+      q.push_back(pi);
+      continue;
+    }
+    if (r == READ_END_OF_TRACE && memtrace_next_pass(proc_id)) {
+      // Drop the non-control-flow tail, redirect the last control-flow op.
+      size_t last_cf = q.size();
+      for (size_t k = q.size(); k-- > 0;)
+        if (q[k].cf_type != NOT_CF) {
+          last_cf = k;
+          break;
+        }
+      ASSERTM(proc_id, last_cf < q.size(), "MEMTRACE_REPEAT: no control-flow op held at the end of a pass\n");
+      dropped_tail[proc_id] += q.size() - last_cf - 1;
+      q.resize(last_cf + 1);
+      ctype_pin_inst head;
+      if (memtrace_read_one(proc_id, &head) != READ_OK) {
+        trace_done[proc_id] = TRUE;
+        break;
+      }
+      q.back().actually_taken = 1;
+      q.back().branch_target = head.instruction_addr;
+      q.back().instruction_next_addr = head.instruction_addr;
+      q.push_back(head);
+      std::cout << "MEMTRACE_REPEAT: dropped " << dropped_tail[proc_id]
+                << " straight-line tail instructions so far" << std::endl;
+      continue;
+    }
+    trace_done[proc_id] = TRUE;  // real end (or ROI end): drain what is held
+  }
+  if (q.empty())
+    return 0;
+  memcpy(next_onpath_pi, &q.front(), sizeof(ctype_pin_inst));
+  q.pop_front();
   return 1;
 }
 

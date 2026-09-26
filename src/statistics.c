@@ -171,6 +171,11 @@ void gen_stat_output_file(char* buf, uns8 proc_id, Stat* stat, char csv, uns8 bp
     sprintf(temp3, ".roi.%llu", roi_dump_ID);
     strncat(temp, temp3, 24);
   }
+  if (memtrace_pass_dump_ID) {
+    char temp3[24];
+    sprintf(temp3, ".pass.%llu", memtrace_pass_dump_ID);
+    strncat(temp, temp3, 24);
+  }
   strncpy(buf, OUTPUT_DIR, MAX_STR_LENGTH);
   strncat(buf, "/", MAX_STR_LENGTH);
   strncat(buf, FILE_TAG, MAX_STR_LENGTH);

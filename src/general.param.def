@@ -64,6 +64,11 @@ DEF_PARAM( fast_forward_until_addr      , FAST_FORWARD_UNTIL_ADDR   , uns      ,
 DEF_PARAM( memtrace_roi_begin           , MEMTRACE_ROI_BEGIN        , uns64    , uns64   , 0        ,       )
 DEF_PARAM( memtrace_roi_end             , MEMTRACE_ROI_END          , uns64    , uns64   , 0        ,       )
 DEF_PARAM( full_warmup                  , FULL_WARMUP               , uns64    , uns64   , 0        ,       )
+/* Warm execution (memtrace): replay the trace this many times back to back
+   WITHOUT resetting any microarchitectural state between passes. Pass 1 is the
+   cold execution; with full_warmup = <pass-1 instruction count> the reported
+   stats cover the later (warm) passes only. 1 = normal single pass. */
+DEF_PARAM( memtrace_repeat              , MEMTRACE_REPEAT           , uns      , uns     , 1        ,       )
 DEF_PARAM( warmup                       , WARMUP                    , uns64    , uns64   , 0        ,       )
 DEF_PARAM( heartbeat_interval           , HEARTBEAT_INTERVAL        , uns    , uns       , 1000000  ,       ) 
 DEF_PARAM( num_heartbeats               , NUM_HEARTBEATS            , uns    , uns       , 0        ,       ) 

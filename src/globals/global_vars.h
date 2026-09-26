@@ -74,6 +74,9 @@ extern uns num_fetched_lowconf_brs;
 
 extern Flag roi_dump_began;
 extern Counter roi_dump_ID;
+/* Warm execution (MEMTRACE_REPEAT): nonzero while the pass-boundary stats are
+   being written; the stat files then get a ".pass.<k>" suffix. */
+extern Counter memtrace_pass_dump_ID;
 
 /* Set in init_global(); used for heartbeat KIPS and SIM_HOST_WALL_SECONDS fallback. */
 extern time_t sim_start_time;
