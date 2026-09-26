@@ -53,6 +53,7 @@
 #include "prefetcher/fdip.h"
 #include "prefetcher/l2l1pref.h"
 #include "prefetcher/pref_common.h"
+#include "prefetcher/startup_pf.h"
 #include "prefetcher/stream_pref.h"
 
 #include "addr_trans.h"
@@ -843,6 +844,7 @@ void update_memory() {
 
     perf_pred_cycle();
 
+    spf_tick();
     pref_update();
     update_memory_queues();
     update_on_chip_memory_stats();
@@ -4751,4 +4753,17 @@ Mem_Req* mem_search_reqbuf_wrapper(uns8 proc_id, Addr addr, Mem_Req_Type type, u
                                    Flag* ramulator_match) {
   return mem_search_reqbuf(proc_id, addr, type, size, demand_hit_prefetch, demand_hit_writeback, queues_to_search,
                            queue_entry, ramulator_match);
+}
+
+/* Put one line in the L2 (level 2) or the LLC (level 3) as if it had been filled there, with no
+   timing and no bandwidth: the instant mode of the ideal creation-time prefetcher. Returns 0 if
+   the line was already present. */
+int spf_install_line(uint64_t addr, int level) {
+  Cache* c = level == 2 ? &MLC(0)->cache : &L1(0)->cache;
+  Addr line_addr, repl_line_addr;
+  if (cache_access(c, addr, &line_addr, FALSE))
+    return 0;
+  L1_Data* d = (L1_Data*)cache_insert(c, 0, addr, &line_addr, &repl_line_addr);
+  memset(d, 0, sizeof(L1_Data));
+  return 1;
 }

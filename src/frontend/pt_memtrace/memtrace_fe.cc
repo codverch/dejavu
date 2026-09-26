@@ -44,6 +44,7 @@ extern "C" {
 #include "isa/isa.h"
 #include "pin/pin_lib/uop_generator.h"
 #include "pin/pin_lib/x86_decoder.h"
+#include "prefetcher/startup_pf.h"
 
 #include "ctype_pin_inst.h"
 #include "statistics.h"
@@ -232,6 +233,13 @@ static int memtrace_read_one(int proc_id, ctype_pin_inst* next_onpath_pi) {
   assert(insi->info != nullptr);
   memcpy(next_onpath_pi, insi->info, sizeof(ctype_pin_inst));
   fill_in_dynamic_info(next_onpath_pi, insi);
+  {
+    uint64_t ld[MAX_LD_NUM], st[MAX_ST_NUM]; /* ctype_pin_inst is packed: copy to aligned arrays */
+    memcpy(ld, next_onpath_pi->ld_vaddr, sizeof(ld));
+    memcpy(st, next_onpath_pi->st_vaddr, sizeof(st));
+    spf_on_inst(next_onpath_pi->instruction_addr, next_onpath_pi->size, next_onpath_pi->num_ld, ld,
+                next_onpath_pi->num_st, st);
+  }
 
   if (next_onpath_pi->scarab_marker_roi_begin == true) {
     assert(!roi_dump_began);

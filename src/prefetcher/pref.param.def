@@ -215,3 +215,12 @@ DEF_PARAM(uoc_zero_latency_pref         , UOC_ZERO_LATENCY_PREF            , Fla
 // the UL1 (LLC) request queue. Lets L1D-targeted prefetchers actually populate the
 // L1D. Default FALSE preserves the legacy forward-to-UL1 behavior.
 DEF_PARAM(pref_dl0_fill_dcache          , PREF_DL0_FILL_DCACHE             , Flag    , Flag    , FALSE, )
+
+/* Ideal creation-time prefetching (prefetcher/startup_pf.c). */
+DEF_PARAM( spf_mode                            , SPF_MODE                            , uns             , uns                , 0         ,    )
+DEF_PARAM( spf_file                            , SPF_FILE                            , char*           , string             , ""        ,    )
+DEF_PARAM( spf_region_instrs                   , SPF_REGION_INSTRS                   , uns64           , uns64              , 0         ,    )
+DEF_PARAM( spf_dest                            , SPF_DEST                            , uns             , uns                , 2         ,    )
+DEF_PARAM( spf_timing                          , SPF_TIMING                          , uns             , uns                , 1         ,    )
+DEF_PARAM( spf_lookahead                       , SPF_LOOKAHEAD                       , uns             , uns                , 20000     ,    )
+DEF_PARAM( spf_issue_width                     , SPF_ISSUE_WIDTH                     , uns             , uns                , 4         ,    )
