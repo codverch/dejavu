@@ -83,7 +83,7 @@ def job(j):
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("run"); ap.add_argument("w1"); ap.add_argument("out")
     ap.add_argument("--pkg", required=True); ap.add_argument("--jobs", type=int, default=48); a = ap.parse_args()
-    out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
+    out = Path(a.out).resolve(); out.mkdir(parents=True, exist_ok=True)
     win = {r["cid"]: r for r in csv.DictReader(open(Path(a.run) / "attribution" / "windows.csv"))}
     creations = [dict(r, trace_zip=win[r["cid"]]["trace_zip"]) for r in csv.DictReader(open(Path(a.w1) / "creation.csv"))
                  if r["complete"] == "1"]

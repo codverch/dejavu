@@ -85,7 +85,8 @@ def main():
     for x in ("run", "w1", "w3", "out"):
         ap.add_argument(x)
     ap.add_argument("--pkg", required=True); ap.add_argument("--jobs", type=int, default=48); a = ap.parse_args()
-    out = Path(a.out); (out / "records").mkdir(parents=True, exist_ok=True)
+    out = Path(a.out).resolve()        # simulations run in their own directories: paths must be absolute
+    (out / "records").mkdir(parents=True, exist_ok=True)
     win = {r["cid"]: r for r in csv.DictReader(open(Path(a.run) / "attribution" / "windows.csv"))}
     cr = [dict(r, trace_zip=win[r["cid"]]["trace_zip"],
                modlog=str(Path(win[r["cid"]]["trace_zip"]).parent.parent / "raw" / "modules.log"))
