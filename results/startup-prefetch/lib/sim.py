@@ -34,7 +34,7 @@ def run(pkg: str, trace: str, out: Path, args: list[str], params: str = "PARAMS.
         if f.exists():
             for k, v in ROW.findall(f.read_text(errors="replace")):
                 stats.setdefault(k, int(v))
-    spf = re.search(r"SPF (record|replay): .*", r.stdout)
+    spf = re.search(r"SPF (record|replay|ideal): .*", r.stdout)
     res = dict(ok=ok, rc=r.returncode, insts=int(m.group(1)) if m else None, cycles=int(m.group(2)) if m else None,
                spf=spf.group(0) if spf else "", stats=stats, args=args, params=params, trace=trace)
     if not keep_stats:

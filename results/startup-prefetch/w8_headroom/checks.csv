@@ -24,3 +24,28 @@ record pass cycles == base cycles,sympy-628,1
 record pass cycles == base cycles,sympy-569,1
 record pass cycles == base cycles,sympy-586,1
 record pass cycles == base cycles,sympy-602,1
+count-only cycles == base cycles,django-525,1
+count-only cycles == base cycles,django-532,1
+count-only cycles == base cycles,django-540,1
+count-only cycles == base cycles,django-556,1
+count-only cycles == base cycles,django-564,1
+count-only cycles == base cycles,requests-720,1
+count-only cycles == base cycles,requests-652,1
+count-only cycles == base cycles,requests-667,1
+count-only cycles == base cycles,requests-680,1
+count-only cycles == base cycles,requests-698,1
+count-only cycles == base cycles,xarray-1166,1
+count-only cycles == base cycles,xarray-431,1
+count-only cycles == base cycles,xarray-581,1
+count-only cycles == base cycles,xarray-733,1
+count-only cycles == base cycles,xarray-1014,1
+count-only cycles == base cycles,sphinx-860,1
+count-only cycles == base cycles,sphinx-728,1
+count-only cycles == base cycles,sphinx-762,1
+count-only cycles == base cycles,sphinx-793,1
+count-only cycles == base cycles,sphinx-830,1
+count-only cycles == base cycles,sympy-614,1
+count-only cycles == base cycles,sympy-628,1
+count-only cycles == base cycles,sympy-569,1
+count-only cycles == base cycles,sympy-586,1
+count-only cycles == base cycles,sympy-602,1

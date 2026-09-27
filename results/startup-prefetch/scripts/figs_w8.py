@@ -44,7 +44,7 @@ summ = []
 for t in tasks + ["GEOMEAN"]:
     us = [u for u in units if t == "GEOMEAN" or task[u] == t]
     d = dict(task=t, units=len(us))
-    for c in sorted({c for _, c in spd} - {"base", "record_self", "record_prevproc"}):
+    for c in sorted({c for _, c in spd} - {"base", "record_self", "record_prevproc", "count_prev"}):
         v = [spd[(u, c)] for u in us if (u, c) in spd]
         if len(v) == len(us):
             d[c] = f"{gm(v):.4f}"
@@ -107,17 +107,18 @@ st.save(fig, W8 / "fig_headroom_per_trace")
     "Every simulated tool-call Python process (5 per task), sorted by the speedup of the ideal L1-I + L1-D "
     "start-up prefetch of lines predicted from the previous process of the same script.\n")
 
-# 3. opportunity (Constable Fig. 3a): share of L1 misses to lines the previous start-up predicts
-# removed = base misses - misses with the predicted lines made hits, on the same instructions
+# 3. opportunity (Constable Fig. 3a): share of golden_cove's on-path L1 misses that go to lines the previous
+# start-up predicts, counted in a run that still misses on them (count_prev), so a predicted line cannot free L1
+# capacity for others; the count is the tag lookup that missed, store-forwarded loads included
 by = {(r["uid"], r["config"]): r for r in rows}
 op = defaultdict(lambda: [0, 0, 0, 0])
 for u in units:
-    b, i = by[(u, "base")], by.get((u, "ideal_l1_prev"))
-    if i:
+    c = by.get((u, "count_prev"))
+    if c:
         for k in (task[u], "AVG"):
             o = op[k]
-            o[0] += int(b["DCACHE_MISS_ONPATH"]) - int(i["DCACHE_MISS_ONPATH"]); o[1] += int(b["DCACHE_MISS_ONPATH"])
-            o[2] += int(b["ICACHE_MISS_ONPATH"]) - int(i["ICACHE_MISS_ONPATH"]); o[3] += int(b["ICACHE_MISS_ONPATH"])
+            o[0] += int(c["spf_d_hits"]); o[1] += int(c["spf_d_lookups"])
+            o[2] += int(c["spf_i_hits"]); o[3] += int(c["spf_i_lookups"])
 fig, ax = plt.subplots(figsize=(4.6, 2.2))
 g2 = tasks + ["AVG"]; x = np.arange(len(g2)); bw = 0.36
 for j, (a_, b_, lab, col) in enumerate(((0, 1, "L1-D misses", "#4292c6"), (2, 3, "L1-I misses", "#9ecae1"))):
@@ -126,12 +127,12 @@ for j, (a_, b_, lab, col) in enumerate(((0, 1, "L1-D misses", "#4292c6"), (2, 3,
     for xx, vv in zip(x + (j - 0.5) * bw, v):
         ax.text(xx, vv + 1, f"{vv:.0f}%", ha="center", va="bottom", fontsize=5.2)
 ax.set_xticks(x); ax.set_xticklabels([SHORT.get(g, g) for g in g2])
-ax.set_ylabel("golden_cove L1 misses removed by\nideal start-up prefetch (%)"); ax.set_ylim(0, 110)
+ax.set_ylabel("golden_cove L1 misses to lines\nthe previous start-up touched (%)"); ax.set_ylim(0, 110)
 ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f"{y:g}%"))
 ax.legend(frameon=False, fontsize=6.2, loc="lower left", bbox_to_anchor=(0, 1.0), ncol=2)
 st.save(fig, W8 / "fig_opportunity")
 (W8 / "fig_opportunity.png.txt").write_text(
-    "Of each process's L1-D and L1-I misses on golden_cove, the share removed when every line the previous process "
-    "of the same script touched (rebased) hits in the L1: the misses a history-based start-up prefetcher could "
-    "remove. Sums over the 5 processes per task.\n")
+    "Of each process's on-path L1-D and L1-I misses on golden_cove, the share that go to a line the previous process "
+    "of the same script touched (rebased): the misses a history-based start-up prefetcher could remove. Counted in a "
+    "run where those misses still miss. Sums over the 5 processes per task.\n")
 print("wrote", W8 / "fig_headroom_geomean.png", W8 / "fig_headroom_per_trace.png", W8 / "fig_opportunity.png")
