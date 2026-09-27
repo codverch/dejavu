@@ -40,6 +40,9 @@ R = Path(sys.argv[1]); W6 = R / "w6_more_traces"; W7 = R / "w7_task_speedup"
 MODEL, TOOL = {"http.roundtrip", "http.read_body"}, {"tool.exec", "tool.get_state"}
 CFGS = [("perfect_all", "perfect caches (bound)"), ("stream_llc_20k", "ideal prefetch, LLC"),
         ("stream_l2_20k", "ideal prefetch, L2")]
+START = "tool execution: python start"
+SCEN = [("perfect_all", "perfect caches during start-up (bound)", "#d9d9d9"),
+        ("instant_both", "ideal start-up prefetch, issued at the model call", "#1f4e79")]
 SHORT = lambda t: t.split("__")[1].rsplit("-", 1)[0] + "-" + t.rsplit("-", 1)[1]  # noqa: E731
 
 
@@ -80,11 +83,27 @@ for r in res:
 cpi = {p: c / i for (p, cfg), (i, c) in agg.items() if cfg == "base"}
 spd = {(p, cfg): (i / c) / (agg[(p, "base")][0] / agg[(p, "base")][1]) for (p, cfg), (i, c) in agg.items()}
 
-mix = defaultdict(list)
+mix, start = defaultdict(list), {}
 for r in csv.DictReader(open(W7 / "phase_mix.csv")):
-    mix[r["task"]].append((r["phase"], r["kind"], int(r["instrs"])))
+    if r["phase"] == START:
+        start[r["task"]] = int(r["instrs"])
+    else:
+        mix[r["task"]].append((r["phase"], r["kind"], int(r["instrs"])))
 
-rows, walls = [], []
+# start-up of tool-call Python processes: django from W3/W4 (the 45 creation regions), the other
+# tasks from W6's two tool-execution Python units (their first 100M instructions)
+def pooled(rows_, key):
+    i = sum(int(r["insts"]) for r in rows_ if key(r)); c = sum(int(r["cycles"]) for r in rows_ if key(r))
+    return i / c
+w3 = [r for r in csv.DictReader(open(R / "w3_baseline" / "results.csv")) if r["ok"] == "1" and r["kind"] == "python"]
+w4 = [r for r in csv.DictReader(open(R / "w4_ideal_prefetch" / "results.csv")) if r["ok"] == "1" and r["source"] == "self"]
+b3 = pooled(w3, lambda r: r["config"] == "base")
+START_SRC = {"django__django-13809": dict(cpi=1 / b3, instant_both=pooled(w4, lambda r: r["config"] == "instant_both") / b3,
+                                          perfect_all=pooled(w3, lambda r: r["config"] == "perfect_all") / b3)}
+TP = "tool execution: python"
+OTHER_START = dict(cpi=cpi[TP], instant_both=spd[(TP, "instant_both")], perfect_all=spd[(TP, "perfect_all")])
+
+rows, walls, srows = [], [], []
 for task in mix:
     runs = sorted((R / "w0_benchmark" / "native" / task).glob("run*/swetrace.ndjson"))
     ws = [wall_split(p) for p in runs]
@@ -100,49 +119,83 @@ for task in mix:
         ins[g] += n
     gcpi = {g: cyc[g] / sim_ins[g] for g in cyc}
     tot_ins = sum(ins.values())
-    for cfg, _ in CFGS:
+    common = dict(model_frac=f"{fr['model'].mean():.3f}", tool_frac=f"{fr['tool'].mean():.3f}",
+                  harness_frac=f"{fr['harness'].mean():.3f}", runs=len(ws))
+
+    def speedups(sp):
+        """sp(phase, kind, up, n) -> [(cycles, speedup)] pieces; -> (cpu, tool side, harness side, wall array)"""
         base = defaultdict(float); new = defaultdict(float)
         for ph, kind, n in mix[task]:
             g, up = unit_phase(ph, kind)
-            c = n * (cpi[up] if up else gcpi[g])
-            base[g] += c; new[g] += c / (spd[(up, cfg)] if up else 1.0)
+            for c, s_ in sp(ph, kind, up, n, n * (cpi[up] if up else gcpi[g])):
+                base[g] += c; new[g] += c / s_
         s_tool, s_h = base["tool"] / new["tool"], base["harness"] / new["harness"]
-        s_cpu = sum(base.values()) / sum(new.values())
         wall = 1 / (fr["model"] + fr["tool"] / s_tool + fr["harness"] / s_h)
+        return sum(base.values()) / sum(new.values()), s_tool, s_h, wall, base
+
+    # every phase sped up by its W6 units
+    for cfg, _ in CFGS:
+        s_cpu, s_tool, s_h, wall, _ = speedups(lambda ph, kind, up, n, c: [(c, spd[(up, cfg)] if up else 1.0)])
         rows.append(dict(task=task, config=cfg, cpu_speedup=f"{s_cpu:.4f}", tool_side=f"{s_tool:.4f}",
                          harness_side=f"{s_h:.4f}", wall_speedup_upper=f"{wall.mean():.4f}",
-                         wall_min=f"{wall.min():.4f}", wall_max=f"{wall.max():.4f}",
-                         model_frac=f"{fr['model'].mean():.3f}", tool_frac=f"{fr['tool'].mean():.3f}",
-                         harness_frac=f"{fr['harness'].mean():.3f}", runs=len(ws),
+                         wall_min=f"{wall.min():.4f}", wall_max=f"{wall.max():.4f}", **common,
                          simulated_instr_frac=f"{sum(sim_ins.values()) / tot_ins:.3f}"))
+    # only the start-up of tool-call Python processes sped up; everything else as on golden_cove
+    src = START_SRC.get(task, OTHER_START)
+    for cfg, _, _ in SCEN:
+        def sp(ph, kind, up, n, c):
+            if up != TP:
+                return [(c, 1.0)]
+            n0 = min(start[task], n)
+            return [(n0 * src["cpi"], src[cfg]), (c * (n - n0) / n, 1.0)]
+        s_cpu, s_tool, s_h, wall, base = speedups(sp)
+        srows.append(dict(task=task, config=cfg, startup_speedup=f"{src[cfg]:.4f}", cpu_speedup=f"{s_cpu:.4f}",
+                          wall_speedup_upper=f"{wall.mean():.4f}", wall_min=f"{wall.min():.4f}", wall_max=f"{wall.max():.4f}",
+                          startup_instr_frac=f"{start[task] / tot_ins:.4f}",
+                          startup_cycle_frac=f"{start[task] * src['cpi'] / sum(base.values()):.4f}", **common))
 
-for name, data in (("task_speedup.csv", rows), ("wall_split.csv", walls)):
+for name, data in (("task_speedup.csv", rows), ("startup_prefetch.csv", srows), ("wall_split.csv", walls)):
     with open(W7 / name, "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=list(data[0])); w.writeheader(); w.writerows(data)
 
-# figure: CPU work (left) and wall clock (right), one group of bars per task
 tasks = list(mix)
-cols = ["#d9d9d9", st.COLD, st.WARM]
-fig, axes = plt.subplots(1, 2, figsize=(7.0, 2.5), gridspec_kw=dict(wspace=0.28))
-for ax, key, ylab in ((axes[0], "cpu_speedup", "CPU-time speedup\nover golden_cove (×)"),
-                      (axes[1], "wall_speedup_upper", "Task wall-clock speedup\nover golden_cove (×, upper bound)")):
-    x = np.arange(len(tasks)); bw = 0.26
-    for j, (cfg, lab) in enumerate(CFGS):
-        v = np.array([float(next(r[key] for r in rows if r["task"] == t and r["config"] == cfg)) for t in tasks])
-        ax.bar(x + (j - 1) * bw, v - 1, bw, bottom=1, color=cols[j], edgecolor=st.INK, lw=0.4, label=lab)
-        for xi, vi in zip(x + (j - 1) * bw, v):
-            ax.text(xi, vi + 0.004, f"{vi:.3f}", ha="center", va="bottom", fontsize=4.6, rotation=90)
-    ax.set_xticks(x); ax.set_xticklabels([SHORT(t) for t in tasks], fontsize=6, rotation=20)
-    ax.set_ylabel(ylab)
-top = max(float(r["cpu_speedup"]) for r in rows)
-for ax in axes:
-    ax.set_ylim(1.0, top * 1.06)                      # bars grow from 1.0, the golden_cove baseline
-axes[0].legend(frameon=False, fontsize=6.5, loc="lower left", bbox_to_anchor=(0, 1.02), ncol=3,
-               handlelength=1.2, columnspacing=1.2)
-st.save(fig, W7 / "fig_task_speedup")
-(W7 / "fig_task_speedup.png.txt").write_text(
-    "Whole-task speedup of five SWE-bench tasks. Left: user-mode CPU time of the harness and every process it "
-    "creates, from each task's DR instruction mix and W6's per-phase simulated speedups. Right: task wall clock, "
-    "model inference unchanged, tool and harness time divided by their CPU speedup (an upper bound); bars are the "
-    "mean over 6 native runs.\n")
-print("wrote", W7 / "fig_task_speedup.png")
+pct = lambda v: 100 * (v - 1)  # noqa: E731
+
+
+def panels(data, cfgs, name, ylabs, caption):
+    """two panels of percentage speedup, one group of bars per task"""
+    fig, axes = plt.subplots(1, 2, figsize=(7.0, 2.5), gridspec_kw=dict(wspace=0.3))
+    bw = 0.8 / len(cfgs)
+    top = max(pct(float(r["cpu_speedup"])) for r in data)
+    for ax, key, ylab in zip(axes, ("cpu_speedup", "wall_speedup_upper"), ylabs):
+        x = np.arange(len(tasks))
+        for j, (cfg, lab, col) in enumerate(cfgs):
+            v = np.array([pct(float(next(r[key] for r in data if r["task"] == t and r["config"] == cfg))) for t in tasks])
+            xs = x + (j - (len(cfgs) - 1) / 2) * bw
+            ax.bar(xs, v, bw, color=col, edgecolor=st.INK, lw=0.4, label=lab)
+            for xi, vi in zip(xs, v):
+                ax.text(xi, vi + top * 0.012, (f"{vi:.2f}%" if vi < 1 else f"{vi:.1f}%"), ha="center", va="bottom", fontsize=5, rotation=90)
+        ax.set_xticks(x); ax.set_xticklabels([SHORT(t) for t in tasks], fontsize=6, rotation=20)
+        ax.set_ylabel(ylab); ax.set_ylim(0, top * 1.15)
+        ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f"{y:g}%"))
+    axes[0].legend(frameon=False, fontsize=6.5, loc="lower left", bbox_to_anchor=(0, 1.02), ncol=len(cfgs),
+                   handlelength=1.2, columnspacing=1.2)
+    st.save(fig, W7 / name)
+    (W7 / f"{name}.png.txt").write_text(" ".join(caption.split()) + "\n")
+
+
+panels(rows, [(c, l, k) for (c, l), k in zip(CFGS, ["#d9d9d9", st.COLD, st.WARM])], "fig_task_speedup",
+       ("CPU-time speedup\nover golden_cove", "Task wall-clock speedup\nover golden_cove (upper bound)"),
+       """Whole-task speedup of five SWE-bench tasks with every phase prefetched. Left: user-mode CPU time of the
+       harness and every process it creates, from each task's DR instruction mix and W6's per-phase simulated
+       speedups. Right: task wall clock, model inference unchanged, tool and harness time divided by their CPU
+       speedup (an upper bound); mean over 6 native runs.""")
+panels(srows, SCEN, "fig_startup_prefetch",
+       ("CPU-time speedup\nover golden_cove", "Task wall-clock speedup\nover golden_cove (upper bound)"),
+       """Whole-task speedup when only the start-up of the Python processes that tool calls create is prefetched:
+       the start-up is predicted perfectly, and every cache line it will touch is put in the L2 and the LLC while
+       the harness waits for the model (no bandwidth cost; lines needed soonest first, until each set is full).
+       Grey: the same start-ups with perfect caches, the most any start-up prefetcher can give. Left: CPU time of
+       the harness and its processes. Right: task wall clock, model inference unchanged (an upper bound); mean
+       over 6 native runs. django: W4's 45 creation regions; other tasks: W6's tool-execution Python units.""")
+print("wrote", W7 / "fig_task_speedup.png", W7 / "fig_startup_prefetch.png")

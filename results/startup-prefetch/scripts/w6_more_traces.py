@@ -21,7 +21,7 @@ instructions, or fewer where --limit is given: Scarab asserts on an instruction 
 
 Per unit, on PARAMS.golden_cove: base, perfect_all, a record pass (its cycles must equal base),
 and replays of the unit's own record (an oracle: every line the region will touch, in order):
-instant_{l2,llc}, stream_{l2,llc}_bulk, stream_{l2,llc}_20k. Speedup is IPC over base.
+instant_{l2,llc,both}, stream_{l2,llc}_bulk, stream_{l2,llc}_20k. Speedup is IPC over base.
 
 Outputs: selection.csv, results.csv, checks.csv.
 """
@@ -33,7 +33,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from w4_ideal_prefetch import pool, write  # noqa: E402
 
 TASKS = ["psf__requests-1142", "pydata__xarray-2905", "sphinx-doc__sphinx-8459", "sympy__sympy-11618"]
-CFGS = ["base", "perfect_all", "instant_l2", "instant_llc",
+CFGS = ["base", "perfect_all", "instant_l2", "instant_llc", "instant_both",
         "stream_l2_bulk", "stream_llc_bulk", "stream_l2_20k", "stream_llc_20k"]
 CAP, MIN = 100_000_000, 1_000_000
 

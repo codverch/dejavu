@@ -7,7 +7,8 @@ Two passes per Python process creation (prefetcher/startup_pf.c), creation regio
   record   --spf_mode 1: the region's lines in first-touch order -> records/<cid>.bin. Its cycles
            must equal W3's base cycles (a record pass does not perturb timing): checked.
   replay   --spf_mode 2, source "self" (the same trace: an oracle), configurations
-             instant_l2, instant_llc                every line installed at process start, no bandwidth
+             instant_l2, instant_llc, instant_both  lines installed before the process starts, soonest-needed
+                                                    first until each set is full (both: L2 and LLC), no bandwidth
              stream_{l2,llc}_{2k,20k,200k,bulk}     through the prefetch queues, spf_lookahead
                                                     instructions ahead of first use (bulk = no limit)
            source "prev": the previous creation of the same script, its record rebased for ASLR
@@ -32,7 +33,7 @@ import sim  # noqa: E402
 from rebase import REC, rebase  # noqa: E402
 
 LOOK = {"2k": 2000, "20k": 20000, "200k": 200000, "bulk": 4_000_000_000}
-SELF_CFGS = ["instant_l2", "instant_llc"] + [f"stream_{d}_{l}" for d in ("l2", "llc") for l in LOOK]
+SELF_CFGS = ["instant_l2", "instant_llc", "instant_both"] + [f"stream_{d}_{l}" for d in ("l2", "llc") for l in LOOK]
 PREV_CFGS = [f"stream_{d}_{l}" for d in ("l2", "llc") for l in ("20k", "bulk")]
 POW2_CFGS = ["stream_l2_bulk", "stream_llc_bulk"]
 KEEP = ("ICACHE_MISS_ONPATH", "DCACHE_MISS_ONPATH", "MLC_MISS_ONPATH", "L1_MISS_ONPATH", "L1_MISS_ALL", "MLC_MISS_ALL",
@@ -41,7 +42,7 @@ KEEP = ("ICACHE_MISS_ONPATH", "DCACHE_MISS_ONPATH", "MLC_MISS_ONPATH", "L1_MISS_
 
 def spf_args(cfg, rec):
     kind, dest = cfg.split("_")[0], cfg.split("_")[1]
-    d = {"l2": "2", "llc": "3"}[dest]
+    d = {"l2": "2", "llc": "3", "both": "4"}[dest]
     a = ["--spf_mode", "2", "--spf_file", rec, "--spf_dest", d]
     if kind == "instant":
         return a + ["--spf_timing", "0"]

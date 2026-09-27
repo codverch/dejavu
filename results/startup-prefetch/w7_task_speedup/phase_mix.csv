@@ -8,6 +8,7 @@ django__django-13809,harness: agent loop,harness,10000572550
 django__django-13809,tool execution,other,314359259
 django__django-13809,tool execution,python,14463477077
 django__django-13809,tool execution,shell,90318540
+django__django-13809,tool execution: python start,python,4264227040
 psf__requests-1142,child outside tool spans,other,240227
 psf__requests-1142,environment setup,other,1216963023
 psf__requests-1142,environment setup,python,8295493959
@@ -18,6 +19,7 @@ psf__requests-1142,harness: agent loop,harness,14001225450
 psf__requests-1142,tool execution,other,18361203
 psf__requests-1142,tool execution,python,27970294248
 psf__requests-1142,tool execution,shell,96251110
+psf__requests-1142,tool execution: python start,python,5468849308
 pydata__xarray-2905,child outside tool spans,other,9678396
 pydata__xarray-2905,child outside tool spans,shell,304880
 pydata__xarray-2905,environment setup,other,2187567832
@@ -29,6 +31,7 @@ pydata__xarray-2905,harness: agent loop,harness,16001192490
 pydata__xarray-2905,tool execution,other,32747657
 pydata__xarray-2905,tool execution,python,58475584958
 pydata__xarray-2905,tool execution,shell,119443233
+pydata__xarray-2905,tool execution: python start,python,6592506981
 sphinx-doc__sphinx-8459,child outside tool spans,other,18382050
 sphinx-doc__sphinx-8459,child outside tool spans,shell,304876
 sphinx-doc__sphinx-8459,environment setup,other,2241310183
@@ -40,6 +43,7 @@ sphinx-doc__sphinx-8459,harness: agent loop,harness,31003219960
 sphinx-doc__sphinx-8459,tool execution,other,87608677
 sphinx-doc__sphinx-8459,tool execution,python,76570226198
 sphinx-doc__sphinx-8459,tool execution,shell,162508619
+sphinx-doc__sphinx-8459,tool execution: python start,python,8162944078
 sympy__sympy-11618,child outside tool spans,other,240225
 sympy__sympy-11618,environment setup,other,4179939508
 sympy__sympy-11618,environment setup,python,8294792449
@@ -50,3 +54,4 @@ sympy__sympy-11618,harness: agent loop,harness,10001008830
 sympy__sympy-11618,tool execution,other,50753481
 sympy__sympy-11618,tool execution,python,30576399995
 sympy__sympy-11618,tool execution,shell,80970802
+sympy__sympy-11618,tool execution: python start,python,4574501555
