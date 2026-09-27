@@ -1,0 +1,549 @@
+task,kind,gap_s
+django__django-13809,any,18.7278
+django__django-13809,any,15.2486
+django__django-13809,any,18.3058
+django__django-13809,any,14.9545
+django__django-13809,any,18.1926
+django__django-13809,any,14.8478
+django__django-13809,any,16.7091
+django__django-13809,any,15.2231
+django__django-13809,any,16.3224
+django__django-13809,any,19.1238
+django__django-13809,any,15.4735
+django__django-13809,any,16.4412
+django__django-13809,any,18.7177
+django__django-13809,any,16.1769
+django__django-13809,any,14.011
+django__django-13809,any,18.6752
+django__django-13809,any,14.0751
+django__django-13809,any,12.9304
+django__django-13809,any,13.9744
+django__django-13809,any,17.8018
+django__django-13809,any,14.1032
+django__django-13809,any,20.3119
+django__django-13809,any,13.9939
+django__django-13809,any,11.986
+django__django-13809,any,21.7867
+django__django-13809,any,20.5326
+django__django-13809,any,14.0197
+django__django-13809,any,11.9476
+django__django-13809,any,21.394
+django__django-13809,any,12.2701
+django__django-13809,any,19.8609
+django__django-13809,any,12.6042
+django__django-13809,any,21.2458
+django__django-13809,any,13.0908
+django__django-13809,any,14.0244
+django__django-13809,any,17.7662
+django__django-13809,any,17.7488
+django__django-13809,any,16.5682
+django__django-13809,any,12.6905
+django__django-13809,any,21.1067
+django__django-13809,any,15.6333
+django__django-13809,any,18.3158
+django__django-13809,any,18.4361
+django__django-13809,any,12.4357
+django__django-13809,any,17.6839
+django__django-13809,same script,33.9764
+django__django-13809,same script,33.5544
+django__django-13809,same script,33.2603
+django__django-13809,same script,33.147
+django__django-13809,same script,33.0404
+django__django-13809,same script,31.5569
+django__django-13809,same script,31.9322
+django__django-13809,same script,31.5455
+django__django-13809,same script,19.1238
+django__django-13809,same script,50.9197
+django__django-13809,same script,31.9147
+django__django-13809,same script,18.7177
+django__django-13809,same script,51.3358
+django__django-13809,same script,30.188
+django__django-13809,same script,32.6862
+django__django-13809,same script,32.7502
+django__django-13809,same script,27.0055
+django__django-13809,same script,26.9048
+django__django-13809,same script,31.7761
+django__django-13809,same script,31.905
+django__django-13809,same script,34.4151
+django__django-13809,same script,34.3057
+django__django-13809,same script,33.7728
+django__django-13809,same script,68.2993
+django__django-13809,same script,34.5524
+django__django-13809,same script,33.3416
+django__django-13809,same script,32.131
+django__django-13809,same script,33.85
+django__django-13809,same script,126.4331
+django__django-13809,same script,27.1152
+django__django-13809,same script,17.7662
+django__django-13809,same script,17.7488
+django__django-13809,same script,16.5682
+django__django-13809,same script,113.1348
+django__django-13809,same script,33.7973
+django__django-13809,same script,33.9491
+django__django-13809,same script,18.4361
+django__django-13809,same script,49.1876
+django__django-13809,same script,30.1196
+psf__requests-1142,any,15.5031
+psf__requests-1142,any,13.2609
+psf__requests-1142,any,13.904
+psf__requests-1142,any,13.468
+psf__requests-1142,any,15.7013
+psf__requests-1142,any,14.2289
+psf__requests-1142,any,14.0561
+psf__requests-1142,any,16.0194
+psf__requests-1142,any,16.9386
+psf__requests-1142,any,16.8535
+psf__requests-1142,any,17.3848
+psf__requests-1142,any,20.424
+psf__requests-1142,any,17.1293
+psf__requests-1142,any,24.1036
+psf__requests-1142,any,19.7353
+psf__requests-1142,any,18.4869
+psf__requests-1142,any,17.6805
+psf__requests-1142,any,19.3686
+psf__requests-1142,any,18.1554
+psf__requests-1142,any,14.8839
+psf__requests-1142,any,14.6045
+psf__requests-1142,any,14.4286
+psf__requests-1142,any,15.6663
+psf__requests-1142,any,14.5194
+psf__requests-1142,any,22.6606
+psf__requests-1142,any,14.9519
+psf__requests-1142,any,22.1541
+psf__requests-1142,any,15.9138
+psf__requests-1142,any,18.1358
+psf__requests-1142,any,17.9417
+psf__requests-1142,any,16.8316
+psf__requests-1142,any,15.0434
+psf__requests-1142,any,15.5801
+psf__requests-1142,any,17.2316
+psf__requests-1142,any,17.1186
+psf__requests-1142,any,25.4263
+psf__requests-1142,any,15.8077
+psf__requests-1142,any,17.4431
+psf__requests-1142,any,19.2123
+psf__requests-1142,any,16.6508
+psf__requests-1142,any,15.2089
+psf__requests-1142,any,13.6326
+psf__requests-1142,any,19.9236
+psf__requests-1142,any,14.808
+psf__requests-1142,any,19.299
+psf__requests-1142,any,27.0714
+psf__requests-1142,any,15.616
+psf__requests-1142,any,15.7441
+psf__requests-1142,any,16.9603
+psf__requests-1142,any,20.3035
+psf__requests-1142,any,18.7553
+psf__requests-1142,any,19.6919
+psf__requests-1142,any,15.5133
+psf__requests-1142,any,18.3437
+psf__requests-1142,same script,28.7641
+psf__requests-1142,same script,27.1649
+psf__requests-1142,same script,27.372
+psf__requests-1142,same script,29.1694
+psf__requests-1142,same script,29.9303
+psf__requests-1142,same script,28.285
+psf__requests-1142,same script,30.0755
+psf__requests-1142,same script,32.958
+psf__requests-1142,same script,33.792
+psf__requests-1142,same script,34.2382
+psf__requests-1142,same script,37.8088
+psf__requests-1142,same script,37.5534
+psf__requests-1142,same script,24.1036
+psf__requests-1142,same script,60.9683
+psf__requests-1142,same script,38.2222
+psf__requests-1142,same script,37.0491
+psf__requests-1142,same script,73.6914
+psf__requests-1142,same script,33.0392
+psf__requests-1142,same script,29.4883
+psf__requests-1142,same script,29.033
+psf__requests-1142,same script,30.0948
+psf__requests-1142,same script,30.1856
+psf__requests-1142,same script,37.18
+psf__requests-1142,same script,37.6124
+psf__requests-1142,same script,37.1059
+psf__requests-1142,same script,38.0678
+psf__requests-1142,same script,34.0496
+psf__requests-1142,same script,36.0776
+psf__requests-1142,same script,34.7733
+psf__requests-1142,same script,31.875
+psf__requests-1142,same script,270.8394
+psf__requests-1142,same script,32.8117
+psf__requests-1142,same script,64.9738
+psf__requests-1142,same script,42.545
+psf__requests-1142,same script,33.2508
+psf__requests-1142,same script,77.8894
+psf__requests-1142,same script,35.8631
+psf__requests-1142,same script,28.8415
+psf__requests-1142,same script,19.9236
+psf__requests-1142,same script,34.107
+psf__requests-1142,same script,126.5943
+psf__requests-1142,same script,42.6873
+psf__requests-1142,same script,32.7043
+psf__requests-1142,same script,39.0588
+psf__requests-1142,same script,19.6919
+psf__requests-1142,same script,53.9604
+psf__requests-1142,same script,33.857
+pydata__xarray-2905,any,17.184
+pydata__xarray-2905,any,14.928
+pydata__xarray-2905,any,16.4485
+pydata__xarray-2905,any,14.0364
+pydata__xarray-2905,any,15.4564
+pydata__xarray-2905,any,16.8728
+pydata__xarray-2905,any,14.1681
+pydata__xarray-2905,any,16.2266
+pydata__xarray-2905,any,20.1545
+pydata__xarray-2905,any,17.5639
+pydata__xarray-2905,any,19.687
+pydata__xarray-2905,any,24.6926
+pydata__xarray-2905,any,17.7825
+pydata__xarray-2905,any,15.6452
+pydata__xarray-2905,any,48.3965
+pydata__xarray-2905,any,23.8393
+pydata__xarray-2905,any,18.7607
+pydata__xarray-2905,any,16.082
+pydata__xarray-2905,any,14.2324
+pydata__xarray-2905,any,39.9287
+pydata__xarray-2905,any,19.0978
+pydata__xarray-2905,any,14.0383
+pydata__xarray-2905,any,15.6162
+pydata__xarray-2905,any,16.1928
+pydata__xarray-2905,any,15.3843
+pydata__xarray-2905,any,23.3326
+pydata__xarray-2905,any,18.4693
+pydata__xarray-2905,any,14.4295
+pydata__xarray-2905,any,40.2414
+pydata__xarray-2905,any,15.5401
+pydata__xarray-2905,any,18.3802
+pydata__xarray-2905,any,23.2418
+pydata__xarray-2905,any,41.6454
+pydata__xarray-2905,any,18.5387
+pydata__xarray-2905,any,16.6746
+pydata__xarray-2905,any,19.1374
+pydata__xarray-2905,any,17.6191
+pydata__xarray-2905,any,20.8808
+pydata__xarray-2905,any,16.9539
+pydata__xarray-2905,any,15.5035
+pydata__xarray-2905,any,43.4653
+pydata__xarray-2905,any,19.4978
+pydata__xarray-2905,any,17.0364
+pydata__xarray-2905,any,15.2769
+pydata__xarray-2905,any,42.6376
+pydata__xarray-2905,any,17.3476
+pydata__xarray-2905,any,16.5606
+pydata__xarray-2905,any,21.3989
+pydata__xarray-2905,any,57.5543
+pydata__xarray-2905,any,23.3583
+pydata__xarray-2905,any,19.5156
+pydata__xarray-2905,any,20.9111
+pydata__xarray-2905,any,50.0692
+pydata__xarray-2905,any,21.2543
+pydata__xarray-2905,any,20.8949
+pydata__xarray-2905,any,27.8273
+pydata__xarray-2905,any,58.0603
+pydata__xarray-2905,any,21.7268
+pydata__xarray-2905,any,17.6415
+pydata__xarray-2905,any,19.3317
+pydata__xarray-2905,any,47.3666
+pydata__xarray-2905,any,21.2077
+pydata__xarray-2905,any,49.9518
+pydata__xarray-2905,any,19.1836
+pydata__xarray-2905,any,47.5623
+pydata__xarray-2905,any,24.5205
+pydata__xarray-2905,any,24.5062
+pydata__xarray-2905,any,24.1615
+pydata__xarray-2905,same script,32.112
+pydata__xarray-2905,same script,31.3765
+pydata__xarray-2905,same script,30.485
+pydata__xarray-2905,same script,29.4928
+pydata__xarray-2905,same script,16.8728
+pydata__xarray-2905,same script,46.4974
+pydata__xarray-2905,same script,30.3947
+pydata__xarray-2905,same script,20.1545
+pydata__xarray-2905,same script,53.945
+pydata__xarray-2905,same script,37.251
+pydata__xarray-2905,same script,44.3796
+pydata__xarray-2905,same script,42.4751
+pydata__xarray-2905,same script,64.0417
+pydata__xarray-2905,same script,23.8393
+pydata__xarray-2905,same script,124.4242
+pydata__xarray-2905,same script,34.8426
+pydata__xarray-2905,same script,54.1611
+pydata__xarray-2905,same script,19.0978
+pydata__xarray-2905,same script,103.3792
+pydata__xarray-2905,same script,29.6546
+pydata__xarray-2905,same script,31.809
+pydata__xarray-2905,same script,31.5771
+pydata__xarray-2905,same script,38.7169
+pydata__xarray-2905,same script,41.8019
+pydata__xarray-2905,same script,54.6709
+pydata__xarray-2905,same script,88.6803
+pydata__xarray-2905,same script,33.9203
+pydata__xarray-2905,same script,97.4035
+pydata__xarray-2905,same script,64.8872
+pydata__xarray-2905,same script,101.8061
+pydata__xarray-2905,same script,35.2133
+pydata__xarray-2905,same script,35.812
+pydata__xarray-2905,same script,36.7565
+pydata__xarray-2905,same script,38.4999
+pydata__xarray-2905,same script,37.8346
+pydata__xarray-2905,same script,562.1573
+pydata__xarray-2905,same script,58.9688
+pydata__xarray-2905,same script,95.4205
+pydata__xarray-2905,same script,36.5342
+pydata__xarray-2905,same script,57.9146
+pydata__xarray-2905,same script,92.2985
+pydata__xarray-2905,same script,33.9081
+pydata__xarray-2905,same script,97.9446
+pydata__xarray-2905,same script,78.9531
+pydata__xarray-2905,same script,118.872
+pydata__xarray-2905,same script,42.874
+pydata__xarray-2905,same script,70.9803
+pydata__xarray-2905,same script,111.7502
+pydata__xarray-2905,same script,42.1492
+pydata__xarray-2905,same script,120.0457
+pydata__xarray-2905,same script,85.8875
+pydata__xarray-2905,same script,39.3683
+pydata__xarray-2905,same script,66.6983
+pydata__xarray-2905,same script,68.5743
+pydata__xarray-2905,same script,71.1595
+pydata__xarray-2905,same script,69.1354
+pydata__xarray-2905,same script,66.7459
+pydata__xarray-2905,same script,49.0267
+pydata__xarray-2905,same script,24.1615
+sphinx-doc__sphinx-8459,any,16.2342
+sphinx-doc__sphinx-8459,any,14.1664
+sphinx-doc__sphinx-8459,any,16.0118
+sphinx-doc__sphinx-8459,any,18.5188
+sphinx-doc__sphinx-8459,any,13.7073
+sphinx-doc__sphinx-8459,any,14.2675
+sphinx-doc__sphinx-8459,any,14.3334
+sphinx-doc__sphinx-8459,any,14.7286
+sphinx-doc__sphinx-8459,any,19.7201
+sphinx-doc__sphinx-8459,any,20.2033
+sphinx-doc__sphinx-8459,any,15.0476
+sphinx-doc__sphinx-8459,any,18.2632
+sphinx-doc__sphinx-8459,any,23.0272
+sphinx-doc__sphinx-8459,any,20.5119
+sphinx-doc__sphinx-8459,any,19.8909
+sphinx-doc__sphinx-8459,any,19.6585
+sphinx-doc__sphinx-8459,any,17.9441
+sphinx-doc__sphinx-8459,any,19.4884
+sphinx-doc__sphinx-8459,any,15.2771
+sphinx-doc__sphinx-8459,any,15.9124
+sphinx-doc__sphinx-8459,any,19.674
+sphinx-doc__sphinx-8459,any,17.4853
+sphinx-doc__sphinx-8459,any,17.7057
+sphinx-doc__sphinx-8459,any,19.4548
+sphinx-doc__sphinx-8459,any,20.017
+sphinx-doc__sphinx-8459,any,14.571
+sphinx-doc__sphinx-8459,any,13.0435
+sphinx-doc__sphinx-8459,any,19.8176
+sphinx-doc__sphinx-8459,any,28.1619
+sphinx-doc__sphinx-8459,any,17.4649
+sphinx-doc__sphinx-8459,any,14.2166
+sphinx-doc__sphinx-8459,any,20.5968
+sphinx-doc__sphinx-8459,any,20.0276
+sphinx-doc__sphinx-8459,any,14.7257
+sphinx-doc__sphinx-8459,any,14.2584
+sphinx-doc__sphinx-8459,any,30.5698
+sphinx-doc__sphinx-8459,any,19.8916
+sphinx-doc__sphinx-8459,any,15.911
+sphinx-doc__sphinx-8459,any,20.0745
+sphinx-doc__sphinx-8459,any,21.3957
+sphinx-doc__sphinx-8459,any,22.366
+sphinx-doc__sphinx-8459,any,19.9781
+sphinx-doc__sphinx-8459,any,22.9469
+sphinx-doc__sphinx-8459,any,15.6502
+sphinx-doc__sphinx-8459,any,14.6176
+sphinx-doc__sphinx-8459,any,21.2016
+sphinx-doc__sphinx-8459,any,17.1782
+sphinx-doc__sphinx-8459,any,15.5934
+sphinx-doc__sphinx-8459,any,25.647
+sphinx-doc__sphinx-8459,any,15.5108
+sphinx-doc__sphinx-8459,any,25.4047
+sphinx-doc__sphinx-8459,any,15.4394
+sphinx-doc__sphinx-8459,any,17.4241
+sphinx-doc__sphinx-8459,any,17.309
+sphinx-doc__sphinx-8459,any,27.2434
+sphinx-doc__sphinx-8459,any,20.2287
+sphinx-doc__sphinx-8459,any,25.3074
+sphinx-doc__sphinx-8459,any,18.2142
+sphinx-doc__sphinx-8459,any,18.9169
+sphinx-doc__sphinx-8459,any,26.2396
+sphinx-doc__sphinx-8459,any,23.1453
+sphinx-doc__sphinx-8459,any,17.1536
+sphinx-doc__sphinx-8459,any,20.192
+sphinx-doc__sphinx-8459,any,19.1793
+sphinx-doc__sphinx-8459,any,21.7535
+sphinx-doc__sphinx-8459,any,25.6937
+sphinx-doc__sphinx-8459,any,29.3869
+sphinx-doc__sphinx-8459,any,23.4445
+sphinx-doc__sphinx-8459,any,22.0834
+sphinx-doc__sphinx-8459,any,28.181
+sphinx-doc__sphinx-8459,any,23.4252
+sphinx-doc__sphinx-8459,any,18.8809
+sphinx-doc__sphinx-8459,any,19.2716
+sphinx-doc__sphinx-8459,any,14.5597
+sphinx-doc__sphinx-8459,any,21.9107
+sphinx-doc__sphinx-8459,any,29.5778
+sphinx-doc__sphinx-8459,any,19.9291
+sphinx-doc__sphinx-8459,any,17.9425
+sphinx-doc__sphinx-8459,any,22.5256
+sphinx-doc__sphinx-8459,any,24.9885
+sphinx-doc__sphinx-8459,any,28.7
+sphinx-doc__sphinx-8459,same script,30.4005
+sphinx-doc__sphinx-8459,same script,30.1782
+sphinx-doc__sphinx-8459,same script,18.5188
+sphinx-doc__sphinx-8459,same script,48.2379
+sphinx-doc__sphinx-8459,same script,27.9748
+sphinx-doc__sphinx-8459,same script,28.6009
+sphinx-doc__sphinx-8459,same script,29.0619
+sphinx-doc__sphinx-8459,same script,19.7201
+sphinx-doc__sphinx-8459,same script,20.2033
+sphinx-doc__sphinx-8459,same script,69.6995
+sphinx-doc__sphinx-8459,same script,33.3107
+sphinx-doc__sphinx-8459,same script,23.0272
+sphinx-doc__sphinx-8459,same script,20.5119
+sphinx-doc__sphinx-8459,same script,19.8909
+sphinx-doc__sphinx-8459,same script,19.6585
+sphinx-doc__sphinx-8459,same script,119.2957
+sphinx-doc__sphinx-8459,same script,37.4325
+sphinx-doc__sphinx-8459,same script,34.7655
+sphinx-doc__sphinx-8459,same script,31.1895
+sphinx-doc__sphinx-8459,same script,19.674
+sphinx-doc__sphinx-8459,same script,17.4853
+sphinx-doc__sphinx-8459,same script,17.7057
+sphinx-doc__sphinx-8459,same script,19.4548
+sphinx-doc__sphinx-8459,same script,110.2491
+sphinx-doc__sphinx-8459,same script,34.588
+sphinx-doc__sphinx-8459,same script,32.8611
+sphinx-doc__sphinx-8459,same script,75.594
+sphinx-doc__sphinx-8459,same script,45.6268
+sphinx-doc__sphinx-8459,same script,79.661
+sphinx-doc__sphinx-8459,same script,34.8134
+sphinx-doc__sphinx-8459,same script,72.3059
+sphinx-doc__sphinx-8459,same script,34.7533
+sphinx-doc__sphinx-8459,same script,44.8282
+sphinx-doc__sphinx-8459,same script,79.4454
+sphinx-doc__sphinx-8459,same script,35.8025
+sphinx-doc__sphinx-8459,same script,20.0745
+sphinx-doc__sphinx-8459,same script,21.3957
+sphinx-doc__sphinx-8459,same script,22.366
+sphinx-doc__sphinx-8459,same script,19.9781
+sphinx-doc__sphinx-8459,same script,122.6722
+sphinx-doc__sphinx-8459,same script,38.5971
+sphinx-doc__sphinx-8459,same script,35.8192
+sphinx-doc__sphinx-8459,same script,68.6476
+sphinx-doc__sphinx-8459,same script,32.7716
+sphinx-doc__sphinx-8459,same script,41.2404
+sphinx-doc__sphinx-8459,same script,41.1578
+sphinx-doc__sphinx-8459,same script,40.9155
+sphinx-doc__sphinx-8459,same script,40.8442
+sphinx-doc__sphinx-8459,same script,32.8635
+sphinx-doc__sphinx-8459,same script,34.7331
+sphinx-doc__sphinx-8459,same script,44.5524
+sphinx-doc__sphinx-8459,same script,47.4721
+sphinx-doc__sphinx-8459,same script,45.5361
+sphinx-doc__sphinx-8459,same script,43.5216
+sphinx-doc__sphinx-8459,same script,45.1566
+sphinx-doc__sphinx-8459,same script,40.2989
+sphinx-doc__sphinx-8459,same script,37.3456
+sphinx-doc__sphinx-8459,same script,39.3713
+sphinx-doc__sphinx-8459,same script,47.4472
+sphinx-doc__sphinx-8459,same script,219.875
+sphinx-doc__sphinx-8459,same script,52.8314
+sphinx-doc__sphinx-8459,same script,50.2645
+sphinx-doc__sphinx-8459,same script,97.1342
+sphinx-doc__sphinx-8459,same script,42.3062
+sphinx-doc__sphinx-8459,same script,33.8313
+sphinx-doc__sphinx-8459,same script,226.8378
+sphinx-doc__sphinx-8459,same script,51.4885
+sphinx-doc__sphinx-8459,same script,124.1299
+sphinx-doc__sphinx-8459,same script,37.8716
+sphinx-doc__sphinx-8459,same script,47.5141
+sphinx-doc__sphinx-8459,same script,28.7
+sympy__sympy-11618,any,13.4497
+sympy__sympy-11618,any,14.8255
+sympy__sympy-11618,any,17.9183
+sympy__sympy-11618,any,13.4488
+sympy__sympy-11618,any,14.4084
+sympy__sympy-11618,any,16.4394
+sympy__sympy-11618,any,14.2265
+sympy__sympy-11618,any,13.7491
+sympy__sympy-11618,any,17.5188
+sympy__sympy-11618,any,14.3211
+sympy__sympy-11618,any,14.6954
+sympy__sympy-11618,any,24.5773
+sympy__sympy-11618,any,18.8574
+sympy__sympy-11618,any,18.8401
+sympy__sympy-11618,any,22.7544
+sympy__sympy-11618,any,16.5522
+sympy__sympy-11618,any,15.0731
+sympy__sympy-11618,any,26.0521
+sympy__sympy-11618,any,33.7313
+sympy__sympy-11618,any,15.1149
+sympy__sympy-11618,any,16.5736
+sympy__sympy-11618,any,23.4103
+sympy__sympy-11618,any,17.1975
+sympy__sympy-11618,any,14.6927
+sympy__sympy-11618,any,13.5114
+sympy__sympy-11618,any,22.0566
+sympy__sympy-11618,any,17.331
+sympy__sympy-11618,any,14.9662
+sympy__sympy-11618,any,14.0478
+sympy__sympy-11618,any,24.8752
+sympy__sympy-11618,any,15.93
+sympy__sympy-11618,any,14.1854
+sympy__sympy-11618,any,15.0915
+sympy__sympy-11618,any,21.4988
+sympy__sympy-11618,any,15.4314
+sympy__sympy-11618,any,22.5351
+sympy__sympy-11618,any,23.1909
+sympy__sympy-11618,any,24.7668
+sympy__sympy-11618,any,18.647
+sympy__sympy-11618,any,15.7408
+sympy__sympy-11618,any,17.3854
+sympy__sympy-11618,any,20.6673
+sympy__sympy-11618,any,20.1443
+sympy__sympy-11618,any,14.6636
+sympy__sympy-11618,any,19.1454
+sympy__sympy-11618,same script,28.2753
+sympy__sympy-11618,same script,17.9183
+sympy__sympy-11618,same script,46.1927
+sympy__sympy-11618,same script,27.8572
+sympy__sympy-11618,same script,16.4394
+sympy__sympy-11618,same script,45.0743
+sympy__sympy-11618,same script,27.9756
+sympy__sympy-11618,same script,31.2679
+sympy__sympy-11618,same script,31.8399
+sympy__sympy-11618,same script,39.2727
+sympy__sympy-11618,same script,72.4512
+sympy__sympy-11618,same script,37.6975
+sympy__sympy-11618,same script,41.5944
+sympy__sympy-11618,same script,39.3065
+sympy__sympy-11618,same script,116.6544
+sympy__sympy-11618,same script,41.1252
+sympy__sympy-11618,same script,91.4086
+sympy__sympy-11618,same script,48.8462
+sympy__sympy-11618,same script,39.9839
+sympy__sympy-11618,same script,72.2964
+sympy__sympy-11618,same script,31.8902
+sympy__sympy-11618,same script,68.8118
+sympy__sympy-11618,same script,35.568
+sympy__sympy-11618,same script,67.5917
+sympy__sympy-11618,same script,32.2972
+sympy__sympy-11618,same script,68.4016
+sympy__sympy-11618,same script,38.9229
+sympy__sympy-11618,same script,30.1155
+sympy__sympy-11618,same script,36.5903
+sympy__sympy-11618,same script,36.9302
+sympy__sympy-11618,same script,37.9665
+sympy__sympy-11618,same script,45.726
+sympy__sympy-11618,same script,47.9577
+sympy__sympy-11618,same script,225.1661
+sympy__sympy-11618,same script,34.3878
+sympy__sympy-11618,same script,38.0527
+sympy__sympy-11618,same script,20.1443
+sympy__sympy-11618,same script,55.4753
+sympy__sympy-11618,same script,33.809

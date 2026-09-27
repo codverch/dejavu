@@ -1,0 +1,1 @@
+Share of an agent run's wall-clock time spent in model inference, tool execution and the harness (6 native runs per task, exact innermost-span sweep over the harness's own spans).

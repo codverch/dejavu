@@ -1,0 +1,578 @@
+figure,group,series,value
+1,django,model inference (GPU),0.7520
+1,requests,model inference (GPU),0.8157
+1,xarray,model inference (GPU),0.7871
+1,sphinx,model inference (GPU),0.8528
+1,sympy,model inference (GPU),0.7887
+1,AVG,model inference (GPU),0.7993
+1,django,tool execution,0.1935
+1,requests,tool execution,0.1352
+1,xarray,tool execution,0.1673
+1,sphinx,tool execution,0.1087
+1,sympy,tool execution,0.1646
+1,AVG,tool execution,0.1539
+1,django,harness,0.0545
+1,requests,harness,0.0491
+1,xarray,harness,0.0456
+1,sphinx,harness,0.0384
+1,sympy,harness,0.0467
+1,AVG,harness,0.0469
+2,django,tool: Python start-up,0.0788
+2,requests,tool: Python start-up,0.0849
+2,xarray,tool: Python start-up,0.0690
+2,sphinx,tool: Python start-up,0.0646
+2,sympy,tool: Python start-up,0.0684
+2,AVG,tool: Python start-up,0.0731
+2,django,"tool: Python, after start-up",0.1885
+2,requests,"tool: Python, after start-up",0.3493
+2,xarray,"tool: Python, after start-up",0.5431
+2,sphinx,"tool: Python, after start-up",0.5413
+2,sympy,"tool: Python, after start-up",0.3887
+2,AVG,"tool: Python, after start-up",0.4022
+2,django,tool: shell & other,0.0085
+2,requests,tool: shell & other,0.0023
+2,xarray,tool: shell & other,0.0021
+2,sphinx,tool: shell & other,0.0026
+2,sympy,tool: shell & other,0.0024
+2,AVG,tool: shell & other,0.0036
+2,django,environment setup,0.3565
+2,requests,environment setup,0.1647
+2,xarray,environment setup,0.1107
+2,sphinx,environment setup,0.0998
+2,sympy,environment setup,0.2065
+2,AVG,environment setup,0.1876
+2,django,harness start-up,0.2463
+2,requests,harness start-up,0.2070
+2,xarray,harness start-up,0.1319
+2,sphinx,harness start-up,0.1055
+2,sympy,harness start-up,0.1884
+2,AVG,harness start-up,0.1758
+2,django,harness loop & exit,0.1214
+2,requests,harness loop & exit,0.1919
+2,xarray,harness loop & exit,0.1431
+2,sphinx,harness loop & exit,0.1861
+2,sympy,harness loop & exit,0.1455
+2,AVG,harness loop & exit,0.1576
+3,harness start-up,2× L1-D,2.0020
+3,env. setup,2× L1-D,1.2823
+3,tool: Python,2× L1-D,1.8322
+3,tool: shell,2× L1-D,0.4367
+3,agent loop,2× L1-D,0.8707
+3,harness exit,2× L1-D,0.0762
+3,AVG,2× L1-D,1.0809
+3,harness start-up,perfect L1-I,3.7080
+3,env. setup,perfect L1-I,3.3844
+3,tool: Python,perfect L1-I,3.8881
+3,tool: shell,perfect L1-I,11.2030
+3,agent loop,perfect L1-I,2.4723
+3,harness exit,perfect L1-I,0.2244
+3,AVG,perfect L1-I,4.0930
+3,harness start-up,perfect L1-D,20.9640
+3,env. setup,perfect L1-D,30.8573
+3,tool: Python,perfect L1-D,26.0604
+3,tool: shell,perfect L1-D,42.4450
+3,agent loop,perfect L1-D,18.4414
+3,harness exit,perfect L1-D,327.0289
+3,AVG,perfect L1-D,55.9338
+3,harness start-up,perfect L2,11.7552
+3,env. setup,perfect L2,22.6418
+3,tool: Python,perfect L2,14.1780
+3,tool: shell,perfect L2,56.2488
+3,agent loop,perfect L2,14.5825
+3,harness exit,perfect L2,216.4137
+3,AVG,perfect L2,43.8621
+3,harness start-up,perfect LLC,7.4195
+3,env. setup,perfect LLC,12.9257
+3,tool: Python,perfect LLC,5.4069
+3,tool: shell,perfect LLC,38.7620
+3,agent loop,perfect LLC,9.7391
+3,harness exit,perfect LLC,93.1141
+3,AVG,perfect LLC,24.6996
+3,harness start-up,perfect caches,25.9713
+3,env. setup,perfect caches,36.7676
+3,tool: Python,perfect caches,31.3455
+3,tool: shell,perfect caches,70.4512
+3,agent loop,perfect caches,21.8899
+3,harness exit,perfect caches,330.4086
+3,AVG,perfect caches,65.0770
+4,harness start-up,L1-D,0.9500
+4,env. setup,L1-D,0.9214
+4,tool: Python,L1-D,0.9249
+4,tool: shell,L1-D,0.9103
+4,agent loop,L1-D,0.9782
+4,harness exit,L1-D,0.8026
+4,AVG,L1-D,0.9146
+4,harness start-up,L2,0.0425
+4,env. setup,L2,0.0500
+4,tool: Python,L2,0.0502
+4,tool: shell,L2,0.0136
+4,agent loop,L2,0.0151
+4,harness exit,L2,0.0362
+4,AVG,L2,0.0346
+4,harness start-up,LLC,0.0052
+4,env. setup,LLC,0.0212
+4,tool: Python,LLC,0.0173
+4,tool: shell,LLC,0.0066
+4,agent loop,LLC,0.0038
+4,harness exit,LLC,0.0572
+4,AVG,LLC,0.0186
+4,harness start-up,DRAM,0.0024
+4,env. setup,DRAM,0.0073
+4,tool: Python,DRAM,0.0077
+4,tool: shell,DRAM,0.0695
+4,agent loop,DRAM,0.0028
+4,harness exit,DRAM,0.1040
+4,AVG,DRAM,0.0323
+5,harness start-up,L1-D,0.6899
+5,env. setup,L1-D,0.5312
+5,tool: Python,L1-D,0.5482
+5,tool: shell,L1-D,0.2465
+5,agent loop,L1-D,0.7893
+5,harness exit,L1-D,0.1291
+5,AVG,L1-D,0.4890
+5,harness start-up,L2,0.1320
+5,env. setup,L2,0.1300
+5,tool: Python,L2,0.1342
+5,tool: shell,L2,0.0170
+5,agent loop,L2,0.0534
+5,harness exit,L2,0.0266
+5,AVG,L2,0.0822
+5,harness start-up,LLC,0.0481
+5,env. setup,LLC,0.1608
+5,tool: Python,LLC,0.1341
+5,tool: shell,LLC,0.0238
+5,agent loop,LLC,0.0395
+5,harness exit,LLC,0.1164
+5,AVG,LLC,0.0871
+5,harness start-up,DRAM,0.1301
+5,env. setup,DRAM,0.1780
+5,tool: Python,DRAM,0.1835
+5,tool: shell,DRAM,0.7127
+5,agent loop,DRAM,0.1178
+5,harness exit,DRAM,0.7279
+5,AVG,DRAM,0.3417
+5,harness start-up,avg latency cycles: L1-D,4.1928
+5,env. setup,avg latency cycles: L1-D,4.1603
+5,tool: Python,avg latency cycles: L1-D,4.1549
+5,tool: shell,avg latency cycles: L1-D,4.1566
+5,agent loop,avg latency cycles: L1-D,4.2151
+5,harness exit,avg latency cycles: L1-D,4.1907
+5,AVG,avg latency cycles: L1-D,4.1784
+5,harness start-up,avg latency cycles: L2,17.9349
+5,env. setup,avg latency cycles: L2,18.7486
+5,tool: Python,avg latency cycles: L2,18.7622
+5,tool: shell,avg latency cycles: L2,19.1195
+5,agent loop,avg latency cycles: L2,18.4869
+5,harness exit,avg latency cycles: L2,19.1404
+5,AVG,avg latency cycles: L2,18.6987
+5,harness start-up,avg latency cycles: LLC,53.7701
+5,env. setup,avg latency cycles: LLC,54.6523
+5,tool: Python,avg latency cycles: LLC,54.4029
+5,tool: shell,avg latency cycles: LLC,55.1002
+5,agent loop,avg latency cycles: LLC,53.7000
+5,harness exit,avg latency cycles: LLC,53.0684
+5,AVG,avg latency cycles: LLC,54.1156
+5,harness start-up,avg latency cycles: DRAM,315.6959
+5,env. setup,avg latency cycles: DRAM,175.7270
+5,tool: Python,avg latency cycles: DRAM,167.1510
+5,tool: shell,avg latency cycles: DRAM,157.4609
+5,agent loop,avg latency cycles: DRAM,217.2994
+5,harness exit,avg latency cycles: DRAM,182.4275
+5,AVG,avg latency cycles: DRAM,202.6270
+6,harness start-up,L1-I,1.6646
+6,env. setup,L1-I,1.3607
+6,tool: Python,L1-I,1.7682
+6,tool: shell,L1-I,1.0661
+6,agent loop,L1-I,0.6844
+6,harness exit,L1-I,0.2160
+6,AVG,L1-I,1.1267
+6,harness start-up,L1-D,19.1648
+6,env. setup,L1-D,28.2610
+6,tool: Python,L1-D,28.5728
+6,tool: shell,L1-D,30.4686
+6,agent loop,L1-D,8.8005
+6,harness exit,L1-D,60.9246
+6,AVG,L1-D,29.3654
+6,harness start-up,L2,1.7725
+6,env. setup,L2,4.7589
+6,tool: Python,L2,4.3984
+6,tool: shell,L2,11.4730
+6,agent loop,L2,1.2612
+6,harness exit,L2,25.2471
+6,AVG,L2,8.1518
+6,harness start-up,LLC,0.7238
+6,env. setup,LLC,0.8090
+6,tool: Python,LLC,0.7019
+6,tool: shell,LLC,3.7318
+6,agent loop,LLC,0.4922
+6,harness exit,LLC,16.6776
+6,AVG,LLC,3.8561
+7,harness start-up,covered,0.3127
+7,env. setup,covered,0.5347
+7,tool: Python,covered,0.5616
+7,tool: shell,covered,0.4119
+7,agent loop,covered,0.3433
+7,harness exit,covered,0.2418
+7,AVG,covered,0.4010
+7,harness start-up,uncovered,0.6873
+7,env. setup,uncovered,0.4653
+7,tool: Python,uncovered,0.4384
+7,tool: shell,uncovered,0.5881
+7,agent loop,uncovered,0.6567
+7,harness exit,uncovered,0.7582
+7,AVG,uncovered,0.5990
+7,harness start-up,overpredicted,0.0299
+7,env. setup,overpredicted,0.0598
+7,tool: Python,overpredicted,0.0606
+7,tool: shell,overpredicted,0.0657
+7,agent loop,overpredicted,0.0820
+7,harness exit,overpredicted,0.1958
+7,AVG,overpredicted,0.0823
+7,harness start-up,IPC gain %,1.7304
+7,env. setup,IPC gain %,2.2147
+7,tool: Python,IPC gain %,2.1488
+7,tool: shell,IPC gain %,3.4706
+7,agent loop,IPC gain %,1.2263
+7,harness exit,IPC gain %,10.1132
+7,AVG,IPC gain %,3.4406
+8,harness start-up,instruction,0.2968
+8,env. setup,instruction,0.5320
+8,tool: Python,instruction,0.7931
+8,tool: shell,instruction,0.1795
+8,agent loop,instruction,0.4760
+8,harness exit,instruction,0.2082
+8,AVG,instruction,0.3466
+8,harness start-up,"data, file-backed",0.1741
+8,env. setup,"data, file-backed",1.1025
+8,tool: Python,"data, file-backed",2.5610
+8,tool: shell,"data, file-backed",0.3195
+8,agent loop,"data, file-backed",0.1436
+8,harness exit,"data, file-backed",0.2305
+8,AVG,"data, file-backed",0.3195
+8,harness start-up,"data, private (heap, stack)",2.6942
+8,env. setup,"data, private (heap, stack)",2.4894
+8,tool: Python,"data, private (heap, stack)",4.0399
+8,tool: shell,"data, private (heap, stack)",0.1427
+8,agent loop,"data, private (heap, stack)",2.6891
+8,harness exit,"data, private (heap, stack)",80.6118
+8,AVG,"data, private (heap, stack)",3.3087
+9,harness start-up,L1-D misses,4.1051
+9,env. setup,L1-D misses,3.9496
+9,tool: Python,L1-D misses,3.8882
+9,tool: shell,L1-D misses,19.7868
+9,agent loop,L1-D misses,7.0880
+9,harness exit,L1-D misses,19.6070
+9,AVG,L1-D misses,9.7374
+9,harness start-up,L2 misses,46.9219
+9,env. setup,L2 misses,26.9190
+9,tool: Python,L2 misses,28.2879
+9,tool: shell,L2 misses,73.0727
+9,agent loop,L2 misses,56.5271
+9,harness exit,L2 misses,47.4692
+9,AVG,L2 misses,46.5330
+10,django,lines touched,48.1994
+10,requests,lines touched,43.3402
+10,xarray,lines touched,31.1208
+10,sphinx,lines touched,45.3522
+10,sympy,lines touched,43.3796
+10,AVG,lines touched,42.7695
+10,django,L1-I misses,99.9943
+10,requests,L1-I misses,99.9949
+10,xarray,L1-I misses,99.9933
+10,sphinx,L1-I misses,99.9889
+10,sympy,L1-I misses,99.9941
+10,AVG,L1-I misses,99.9931
+10,django,L1-D misses,28.5047
+10,requests,L1-D misses,24.1169
+10,xarray,L1-D misses,15.2259
+10,sphinx,L1-D misses,23.3444
+10,sympy,L1-D misses,24.1628
+10,AVG,L1-D misses,23.1463
+11,django,instruction,0.1000
+11,requests,instruction,0.1023
+11,xarray,instruction,0.1404
+11,sphinx,instruction,0.1075
+11,sympy,instruction,0.1025
+11,AVG,instruction,0.1091
+11,django,"data, file-backed",0.3821
+11,requests,"data, file-backed",0.3312
+11,xarray,"data, file-backed",0.1710
+11,sphinx,"data, file-backed",0.3466
+11,sympy,"data, file-backed",0.3315
+11,AVG,"data, file-backed",0.3188
+11,django,"data, private (heap, stack)",0.5179
+11,requests,"data, private (heap, stack)",0.5665
+11,xarray,"data, private (heap, stack)",0.6887
+11,sphinx,"data, private (heap, stack)",0.5459
+11,sympy,"data, private (heap, stack)",0.5661
+11,AVG,"data, private (heap, stack)",0.5721
+12,django,< 0.5 s,0.0000
+12,requests,< 0.5 s,0.0000
+12,xarray,< 0.5 s,0.0000
+12,sphinx,< 0.5 s,0.0000
+12,sympy,< 0.5 s,0.0000
+12,AVG,< 0.5 s,0.0000
+12,django,0.5-2 s,0.5833
+12,requests,0.5-2 s,0.5232
+12,xarray,0.5-2 s,0.4690
+12,sphinx,0.5-2 s,0.4191
+12,sympy,0.5-2 s,0.4173
+12,AVG,0.5-2 s,0.4769
+12,django,2-10 s,0.3542
+12,requests,2-10 s,0.3932
+12,xarray,2-10 s,0.4524
+12,sphinx,2-10 s,0.4234
+12,sympy,2-10 s,0.5039
+12,AVG,2-10 s,0.4251
+12,django,≥ 10 s,0.0625
+12,requests,≥ 10 s,0.0836
+12,xarray,≥ 10 s,0.0786
+12,sphinx,≥ 10 s,0.1574
+12,sympy,≥ 10 s,0.0787
+12,AVG,≥ 10 s,0.0980
+12,django,n gaps,288.0000
+12,requests,n gaps,323.0000
+12,xarray,n gaps,420.0000
+12,sphinx,n gaps,470.0000
+12,sympy,n gaps,254.0000
+12,AVG,n gaps,1755.0000
+12,django,median gap s,1.4457
+12,requests,median gap s,1.9178
+12,xarray,median gap s,2.2298
+12,sphinx,median gap s,2.8617
+12,sympy,median gap s,2.4410
+12,AVG,median gap s,2.1901
+13,requests-620,perfect caches,1.1351
+13,sphinx-681,perfect caches,1.1481
+13,requests-626,perfect caches,1.1869
+13,sympy-629,perfect caches,1.1967
+13,django-502,perfect caches,1.2055
+13,xarray-1498,perfect caches,1.2070
+13,sphinx-736,perfect caches,1.2165
+13,sphinx-377,perfect caches,1.2179
+13,sympy-261,perfect caches,1.2182
+13,requests-263,perfect caches,1.2203
+13,django-506,perfect caches,1.2238
+13,xarray-1178,perfect caches,1.2241
+13,django-341,perfect caches,1.2251
+13,sympy-534,perfect caches,1.2295
+13,django-551,perfect caches,1.2320
+13,sphinx-670,perfect caches,1.2493
+13,sympy-264,perfect caches,1.2533
+13,xarray-1181,perfect caches,1.2564
+13,xarray-1503,perfect caches,1.2889
+13,requests-267,perfect caches,1.3263
+13,sympy-530,perfect caches,1.3275
+13,django-343,perfect caches,1.3295
+13,sphinx-381,perfect caches,1.3348
+13,sphinx-793,perfect caches,1.3391
+13,requests-682,perfect caches,1.3500
+13,sympy-582,perfect caches,1.3503
+13,requests-655,perfect caches,1.3507
+13,django-534,perfect caches,1.3526
+13,sphinx-372,perfect caches,1.3612
+13,django-337,perfect caches,1.3625
+13,requests-257,perfect caches,1.3630
+13,xarray-1157,perfect caches,1.3634
+13,django-517,perfect caches,1.3643
+13,sympy-255,perfect caches,1.3652
+13,sphinx-701,perfect caches,1.3685
+13,requests-644,perfect caches,1.3750
+13,sympy-548,perfect caches,1.3755
+13,xarray-1519,perfect caches,1.3783
+13,xarray-730,perfect caches,1.3813
+13,xarray-434,perfect caches,1.3830
+13,django-44,perfect caches,1.6544
+13,django-16,perfect caches,1.6943
+13,sphinx-19,perfect caches,1.7031
+13,sympy-67,perfect caches,1.7045
+13,requests-33,perfect caches,1.7070
+13,sympy-20,perfect caches,1.7114
+13,xarray-15,perfect caches,1.7127
+13,requests-7,perfect caches,1.7170
+13,sphinx-54,perfect caches,1.7179
+13,xarray-43,perfect caches,1.7237
+13,sphinx-693,perfect caches,3.2899
+13,requests-632,perfect caches,3.5878
+13,sympy-540,perfect caches,4.1244
+13,xarray-1511,perfect caches,7.0493
+13,requests-620,perfect L1-D,1.1214
+13,sphinx-681,perfect L1-D,1.1357
+13,requests-626,perfect L1-D,1.1535
+13,sympy-629,perfect L1-D,1.1497
+13,django-502,perfect L1-D,1.1785
+13,xarray-1498,perfect L1-D,1.1683
+13,sphinx-736,perfect L1-D,1.1652
+13,sphinx-377,perfect L1-D,1.1441
+13,sympy-261,perfect L1-D,1.1435
+13,requests-263,perfect L1-D,1.1470
+13,django-506,perfect L1-D,1.1765
+13,xarray-1178,perfect L1-D,1.1499
+13,django-341,perfect L1-D,1.1503
+13,sympy-534,perfect L1-D,1.1795
+13,django-551,perfect L1-D,1.1789
+13,sphinx-670,perfect L1-D,1.1999
+13,sympy-264,perfect L1-D,1.1982
+13,xarray-1181,perfect L1-D,1.2010
+13,xarray-1503,perfect L1-D,1.2700
+13,requests-267,perfect L1-D,1.3253
+13,sympy-530,perfect L1-D,1.2700
+13,django-343,perfect L1-D,1.3284
+13,sphinx-381,perfect L1-D,1.3339
+13,sphinx-793,perfect L1-D,1.2863
+13,requests-682,perfect L1-D,1.2969
+13,sympy-582,perfect L1-D,1.2975
+13,requests-655,perfect L1-D,1.2974
+13,django-534,perfect L1-D,1.2974
+13,sphinx-372,perfect L1-D,1.3109
+13,django-337,perfect L1-D,1.3124
+13,requests-257,perfect L1-D,1.3123
+13,xarray-1157,perfect L1-D,1.3127
+13,django-517,perfect L1-D,1.2948
+13,sympy-255,perfect L1-D,1.3149
+13,sphinx-701,perfect L1-D,1.3028
+13,requests-644,perfect L1-D,1.3087
+13,sympy-548,perfect L1-D,1.3045
+13,xarray-1519,perfect L1-D,1.3119
+13,xarray-730,perfect L1-D,1.3263
+13,xarray-434,perfect L1-D,1.3281
+13,django-44,perfect L1-D,1.4008
+13,django-16,perfect L1-D,1.4229
+13,sphinx-19,perfect L1-D,1.4211
+13,sympy-67,perfect L1-D,1.4227
+13,requests-33,perfect L1-D,1.4337
+13,sympy-20,perfect L1-D,1.4246
+13,xarray-15,perfect L1-D,1.4249
+13,requests-7,perfect L1-D,1.4263
+13,sphinx-54,perfect L1-D,1.4309
+13,xarray-43,perfect L1-D,1.4368
+13,sphinx-693,perfect L1-D,3.2832
+13,requests-632,perfect L1-D,3.5136
+13,sympy-540,perfect L1-D,4.0928
+13,xarray-1511,perfect L1-D,7.0432
+13,requests-620,2× L1-D,1.0063
+13,sphinx-681,2× L1-D,1.0031
+13,requests-626,2× L1-D,1.0089
+13,sympy-629,2× L1-D,1.0165
+13,django-502,2× L1-D,1.0070
+13,xarray-1498,2× L1-D,1.0109
+13,sphinx-736,2× L1-D,1.0177
+13,sphinx-377,2× L1-D,1.0306
+13,sympy-261,2× L1-D,1.0312
+13,requests-263,2× L1-D,1.0306
+13,django-506,2× L1-D,1.0103
+13,xarray-1178,2× L1-D,1.0311
+13,django-341,2× L1-D,1.0324
+13,sympy-534,2× L1-D,1.0132
+13,django-551,2× L1-D,1.0186
+13,sphinx-670,2× L1-D,1.0149
+13,sympy-264,2× L1-D,1.0218
+13,xarray-1181,2× L1-D,1.0222
+13,xarray-1503,2× L1-D,1.0049
+13,requests-267,2× L1-D,1.0007
+13,sympy-530,2× L1-D,1.0076
+13,django-343,2× L1-D,1.0001
+13,sphinx-381,2× L1-D,1.0003
+13,sphinx-793,2× L1-D,1.0184
+13,requests-682,2× L1-D,1.0184
+13,sympy-582,2× L1-D,1.0182
+13,requests-655,2× L1-D,1.0188
+13,django-534,2× L1-D,1.0188
+13,sphinx-372,2× L1-D,1.0181
+13,django-337,2× L1-D,1.0179
+13,requests-257,2× L1-D,1.0185
+13,xarray-1157,2× L1-D,1.0179
+13,django-517,2× L1-D,1.0051
+13,sympy-255,2× L1-D,1.0189
+13,sphinx-701,2× L1-D,1.0059
+13,requests-644,2× L1-D,1.0086
+13,sympy-548,2× L1-D,1.0103
+13,xarray-1519,2× L1-D,1.0072
+13,xarray-730,2× L1-D,1.0188
+13,xarray-434,2× L1-D,1.0190
+13,django-44,2× L1-D,1.0099
+13,django-16,2× L1-D,1.0072
+13,sphinx-19,2× L1-D,1.0036
+13,sympy-67,2× L1-D,1.0042
+13,requests-33,2× L1-D,1.0032
+13,sympy-20,2× L1-D,1.0013
+13,xarray-15,2× L1-D,1.0000
+13,requests-7,2× L1-D,1.0027
+13,sphinx-54,2× L1-D,1.0034
+13,xarray-43,2× L1-D,1.0081
+13,sphinx-693,2× L1-D,1.0028
+13,requests-632,2× L1-D,1.0003
+13,sympy-540,2× L1-D,0.9986
+13,xarray-1511,2× L1-D,1.0013
+14,django,2× L1-D,1.8500
+14,requests,2× L1-D,1.8300
+14,xarray,2× L1-D,1.8200
+14,sphinx,2× L1-D,1.8600
+14,sympy,2× L1-D,1.8500
+14,GEOMEAN,2× L1-D,1.8400
+14,django,prefetch into L2+LLC at the model call,0.7800
+14,requests,prefetch into L2+LLC at the model call,0.6600
+14,xarray,prefetch into L2+LLC at the model call,0.9400
+14,sphinx,prefetch into L2+LLC at the model call,0.6300
+14,sympy,prefetch into L2+LLC at the model call,0.6700
+14,GEOMEAN,prefetch into L2+LLC at the model call,0.7300
+14,django,ideal L1-I start-up prefetch,3.9500
+14,requests,ideal L1-I start-up prefetch,3.8000
+14,xarray,ideal L1-I start-up prefetch,3.8000
+14,sphinx,ideal L1-I start-up prefetch,3.7300
+14,sympy,ideal L1-I start-up prefetch,3.8200
+14,GEOMEAN,ideal L1-I start-up prefetch,3.8200
+14,django,ideal L1-D start-up prefetch,6.2000
+14,requests,ideal L1-D start-up prefetch,4.5000
+14,xarray,ideal L1-D start-up prefetch,3.4300
+14,sphinx,ideal L1-D start-up prefetch,4.4000
+14,sympy,ideal L1-D start-up prefetch,4.4800
+14,GEOMEAN,ideal L1-D start-up prefetch,4.6000
+14,django,ideal L1-I + L1-D start-up prefetch,10.6300
+14,requests,ideal L1-I + L1-D start-up prefetch,8.6400
+14,xarray,ideal L1-I + L1-D start-up prefetch,7.5500
+14,sphinx,ideal L1-I + L1-D start-up prefetch,8.4100
+14,sympy,ideal L1-I + L1-D start-up prefetch,8.6300
+14,GEOMEAN,ideal L1-I + L1-D start-up prefetch,8.7700
+14,django,perfect L1 (oracle),32.3100
+14,requests,perfect L1 (oracle),31.1200
+14,xarray,perfect L1 (oracle),33.6800
+14,sphinx,perfect L1 (oracle),33.2800
+14,sympy,perfect L1 (oracle),31.1600
+14,GEOMEAN,perfect L1 (oracle),32.3100
+15,django,cpu_speedup: ideal L1-I + L1-D start-up prefetch,0.7300
+15,requests,cpu_speedup: ideal L1-I + L1-D start-up prefetch,0.6400
+15,xarray,cpu_speedup: ideal L1-I + L1-D start-up prefetch,0.4700
+15,sphinx,cpu_speedup: ideal L1-I + L1-D start-up prefetch,0.5100
+15,sympy,cpu_speedup: ideal L1-I + L1-D start-up prefetch,0.5200
+15,AVG,cpu_speedup: ideal L1-I + L1-D start-up prefetch,0.5740
+15,django,cpu_speedup: perfect L1-D in start-up,1.6500
+15,requests,cpu_speedup: perfect L1-D in start-up,1.7300
+15,xarray,cpu_speedup: perfect L1-D in start-up,1.5200
+15,sphinx,cpu_speedup: perfect L1-D in start-up,1.4900
+15,sympy,cpu_speedup: perfect L1-D in start-up,1.4200
+15,AVG,cpu_speedup: perfect L1-D in start-up,1.5619
+15,django,cpu_speedup: perfect L1 in start-up,1.8600
+15,requests,cpu_speedup: perfect L1 in start-up,1.9600
+15,xarray,cpu_speedup: perfect L1 in start-up,1.7000
+15,sphinx,cpu_speedup: perfect L1 in start-up,1.6700
+15,sympy,cpu_speedup: perfect L1 in start-up,1.5900
+15,AVG,cpu_speedup: perfect L1 in start-up,1.7559
+15,django,wall_speedup_upper: ideal L1-I + L1-D start-up prefetch,0.2400
+15,requests,wall_speedup_upper: ideal L1-I + L1-D start-up prefetch,0.1600
+15,xarray,wall_speedup_upper: ideal L1-I + L1-D start-up prefetch,0.1100
+15,sphinx,wall_speedup_upper: ideal L1-I + L1-D start-up prefetch,0.0800
+15,sympy,wall_speedup_upper: ideal L1-I + L1-D start-up prefetch,0.1400
+15,AVG,wall_speedup_upper: ideal L1-I + L1-D start-up prefetch,0.1460
+15,django,wall_speedup_upper: perfect L1-D in start-up,0.5400
+15,requests,wall_speedup_upper: perfect L1-D in start-up,0.4200
+15,xarray,wall_speedup_upper: perfect L1-D in start-up,0.3700
+15,sphinx,wall_speedup_upper: perfect L1-D in start-up,0.2400
+15,sympy,wall_speedup_upper: perfect L1-D in start-up,0.3800
+15,AVG,wall_speedup_upper: perfect L1-D in start-up,0.3900
+15,django,wall_speedup_upper: perfect L1 in start-up,0.6100
+15,requests,wall_speedup_upper: perfect L1 in start-up,0.4700
+15,xarray,wall_speedup_upper: perfect L1 in start-up,0.4100
+15,sphinx,wall_speedup_upper: perfect L1 in start-up,0.2700
+15,sympy,wall_speedup_upper: perfect L1 in start-up,0.4200
+15,AVG,wall_speedup_upper: perfect L1 in start-up,0.4359

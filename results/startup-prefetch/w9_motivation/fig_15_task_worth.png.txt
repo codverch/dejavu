@@ -1,0 +1,1 @@
+What speeding up only the start-up of tool-call Python processes is worth to a whole task. Left: CPU time of the harness and all its processes (start-up is 6.6-8.0% of it). Right: wall clock, model time unchanged; an upper bound (all tool and harness time treated as CPU work).

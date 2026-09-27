@@ -1,0 +1,1 @@
+golden_cove's data prefetcher (a stream prefetcher that fills the LLC; the L1-I FDIP stays on in both runs), as in Pythia Fig. 1a: of the LLC demand misses without it, the share it removes (covered), the share left (uncovered), and its prefetches never used (overpredicted, stacked on top).

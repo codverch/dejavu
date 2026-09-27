@@ -1,0 +1,1 @@
+Demand misses per kilo-instruction at each level on golden_cove, per phase (L1-D counts loads and stores; L2 and LLC count instruction and data).

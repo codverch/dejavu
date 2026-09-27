@@ -1,0 +1,1 @@
+IPC gain of golden_cove's data prefetcher (on vs off; geomean over each phase's units), as in Pythia Fig. 1b.

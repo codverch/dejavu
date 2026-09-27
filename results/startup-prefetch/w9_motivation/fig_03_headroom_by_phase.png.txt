@@ -1,0 +1,1 @@
+Speedup over golden_cove when one cache level (or all) never misses, or when the L1-D is doubled, per phase: geomean over the phase's units (2 per task; harness exit 1 per task, none in django). Bars above 100% are cut and labelled.

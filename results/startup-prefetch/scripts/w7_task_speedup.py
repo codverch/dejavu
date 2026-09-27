@@ -102,8 +102,15 @@ START_SRC = {"django__django-13809": dict(cpi=1 / b3, instant_both=pooled(w4, la
                                           perfect_all=pooled(w3, lambda r: r["config"] == "perfect_all") / b3)}
 TP = "tool execution: python"
 OTHER_START = dict(cpi=cpi[TP], instant_both=spd[(TP, "instant_both")], perfect_all=spd[(TP, "perfect_all")])
+# W8: 5 tool-call Python processes per task, L1 scenarios
+L1_SCEN = ["ideal_l1_prev", "perfect_l1d", "ideal_l1_self"]
+w8 = [r for r in csv.DictReader(open(R / "w8_headroom" / "results.csv")) if r["ok"] == "1"]
+W8_SRC = {}
+for t_ in {r["task"] for r in w8}:
+    b8 = pooled(w8, lambda r: r["task"] == t_ and r["config"] == "base")
+    W8_SRC[t_] = dict(cpi=1 / b8, **{c: pooled(w8, lambda r: r["task"] == t_ and r["config"] == c) / b8 for c in L1_SCEN})
 
-rows, walls, srows = [], [], []
+rows, walls, srows, l1rows = [], [], [], []
 for task in mix:
     runs = sorted((R / "w0_benchmark" / "native" / task).glob("run*/swetrace.ndjson"))
     ws = [wall_split(p) for p in runs]
@@ -141,20 +148,22 @@ for task in mix:
                          wall_min=f"{wall.min():.4f}", wall_max=f"{wall.max():.4f}", **common,
                          simulated_instr_frac=f"{sum(sim_ins.values()) / tot_ins:.3f}"))
     # only the start-up of tool-call Python processes sped up; everything else as on golden_cove
-    src = START_SRC.get(task, OTHER_START)
-    for cfg, _, _ in SCEN:
-        def sp(ph, kind, up, n, c):
+    for src, cfgs, out in ((START_SRC.get(task, OTHER_START), [c for c, _, _ in SCEN], srows),
+                           (W8_SRC[task], L1_SCEN, l1rows)):
+      for cfg in cfgs:
+        def sp(ph, kind, up, n, c, src=src, cfg=cfg):
             if up != TP:
                 return [(c, 1.0)]
             n0 = min(start[task], n)
             return [(n0 * src["cpi"], src[cfg]), (c * (n - n0) / n, 1.0)]
         s_cpu, s_tool, s_h, wall, base = speedups(sp)
-        srows.append(dict(task=task, config=cfg, startup_speedup=f"{src[cfg]:.4f}", cpu_speedup=f"{s_cpu:.4f}",
-                          wall_speedup_upper=f"{wall.mean():.4f}", wall_min=f"{wall.min():.4f}", wall_max=f"{wall.max():.4f}",
-                          startup_instr_frac=f"{start[task] / tot_ins:.4f}",
-                          startup_cycle_frac=f"{start[task] * src['cpi'] / sum(base.values()):.4f}", **common))
+        out.append(dict(task=task, config=cfg, startup_speedup=f"{src[cfg]:.4f}", cpu_speedup=f"{s_cpu:.4f}",
+                        wall_speedup_upper=f"{wall.mean():.4f}", wall_min=f"{wall.min():.4f}", wall_max=f"{wall.max():.4f}",
+                        startup_instr_frac=f"{start[task] / tot_ins:.4f}",
+                        startup_cycle_frac=f"{start[task] * src['cpi'] / sum(base.values()):.4f}", **common))
 
-for name, data in (("task_speedup.csv", rows), ("startup_prefetch.csv", srows), ("wall_split.csv", walls)):
+for name, data in (("task_speedup.csv", rows), ("startup_prefetch.csv", srows), ("startup_l1.csv", l1rows),
+                   ("wall_split.csv", walls)):
     with open(W7 / name, "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=list(data[0])); w.writeheader(); w.writerows(data)
 

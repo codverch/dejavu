@@ -1,0 +1,1 @@
+Upper bound on the share of misses that are a line's first touch in the unit: distinct lines / misses at that level (a line can miss once cold and again later, so the true cold share is at most this).

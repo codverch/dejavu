@@ -1,0 +1,1 @@
+Footprint of a unit (median per phase): distinct 64-B lines its first <=100M instructions touch, split into instruction lines, data lines inside a mapped file, and private data lines (heap, stack, anonymous), against golden_cove's cache capacities (L2 and LLC as effective under its LOG2 set-count bug). Log scale.

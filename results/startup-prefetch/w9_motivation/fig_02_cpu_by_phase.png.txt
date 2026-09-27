@@ -1,0 +1,1 @@
+Share of an agent run's CPU cycles (harness and every process it creates) by phase: each phase's instructions over the whole run (DR attribution, sampled windows weighted) times the base CPI of its simulated units. 'Start-up' is the first <=100M instructions of each tool-call Python process. Work of other kinds (git, sed, ...) takes the average CPI.

@@ -1,0 +1,1 @@
+Time from one start-up of a tool-call Python script to the next start-up of the same script (native runs, 6 per task, exec to exec). Anything that kept the previous start-up's lines would have to keep them this long, while the model runs in between.

@@ -1,0 +1,1 @@
+Share of the total load latency (sum of every load's issue-to-data cycles) spent on loads served by each level, per phase. Compare with fig_04: the few loads that miss the L1-D carry much of the latency.

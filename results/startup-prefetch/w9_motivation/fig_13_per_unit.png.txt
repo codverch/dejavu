@@ -1,0 +1,1 @@
+Every simulated unit, all phases, sorted by its perfect-cache speedup (y-axis linear up to 10%, logarithmic above).

@@ -1,0 +1,1 @@
+What a tool-call Python process's footprint is made of (5 processes per task): instruction lines, data lines inside a mapped file (library data, mapped files), and private data lines (heap, stack, anonymous memory). Only the first two sit at the same place, relative to their file, in every process.

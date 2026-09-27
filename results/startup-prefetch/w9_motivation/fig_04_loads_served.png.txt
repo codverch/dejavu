@@ -1,0 +1,1 @@
+Where golden_cove serves each load, per phase (sum over units). The y-axis starts at 80%; the printed number is the share of loads that miss the L1-D.
