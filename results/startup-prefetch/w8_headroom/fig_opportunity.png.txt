@@ -1,0 +1,1 @@
+Of each process's L1-D and L1-I misses on golden_cove, the share removed when every line the previous process of the same script touched (rebased) hits in the L1: the misses a history-based start-up prefetcher could remove. Sums over the 5 processes per task.

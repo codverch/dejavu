@@ -7,8 +7,9 @@ than on golden_cove?
 
 **The answer.** 1.023× at best, out of a possible 1.243×. An oracle list of every line, streamed
 into the LLC 200K instructions ahead of use, removes 70% of the region's LLC demand misses and gains
-2.3% IPC. Installing the whole list at process start gains 0.1%, because the list is 7 MB and the
-caches it goes into are 1-2 MB.
+2.3% IPC. Installing the list before the process starts gains 0.6-1.0%, because the list is 7 MB and the
+caches it goes into are 1-2 MB. (A first version of the install had a bug that left it at 0.1%; see
+"Correction" below.)
 
 ## Setup
 
@@ -23,7 +24,7 @@ caches it goes into are 1-2 MB.
 
 | config | what |
 |---|---|
-| `instant_{l2,llc}` | every recorded line installed in L2 (or LLC) before the first cycle, no bandwidth cost |
+| `instant_{l2,llc,both}` | recorded lines installed in L2, LLC, or both before the first cycle, soonest-needed first until each set is full, no bandwidth cost |
 | `stream_{l2,llc}_{2k,20k,200k}` | each line enters the L2 (`umlc`) or LLC (`ul1`) prefetch queue that many instructions before its first use; queues, MSHRs and DRAM bandwidth are modelled |
 | `stream_{l2,llc}_bulk` | the same with no lookahead limit: the whole list is issued as fast as the queue accepts it |
 
@@ -55,8 +56,9 @@ All 45 creations; `_state_anthropic` (26) and `str_replace_editor` (13) agree to
 |---|---|---|---|
 | perfect, all levels (W3) | 1.243× | — | — |
 | perfect L2 / perfect LLC (W3) | 1.108× / 1.050× | — | — |
-| instant L2 | 1.001× (1.001-1.002) | 0.4% | −0.13 MB |
-| instant LLC | 1.001× (1.001-1.002) | 1.8% | −0.14 MB |
+| instant L2 | 1.006× (1.006-1.007) | 11% | −1.0 MB |
+| instant LLC | 1.010× (1.009-1.011) | 28% | −2.0 MB |
+| instant L2 + LLC | 1.011× | 28% | −2.0 MB |
 | stream L2 2k / 20k / 200k | 1.011× / 1.012× / 1.014× | 60% / 61% / 61% | +1.5 MB |
 | stream L2 bulk | 1.001× (1.001-1.002) | 35% | +5.7 MB |
 | stream LLC 2k / 20k / 200k | 1.018× / 1.019× / **1.023×** (1.022-1.024) | 62% / 61% / 70% | ≈0 |
@@ -73,12 +75,10 @@ What these numbers say:
 1. **The oracle recovers under a tenth of the bound.** The best configuration (stream LLC 200k) gains
    2.3% of a possible 24.3%. That is 10% of the perfect-cache bound and 46% of the perfect-LLC bound
    (`fig_bound_recovered.png`).
-2. **Installing everything up front does nothing, because the list does not fit.** The record is
-   7.0 MB. golden_cove's L2 is 1 MB effective and its LLC 2 MB (the LOG2 set-count bug, W3). Installing
-   114.6K lines in first-touch order leaves only the last ~16K (L2) or ~33K (LLC) resident. Those are the
-   lines the region uses last, and its own misses evict them before then. Coverage is 0.4% and 1.8%.
-   Eviction counts were not instrumented; this explanation follows from the capacity arithmetic and
-   the coverage, and is not a direct measurement.
+2. **Installing up front is capped by capacity.** The record is 7.0 MB. golden_cove's L2 is 1 MB
+   effective and its LLC 2 MB (the LOG2 set-count bug, W3). Installing soonest-needed first until every set
+   is full puts exactly 16,384 lines in the L2 and 32,768 in the LLC (`spf_installed`), 43% of the record.
+   It removes 11% (L2) and 28% (LLC) of the region's demand misses there, and gains 0.6-1.1%.
 3. **Bulk streaming is worse than streaming ahead, for the same reason.** With no lookahead limit, lines
    arrive long before use and are evicted first. Coverage falls to 35% (L2) and 21% (LLC). Traffic rises
    by 5.7 and 3.9 MB, and LLC bulk is a net slowdown. Timeliness here is not about being early enough:
@@ -108,10 +108,18 @@ What these numbers say:
 - **Per-line accuracy** (prefetched lines used before eviction) is not instrumented in the simulator.
   `rebase.csv`'s `accuracy_upper` is the static overlap of the rebased record with the new process's
   record.
-- **Evictions under `instant`** were not counted (see point 2).
 - `fig_wave_l2_spf.png` (the L2 wave, cold vs spf vs perfect) was not made.
 - `fig_coverage_accuracy.png` is `fig_coverage.png`: coverage only.
 
 ## Reproduce
 `./run.sh sim-ideal fetch figures` (stage `sim-ideal` runs `scripts/w4_ideal_prefetch.py` on the pod,
 about 2 h on 120 jobs), or `make sim-ideal fetch figures`.
+
+## Correction (2026-09-27)
+The first version of `instant` installed every recorded line in cycle 0. All installed lines then
+tied on LRU age, so each install into a full set evicted way 0, and a full set kept the lines needed
+*last*. It gained 0.1% and removed 0.4-1.8% of misses. The fix (`13528f6`) installs soonest-needed first
+and never evicts an installed line. A 5M-instruction test confirmed it: the full record now gives the
+same speedup as a record of only those 5M instructions (1.154×). The `instant` rows above are from the
+fixed build (`ideal-prefetching-13528f6`); the old runs are kept on the pod under `old_instant/`. Stream
+configurations never used this path and were not rerun.

@@ -25,7 +25,7 @@ instructions.
   replaced (`limits.csv`).
 - **Configs** (ideal-prefetching package `7ca0ce1`, `PARAMS.golden_cove`, cold):
   - `base`, `perfect_all`, and a record pass;
-  - replays of the unit's own record (the oracle) as in W4: `instant_{l2,llc}`,
+  - replays of the unit's own record (the oracle) as in W4: `instant_{l2,llc,both}` (from the fixed build 13528f6),
     `stream_{l2,llc}_{20k,bulk}`.
 
 ## Checks
@@ -36,20 +36,20 @@ instructions.
 
 The table pools each phase's two units: the ratio of sums of instructions over sums of cycles.
 
-| phase | base IPC | perfect caches | ideal, LLC 20k | ideal, L2 20k | ideal, L2 instant | ideal, L2 bulk |
-|---|---|---|---|---|---|---|
-| harness start-up | 1.75 | 1.276× | 1.018× | 1.009× | 1.001× | 0.992× |
-| environment setup (Python) | 1.75 | 1.364× | 1.016× | 1.008× | 1.005× | 1.002× |
-| tool execution: Python | 1.80 | 1.295× | 1.012× | 1.002× | 1.001× | 0.998× |
-| tool execution: shell (bash) | 1.29 | 1.718× | 1.355× | 1.515× | 1.530× | 1.495× |
-| harness: agent loop | 2.57 | 1.231× | 1.075× | 1.109× | 1.014× | 1.009× |
-| harness exit | 0.44 | 5.292× | 1.228× | 1.350× | 1.000× | 0.961× |
+| phase | base IPC | perfect caches | ideal, LLC 20k | ideal, L2 20k | ideal, L2 instant | ideal, L2+LLC instant | ideal, L2 bulk |
+|---|---|---|---|---|---|---|---|
+| harness start-up | 1.75 | 1.276× | 1.018× | 1.009× | 1.008× | 1.013× | 0.992× |
+| environment setup (Python) | 1.75 | 1.364× | 1.016× | 1.008× | 1.011× | 1.018× | 1.002× |
+| tool execution: Python | 1.80 | 1.295× | 1.012× | 1.002× | 1.006× | 1.009× | 0.998× |
+| tool execution: shell (bash) | 1.29 | 1.718× | 1.355× | 1.515× | 1.523× | 1.437× | 1.495× |
+| harness: agent loop | 2.57 | 1.231× | 1.075× | 1.109× | 1.021× | 1.034× | 1.009× |
+| harness exit | 0.44 | 5.292× | 1.228× | 1.350× | 1.003× | 1.005× | 0.961× |
 
 - **The Python phases reproduce W4.** This holds across Python 3.9-3.14, other tasks, and
   whole 100M windows rather than creation regions. The oracle recovers under a tenth of the bound;
-  installing everything at the start recovers nothing.
+  installing lines before the process starts recovers 0.6-1.3% (the corrected install; W4 "Correction").
 - **Small footprints are where the oracle works.** A bash wrapper is 1.2M instructions. Its lines
-  fit, so even `instant` gives 1.53×.
+  fit, so even `instant` into the L2 gives 1.52×.
 - **Harness exit is memory-bound** (IPC 0.44): the interpreter tears down its heap. Its bound is
   5.3×, and the oracle recovers 1.23-1.35×.
 - **Two units per phase is a small sample.** The harness start-up units are the first 100M of an
