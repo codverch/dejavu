@@ -83,3 +83,9 @@ What these numbers say:
 - `fig_headroom_geomean.png`: per-task geomean bars (Constable Fig. 7).
 - `fig_headroom_per_trace.png`: all 25 processes, sorted (Constable Fig. 11).
 - `fig_opportunity.png`: share of L1 misses removed (Constable Fig. 3a).
+
+## Perfect L1-D alone (`fig_perfect_l1d.png`, config `perfect_l1d`)
+Every L1-D access hits (Scarab `--perfect_dcache`); nothing else changes. Geomean +27.8% (per task
++26.7% to +29.2%). By script: `_state_anthropic` +28.5% to +32.8%, `str_replace_editor` +15.0% to
++21.0%. The editor's lower gain lowers each task's geomean, since there is one editor process in four
+of the five tasks' samples.

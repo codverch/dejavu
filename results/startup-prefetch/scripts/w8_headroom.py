@@ -22,6 +22,7 @@ Configurations, all on PARAMS.golden_cove, cold:
   ideal_l1_self         both, with the unit's own lines: a perfect L1 for the region
   install_prev          the previous start-up's lines put in the L2 and LLC before the process
                         starts (issued at the model call), soonest-needed first, no eviction
+  perfect_l1d           every L1-D access hits (Scarab --perfect_dcache)
   perfect_all           every cache level perfect: the bound for any prefetcher
   l1d_2x, l2_2x         brute force: twice the L1-D, twice the (effective) L2
 
@@ -45,6 +46,7 @@ CFGS = {
     "ideal_l1_prev": lambda s, p: ["--spf_mode", "3", "--spf_file", p, "--spf_ideal", "3"],
     "ideal_l1_self": lambda s, p: ["--spf_mode", "3", "--spf_file", s, "--spf_ideal", "3"],
     "install_prev": lambda s, p: ["--spf_mode", "2", "--spf_file", p, "--spf_dest", "4", "--spf_timing", "0"],
+    "perfect_l1d": lambda s, p: ["--perfect_dcache", "1"],
     "perfect_all": lambda s, p: ["--perfect_icache", "1", "--perfect_dcache", "1", "--perfect_mlc", "1", "--perfect_l1", "1"],
     "l1d_2x": lambda s, p: ["--dcache_size", "98304"],
     "l2_2x": lambda s, p: ["--mlc_size", "4194000"],

@@ -1,0 +1,1 @@
+IPC speedup of the Python processes that SWE-agent's tool calls create, when every L1 data-cache access hits, over a Golden Cove-like core (Scarab, PARAMS.golden_cove). 5 processes per task, each simulated over its first 100M instructions (interpreter start-up, then the tool's own work); bars are geomeans, dots are individual processes.
