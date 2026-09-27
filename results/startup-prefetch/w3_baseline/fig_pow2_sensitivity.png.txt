@@ -1,0 +1,1 @@
+The perfect-cache bound under PARAMS.golden_cove (whose LOG2 set indexing leaves the 3 MB LLC at 2 MB and the L2 at 1 MB effective) and under PARAMS.golden_cove_pow2 (L2 2 MiB/8-way, LLC 3 MiB/12-way, all sets used), each relative to its own baseline.

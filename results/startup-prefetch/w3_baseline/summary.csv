@@ -1,0 +1,24 @@
+script,config,speedup,p10,p90,n
+python3.8 _state_anthropic,self_warm,0.9937,0.9927,0.9948,26
+python3.8 _state_anthropic,perfect_l1i,1.045,1.0444,1.0455,26
+python3.8 _state_anthropic,perfect_l1d,1.1882,1.1873,1.1892,26
+python3.8 _state_anthropic,perfect_l2,1.1081,1.1073,1.1089,26
+python3.8 _state_anthropic,perfect_llc,1.05,1.0494,1.0507,26
+python3.8 _state_anthropic,perfect_all,1.2426,1.2413,1.2439,26
+python3.8 str_replace_editor,self_warm,0.9923,0.9913,0.9934,13
+python3.8 str_replace_editor,perfect_l1i,1.0449,1.0442,1.0458,13
+python3.8 str_replace_editor,perfect_l1d,1.189,1.1885,1.1896,13
+python3.8 str_replace_editor,perfect_l2,1.1084,1.1077,1.1088,13
+python3.8 str_replace_editor,perfect_llc,1.05,1.0494,1.0504,13
+python3.8 str_replace_editor,perfect_all,1.2434,1.2428,1.244,13
+all Python creations,self_warm,0.994,0.9918,0.9978,45
+all Python creations,perfect_l1i,1.0449,1.0442,1.0458,45
+all Python creations,perfect_l1d,1.1888,1.1873,1.1896,45
+all Python creations,perfect_l2,1.1083,1.1073,1.109,45
+all Python creations,perfect_llc,1.05,1.0494,1.0508,45
+all Python creations,perfect_all,1.2432,1.2416,1.244,45
+python3.8 _state_anthropic,pow2_perfect_all_vs_pow2_base,1.1881,1.1868,1.1888,26
+python3.8 str_replace_editor,pow2_perfect_all_vs_pow2_base,1.1888,1.1879,1.1898,13
+all Python creations,pow2_perfect_all_vs_pow2_base,1.1885,1.1875,1.1895,45
+sh -c 'env bash -n' (tool-call wrapper),perfect_all,2.0415,2.0328,2.0861,52
+bash -n,perfect_all,1.6576,1.6576,1.6968,52

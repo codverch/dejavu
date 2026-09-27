@@ -1,0 +1,1 @@
+Upper bounds on speeding up Python process creation (all Python creations), Scarab golden_cove, cold: each cache level made perfect alone, all levels perfect, and self-warm (the same process run again immediately, every structure warm). Bars: instruction-weighted IPC ratio over 45 creations of the traced django-13809 run; whiskers: 10th-90th percentile of per-creation speedups.

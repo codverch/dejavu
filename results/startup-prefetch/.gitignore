@@ -1,0 +1,8 @@
+# Code, configuration, tables and figures are committed; logs, caches and raw data are not.
+logs/
+__pycache__/
+*.pyc
+raw/
+*.zip
+*.lz4
+perf.data
