@@ -375,7 +375,7 @@ Inst_Info** lookup_icache() {
 
   Inst_Info** line = NULL;
   line = (Inst_Info**)cache_access(&ic->icache, ic->fetch_addr, &ic->line_addr, TRUE);
-  if (!line && (PERFECT_ICACHE || spf_ideal_hit(ic->fetch_addr, 1)))
+  if (!line && (PERFECT_ICACHE || spf_ideal_hit(ic->fetch_addr, 1, ic->off_path)))
     line = (Inst_Info**)INIT_CACHE_DATA_VALUE;
 
   // ideal L2 Icache prefetcher

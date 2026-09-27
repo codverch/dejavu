@@ -35,6 +35,9 @@
      With the region's own record this is a perfect L1 for the region. With the previous
      start-up's record, rebased, it is the headroom of prefetching what history can predict:
      only lines both start-ups touch at the same address hit.
+     spf_ideal bit 2 counts only: misses to lines in spf_file are counted and still miss, so the
+     run times like golden_cove and the count is the opportunity without the side effects of
+     making them hit (lines that never enter the L1 leave its capacity to the others).
 
    Replaying the record of the same trace is an oracle: it knows the future exactly. Replaying
    another invocation's record, rebased for ASLR outside the simulator, is the realistic case. */
@@ -148,7 +151,7 @@ static void spf_init(void) {
     seen_mask = (1ULL << 24) - 1;
     seen_k = (uint64_t*)calloc(seen_mask + 1, sizeof(uint64_t));
   } else if (SPF_MODE == 3) {
-    ASSERTM(0, SPF_IDEAL >= 1 && SPF_IDEAL <= 3, "spf: spf_ideal must be 1 (L1-D), 2 (L1-I) or 3 (both)\n");
+    ASSERTM(0, (SPF_IDEAL & 3) && SPF_IDEAL <= 7, "spf: spf_ideal must set 1 (L1-D) and/or 2 (L1-I), plus 4 to count only\n");
     FILE* f = fopen(spf_path, "rb");
     ASSERTM(0, f, "spf: cannot read %s\n", spf_path);
     seen_mask = (1ULL << 24) - 1;
@@ -256,7 +259,7 @@ void spf_tick(void) {
   }
 }
 
-int spf_ideal_hit(uint64_t addr, int inst) {
+int spf_ideal_hit(uint64_t addr, int inst, int off_path) {
   if (spf_state < 0)
     spf_init();
   if (!spf_state || SPF_MODE != 3 || !(SPF_IDEAL & (inst ? 2 : 1)))
@@ -264,7 +267,9 @@ int spf_ideal_hit(uint64_t addr, int inst) {
   uint64_t k = (addr & ~63ULL) + 1, i = mix(k) & seen_mask;
   while (seen_k[i] && seen_k[i] != k)
     i = (i + 1) & seen_mask;
-  ideal_lookups[inst]++;
-  ideal_hits[inst] += seen_k[i] != 0;
-  return seen_k[i] != 0;
+  if (!off_path) {
+    ideal_lookups[inst]++;
+    ideal_hits[inst] += seen_k[i] != 0;
+  }
+  return !(SPF_IDEAL & 4) && seen_k[i] != 0;
 }
