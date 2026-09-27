@@ -29,6 +29,13 @@
    per-prefetcher accounting for id 0, so the feedback-directed throttling of golden_cove's stream
    prefetcher (pref_throttlefb_on) sees none of these prefetches and behaves as in the baseline.
 
+   ideal (spf_mode 3): no prefetching at all. Every L1-D access (spf_ideal bit 0) and every L1-I
+     fetch (bit 1) to a line in spf_file that misses the L1 is made a hit, as if a perfect prefetcher had put that line in
+     the L1 just in time, with no capacity, port or bandwidth cost beyond the L1 access itself.
+     With the region's own record this is a perfect L1 for the region. With the previous
+     start-up's record, rebased, it is the headroom of prefetching what history can predict:
+     only lines both start-ups touch at the same address hit.
+
    Replaying the record of the same trace is an oracle: it knows the future exactly. Replaying
    another invocation's record, rebased for ASLR outside the simulator, is the realistic case. */
 
@@ -68,6 +75,9 @@ static uint64_t n_recs, cap_recs;
 
 /* replay */
 static uint64_t next_rec, sent, late, stalls, installed, not_installed, set_full;
+
+/* ideal */
+static uint64_t ideal_hits[2], ideal_lookups[2];
 static int installed_done;
 
 static uint64_t mix(uint64_t x) {
@@ -112,6 +122,10 @@ static void spf_exit(void) {
     ASSERTM(0, fwrite(recs, sizeof(Spf_Rec), n_recs, f) == n_recs, "spf: short write\n");
     fclose(f);
     printf("SPF record: lines=%lu instructions=%lu file=%s\n", (unsigned long)n_recs, (unsigned long)n_inst, spf_path);
+  } else if (SPF_MODE == 3) {
+    printf("SPF ideal: which=%u lines=%lu d_lookups=%lu d_hits=%lu i_lookups=%lu i_hits=%lu instructions=%lu\n",
+           SPF_IDEAL, (unsigned long)n_recs, (unsigned long)ideal_lookups[0], (unsigned long)ideal_hits[0],
+           (unsigned long)ideal_lookups[1], (unsigned long)ideal_hits[1], (unsigned long)n_inst);
   } else {
     printf("SPF replay: dest=%u timing=%u lookahead=%u width=%u records=%lu sent=%lu late_skipped=%lu queue_stalls=%lu "
            "installed=%lu already_present=%lu set_full=%lu instructions=%lu\n",
@@ -126,13 +140,26 @@ static void spf_init(void) {
   spf_state = SPF_MODE ? 1 : 0;
   if (!spf_state)
     return;
-  ASSERTM(0, SPF_MODE == 1 || SPF_MODE == 2, "spf: spf_mode must be 0, 1 or 2\n");
+  ASSERTM(0, SPF_MODE >= 1 && SPF_MODE <= 3, "spf: spf_mode must be 0, 1, 2 or 3\n");
   ASSERTM(0, MEMTRACE_REPEAT <= 1, "spf: use with --memtrace_repeat 1\n");
   ASSERTM(0, SPF_FILE && SPF_FILE[0], "spf: spf_file is required\n");
   spf_path = strdup(SPF_FILE); /* parameter strings are freed before exit handlers run */
   if (SPF_MODE == 1) {
     seen_mask = (1ULL << 24) - 1;
     seen_k = (uint64_t*)calloc(seen_mask + 1, sizeof(uint64_t));
+  } else if (SPF_MODE == 3) {
+    ASSERTM(0, SPF_IDEAL >= 1 && SPF_IDEAL <= 3, "spf: spf_ideal must be 1 (L1-D), 2 (L1-I) or 3 (both)\n");
+    FILE* f = fopen(spf_path, "rb");
+    ASSERTM(0, f, "spf: cannot read %s\n", spf_path);
+    seen_mask = (1ULL << 24) - 1;
+    seen_k = (uint64_t*)calloc(seen_mask + 1, sizeof(uint64_t));
+    Spf_Rec r;
+    int fresh;
+    while (fread(&r, sizeof r, 1, f) == 1) {
+      seen_slot(r.line & ~63ULL, &fresh);
+      n_recs++;
+    }
+    fclose(f);
   } else {
     ASSERTM(0, SPF_DEST >= 1 && SPF_DEST <= 4, "spf: spf_dest must be 1, 2, 3 or 4\n");
     ASSERTM(0, SPF_TIMING == 1 || SPF_DEST >= 2, "spf: instant replay installs into L2 or LLC only\n");
@@ -227,4 +254,17 @@ void spf_tick(void) {
     next_rec++;
     budget--;
   }
+}
+
+int spf_ideal_hit(uint64_t addr, int inst) {
+  if (spf_state < 0)
+    spf_init();
+  if (!spf_state || SPF_MODE != 3 || !(SPF_IDEAL & (inst ? 2 : 1)))
+    return 0;
+  uint64_t k = (addr & ~63ULL) + 1, i = mix(k) & seen_mask;
+  while (seen_k[i] && seen_k[i] != k)
+    i = (i + 1) & seen_mask;
+  ideal_lookups[inst]++;
+  ideal_hits[inst] += seen_k[i] != 0;
+  return seen_k[i] != 0;
 }

@@ -223,4 +223,5 @@ DEF_PARAM( spf_region_instrs                   , SPF_REGION_INSTRS              
 DEF_PARAM( spf_dest                            , SPF_DEST                            , uns             , uns                , 2         ,    )
 DEF_PARAM( spf_timing                          , SPF_TIMING                          , uns             , uns                , 1         ,    )
 DEF_PARAM( spf_lookahead                       , SPF_LOOKAHEAD                       , uns             , uns                , 20000     ,    )
+DEF_PARAM( spf_ideal                           , SPF_IDEAL                           , uns             , uns                , 3         ,    )
 DEF_PARAM( spf_issue_width                     , SPF_ISSUE_WIDTH                     , uns             , uns                , 4         ,    )

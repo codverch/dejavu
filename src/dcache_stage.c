@@ -29,6 +29,7 @@
  ***************************************************************************************/
 
 #include "dcache_stage.h"
+#include "prefetcher/startup_pf.h"
 
 #include "globals/assert.h"
 #include "globals/global_defs.h"
@@ -310,7 +311,7 @@ void update_dcache_stage(Stage_Data* src_sd) {
     }
 
     op->oracle_info.dcmiss = FALSE;
-    if (PERFECT_DCACHE) {
+    if (PERFECT_DCACHE || (!line && spf_ideal_hit(op->oracle_info.va, 0))) {
       if (!op->off_path) {
         STAT_EVENT(op->proc_id, DCACHE_HIT);
         STAT_EVENT(op->proc_id, DCACHE_HIT_ONPATH);
