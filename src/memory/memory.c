@@ -4757,7 +4757,8 @@ Mem_Req* mem_search_reqbuf_wrapper(uns8 proc_id, Addr addr, Mem_Req_Type type, u
 
 /* Put one line in the L2 (level 2) or the LLC (level 3) as if it had been filled there, with no
    timing and no bandwidth: the instant mode of the ideal creation-time prefetcher. Returns 1 if
-   installed, 0 if the line was already present, -1 if its set is full. A full set is left alone:
+   installed, 0 if the line was already present (in an exclusive hierarchy, an LLC install also counts a
+   line in the L2 as present), -1 if its set is full. A full set is left alone:
    lines arrive soonest-needed first, so what the set holds is needed sooner. (Evicting would also
    be wrong for another reason: every install happens in cycle 0, so all installed lines tie on
    LRU age and the victim would always be way 0.) */
@@ -4766,6 +4767,10 @@ int spf_install_line(uint64_t addr, int level) {
   Addr line_addr, repl_line_addr;
   Flag victim_valid;
   if (cache_access(c, addr, &line_addr, FALSE))
+    return 0;
+  /* Exclusive hierarchy: a line the L2 holds does not also go in the LLC (as in l1_fill_line), so the
+     LLC's capacity goes to the next lines rather than to copies. */
+  if (level == 3 && EXCLUSIVE_CACHES && cache_access(&MLC(0)->cache, addr, &line_addr, FALSE))
     return 0;
   get_next_repl_line(c, 0, addr, &repl_line_addr, &victim_valid);
   if (victim_valid)
