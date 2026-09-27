@@ -1,0 +1,13 @@
+uid,phase,task,comm,instrs,base_ipc,instant_l2,instant_llc,perfect_all,stream_l2_20k,stream_l2_bulk,stream_llc_20k,stream_llc_bulk
+psf-259,harness start-up,psf__requests-1142,python3.12,99999419,1.750,1.001,1.001,1.276,1.009,0.991,1.018,1.001
+pydata-1174,harness start-up,pydata__xarray-2905,python3.12,99999417,1.747,1.001,1.001,1.276,1.009,0.992,1.018,1.000
+psf-257,environment setup,psf__requests-1142,python3.10,99935453,1.739,1.000,1.001,1.363,1.001,0.996,1.011,1.004
+pydata-1524,environment setup,pydata__xarray-2905,python3.14,5795788,1.958,1.098,1.194,1.377,1.162,1.132,1.125,1.101
+sphinx-doc-824,tool execution: python,sphinx-doc__sphinx-8459,python3.9,99999542,1.896,1.001,1.001,1.216,1.003,0.999,1.013,0.997
+pydata-1150,tool execution: python,pydata__xarray-2905,python3.10,92213958,1.699,1.001,1.001,1.384,1.002,0.998,1.012,1.005
+sphinx-doc-58,tool execution: shell,sphinx-doc__sphinx-8459,bash,1225136,1.287,1.538,1.379,1.722,1.517,1.500,1.361,1.309
+pydata-19,tool execution: shell,pydata__xarray-2905,bash,1225337,1.299,1.522,1.371,1.713,1.512,1.491,1.350,1.358
+sphinx-doc-678,harness: agent loop,sphinx-doc__sphinx-8459,python3.12,52000002,2.587,1.041,1.080,1.180,1.117,1.039,1.090,1.073
+pydata-1502,harness: agent loop,pydata__xarray-2905,python3.12,100000000,2.559,1.001,1.001,1.258,1.105,0.994,1.068,1.000
+psf-632,harness exit,psf__requests-1142,python3.12,99996823,0.641,1.000,1.000,3.588,1.837,0.941,1.494,0.983
+pydata-1511,harness exit,pydata__xarray-2905,python3.12,100000006,0.336,1.001,1.000,7.049,1.186,0.972,1.123,0.976

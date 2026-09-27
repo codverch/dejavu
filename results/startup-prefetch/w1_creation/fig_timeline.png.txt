@@ -1,0 +1,1 @@
+The traced django-13809 run: model inference and tool execution over time, and every Python process a tool call created, coloured by the identity of its creation region with the previous creation of the same script. Times are from the DynamoRIO-traced run, which is slower than native; the order and the identity are exact.

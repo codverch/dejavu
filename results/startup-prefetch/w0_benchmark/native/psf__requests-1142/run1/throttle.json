@@ -1,0 +1,8 @@
+{
+ "throttle_pairs": 294,
+ "throttled_seconds": 0.158339,
+ "max_rate_instr_per_s": 9999830726,
+ "counted_instrs_all_cpus": 53368000000,
+ "lost_instr_upper_bound": 1583365892,
+ "lost_share_upper_bound": 0.02967
+}

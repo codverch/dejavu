@@ -1,0 +1,63 @@
+type,python_scripts,calls
+state: _state_anthropic,_state_anthropi,1119
+str_replace_editor view,str_replace_edi,263
+grep,(none),147
+str_replace_editor create,str_replace_edi,145
+str_replace_editor str_replace,str_replace_edi,89
+python <script>,(script not captured),83
+submit,submit,52
+find,(none),49
+python -c,-c,39
+python -c,(script not captured),29
+rm,(none),26
+python -m pytest,(script not captured),25
+python <script>,reproduce_issue.py,25
+git,(none),20
+python <script>,comprehensive_test.py,14
+python <script>,edge_case_tests.py,8
+python -m unittest,(script not captured),5
+python -m django.core.management,(script not captured),4
+python <script>,test_types.py,4
+python <script>,basic_functionality_test.py,4
+python -m py_compile,(script not captured),3
+python <script>,test_fix_comprehensive.py,3
+python <script>,final_verification_test.py,3
+sed,(none),3
+ls,(none),2
+python <script>,debug_values.py,2
+python <script>,edge_case_test.py,2
+python <script>,debug_issue.py,2
+python <script>,final_test.py,2
+python <script>,final_validation.py,2
+python <script>,test_fix_verification.py,2
+python <script>,test_fix.py,2
+python <script>,test_runserver_skip_checks.py,1
+python -m django.core.management.runserver,(script not captured),1
+python <script>,test_skip_checks.py,1
+python -m django,(script not captured),1
+python <script>,test_skip_checks_final.py,1
+python <script>,test_simple_integration.py,1
+python <script>,comprehensive_test.py|(script not captured),1
+python <script>,comprehensive_test.py|-c|(script not captured),1
+python <script>,test_pandas_check.py,1
+python <script>,simple_test.py,1
+python <script>,exact_issue_test.py,1
+python <script>,solution_analysis.py,1
+python <script>,investigate_values.py,1
+python <script>,test_pandas_detection.py,1
+python <script>,test_pandas_fix.py,1
+python <script>,test_simple_pandas.py,1
+python <script>,test_final_verification.py,1
+python <script>,final_exact_test.py,1
+python <script>,issue_fixed_test.py,1
+python <script>,test_fix_simple.py,1
+python <script>,test_edge_cases.py,1
+python <script>,test_pandas_objects.py,1
+python <script>,test_xarray_objects.py,1
+python <script>,simple_repro.py,1
+python <script>,test_final.py,1
+python <script>,integration_test.py,1
+python <script>,test_final_approach.py,1
+python <script>,test_addition.py,1
+python <script>,debug_dimensions.py,1
+python <script>,final_verification.py,1

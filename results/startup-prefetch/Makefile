@@ -1,4 +1,4 @@
-STAGES = trace-dr trace-native convert summarize analyze build sim-baseline sim-ideal fetch figures
+STAGES = trace-dr trace-native convert summarize analyze build sim-baseline sim-ideal sim-more fetch figures
 
 all:
 	./run.sh all

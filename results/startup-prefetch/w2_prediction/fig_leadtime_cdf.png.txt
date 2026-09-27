@@ -1,0 +1,1 @@
+CDF of the time from the prediction point (end of response.parse) to the first Python exec of a tool call, native runs. It bounds how early a prefetch for the process's start-up can be issued.

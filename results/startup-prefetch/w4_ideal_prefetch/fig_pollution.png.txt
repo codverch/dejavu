@@ -1,0 +1,1 @@
+Cost of a false prediction: harness agent-loop windows (first 20M instructions, 5 windows) simulated while one Python creation's record is prefetched into them, relative to the same windows without it.

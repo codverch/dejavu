@@ -1,0 +1,6 @@
+phase,traced_windows,traced_instrs,processes
+tool execution,211,5867677345,187
+environment setup,235,2719855062,187
+harness start-up,126,1802198038,1
+harness: agent loop,7,1000057255,1
+child outside tool spans,1,290121,1

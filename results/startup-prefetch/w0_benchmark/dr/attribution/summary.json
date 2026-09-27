@@ -1,0 +1,1074 @@
+{
+ "run": "/localdisk/deepanjm/isca-traces/startup-prefetch/w0/dr/django__django-13809/dr1",
+ "policy": {
+  "warmup_instrs": 0,
+  "window_instrs": 200000000,
+  "period_instrs": 2000000000,
+  "retrace_every_instrs": 1800000000,
+  "window_n_start_formula": "n * 2000000000 instructions into each process",
+  "scope": "harness + all child processes (DR follows children); model server not traced",
+  "counting": "executed instructions, all threads of a process (-count_fetched_instrs NOT set)",
+  "task": "django__django-13809",
+  "harness": "SWE-agent (swetrace.cli run, config/default.yaml), deployment=local",
+  "model": "qwen3-coder-30b",
+  "max_calls": 50,
+  "pyspy_rate_hz": 200,
+  "drroot": "/localdisk/deepanjm/agentic-core/scarab-work/drio/DynamoRIO-Linux-10.0.0"
+ },
+ "units": 580,
+ "skipped_pre_exec": {
+  "dirs": 205,
+  "raw_bytes": 32155732,
+  "raw_bytes_total": 8689955320
+ },
+ "convert_failed": [],
+ "phases": {
+  "environment setup": {
+   "units": 235,
+   "procs": 187,
+   "traced_instrs": 2719855062,
+   "represented_instrs": 18913491810,
+   "by_process": [
+    [
+     "python3.14",
+     0.6342
+    ],
+    [
+     "git",
+     0.2361
+    ],
+    [
+     "bash",
+     0.1068
+    ],
+    [
+     "python3.10",
+     0.0105
+    ],
+    [
+     "python3.8",
+     0.0046
+    ],
+    [
+     "dpkg-query",
+     0.0039
+    ],
+    [
+     "sed",
+     0.0007
+    ],
+    [
+     "dash",
+     0.0006
+    ],
+    [
+     "grep",
+     0.0005
+    ],
+    [
+     "dirname",
+     0.0004
+    ]
+   ],
+   "native_top": [
+    [
+     "git:<no symbol>",
+     0.16
+    ],
+    [
+     "python3.14:_PyEval_EvalFrameDefault",
+     0.0849
+    ],
+    [
+     "libc.so.6:<no symbol>",
+     0.0714
+    ],
+    [
+     "python3.14:_Py_dict_lookup",
+     0.0694
+    ],
+    [
+     "bash:<no symbol>",
+     0.0452
+    ],
+    [
+     "python3.14:type_new.lto_priv.0",
+     0.0404
+    ],
+    [
+     "python3.14:r_object",
+     0.0289
+    ],
+    [
+     "libz.so.1.2.11:<no symbol>",
+     0.0281
+    ],
+    [
+     "libz.so.1.2.11:inflate",
+     0.0277
+    ],
+    [
+     "python3.14:_Py_hashtable_get",
+     0.0185
+    ],
+    [
+     "python3.14:_PyCode_New",
+     0.0182
+    ],
+    [
+     "python3.14:PyUnicode_FromKindAndData.localalias.lto_priv.0",
+     0.0138
+    ],
+    [
+     "python3.14:_Py_Dealloc.localalias.lto_priv.0",
+     0.009
+    ],
+    [
+     "ld-linux-x86-64.so.2:<no symbol>",
+     0.0084
+    ],
+    [
+     "python3.14:type_ready.lto_priv.0",
+     0.0083
+    ],
+    [
+     "python3.14:insertdict",
+     0.0082
+    ],
+    [
+     "python3.14:dict_setdefault_ref_lock_held.lto_priv.0",
+     0.0082
+    ],
+    [
+     "python3.14:r_long.lto_priv.0",
+     0.008
+    ],
+    [
+     "libc.so.6:malloc@@GLIBC_2.2.5",
+     0.0073
+    ],
+    [
+     "python3.14:unicode_dealloc.lto_priv.0",
+     0.0073
+    ],
+    [
+     "python3.10:<no symbol>",
+     0.006
+    ],
+    [
+     "python3.14:unicode_decode_utf8.lto_priv.0",
+     0.0059
+    ],
+    [
+     "python3.14:_PyEval_FrameClearAndPop.localalias.lto_priv.0",
+     0.0059
+    ],
+    [
+     "python3.14:intern_common.lto_priv.0",
+     0.0055
+    ],
+    [
+     "python3.14:tuple_traverse.lto_priv.0",
+     0.0054
+    ]
+   ],
+   "python_leaf_top": [
+    [
+     "add_fns_to_class (/root/miniconda3/lib/python3.14/dataclasses.py:506)",
+     0.1187
+    ],
+    [
+     "_call_with_frames_removed (<frozen importlib._bootstrap>:491)",
+     0.1164
+    ],
+    [
+     "<no python frame>",
+     0.0868
+    ],
+    [
+     "_compile_bytecode (<frozen importlib._bootstrap_external>:511)",
+     0.0844
+    ],
+    [
+     "namedtuple (/root/miniconda3/lib/python3.14/collections/__init__.py:447)",
+     0.0374
+    ],
+    [
+     "__new__ (<frozen abc>:106)",
+     0.0199
+    ],
+    [
+     "_path_stat (<frozen importlib._bootstrap_external>:152)",
+     0.0164
+    ],
+    [
+     "get_data (<frozen importlib._bootstrap_external>:950)",
+     0.0148
+    ],
+    [
+     "addpackage (<frozen site>:213)",
+     0.0084
+    ],
+    [
+     "__new__ (<frozen abc>:107)",
+     0.0084
+    ],
+    [
+     "find_spec (/root/miniconda3/lib/python3.14/site-packages/_distutils_hack/__init__.py:107)",
+     0.0078
+    ],
+    [
+     "_path_join (<frozen importlib._bootstrap_external>:133)",
+     0.0073
+    ],
+    [
+     "<module> (<frozen importlib._bootstrap>:0)",
+     0.0054
+    ],
+    [
+     "_get_exports_list (<frozen os>:48)",
+     0.0053
+    ],
+    [
+     "__new__ (/root/miniconda3/lib/python3.14/enum.py:550)",
+     0.0049
+    ],
+    [
+     "_fill_cache (<frozen importlib._bootstrap_external>:1412)",
+     0.0047
+    ],
+    [
+     "find_spec (<frozen importlib._bootstrap_external>:1397)",
+     0.0038
+    ],
+    [
+     "_parse (/root/miniconda3/lib/python3.14/re/_parser.py:878)",
+     0.0032
+    ],
+    [
+     "<module> (<string>:0)",
+     0.0032
+    ],
+    [
+     "get_code (<frozen importlib._bootstrap_external>:861)",
+     0.0031
+    ],
+    [
+     "namedtuple (/root/miniconda3/lib/python3.14/collections/__init__.py:515)",
+     0.0029
+    ],
+    [
+     "_path_join (<frozen importlib._bootstrap_external>:134)",
+     0.0028
+    ],
+    [
+     "_find_and_load (<frozen importlib._bootstrap>:1368)",
+     0.0027
+    ],
+    [
+     "get_data (<frozen importlib._bootstrap_external>:951)",
+     0.0027
+    ],
+    [
+     "_load_unlocked (<frozen importlib._bootstrap>:938)",
+     0.0026
+    ]
+   ]
+  },
+  "harness start-up": {
+   "units": 126,
+   "procs": 1,
+   "traced_instrs": 1802198038,
+   "represented_instrs": 18021980380,
+   "by_process": [
+    [
+     "python3.12",
+     1.0
+    ]
+   ],
+   "native_top": [
+    [
+     "libscipy_openblas64_-61654e39.so:blas_thread_server",
+     0.331
+    ],
+    [
+     "python3.12:_PyEval_EvalFrameDefault",
+     0.2002
+    ],
+    [
+     "python3.12:type_new",
+     0.0237
+    ],
+    [
+     "libc.so.6:<no symbol>",
+     0.0207
+    ],
+    [
+     "python3.12:_PyObject_Free",
+     0.0189
+    ],
+    [
+     "python3.12:_PyObject_Malloc",
+     0.0161
+    ],
+    [
+     "python3.12:tupledealloc",
+     0.0147
+    ],
+    [
+     "python3.12:r_object",
+     0.0127
+    ],
+    [
+     "python3.12:PyDict_SetItem",
+     0.0119
+    ],
+    [
+     "python3.12:_PyFrame_ClearExceptCode",
+     0.0113
+    ],
+    [
+     "python3.12:pysiphash",
+     0.0104
+    ],
+    [
+     "python3.12:scan_once_unicode",
+     0.0098
+    ],
+    [
+     "python3.12:scanstring_unicode",
+     0.0081
+    ],
+    [
+     "python3.12:object_recursive_isinstance",
+     0.0078
+    ],
+    [
+     "python3.12:PyLong_FromString",
+     0.0077
+    ],
+    [
+     "python3.12:_PyObject_LookupAttr",
+     0.0077
+    ],
+    [
+     "python3.12:list_contains",
+     0.0074
+    ],
+    [
+     "python3.12:PyDict_GetItemWithError",
+     0.0063
+    ],
+    [
+     "python3.12:PyDict_SetDefault",
+     0.006
+    ],
+    [
+     "python3.12:_PyCode_New",
+     0.006
+    ],
+    [
+     "python3.12:binascii_a2b_base64",
+     0.0057
+    ],
+    [
+     "python3.12:PyObject_GenericGetAttr",
+     0.0055
+    ],
+    [
+     "python3.12:_PyEval_Vector",
+     0.0049
+    ],
+    [
+     "python3.12:getset_get",
+     0.0047
+    ],
+    [
+     "python3.12:visit_reachable",
+     0.0045
+    ]
+   ],
+   "python_leaf_top": [
+    [
+     "raw_decode (/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/json/decoder.py:354)",
+     0.0613
+    ],
+    [
+     "_call_with_frames_removed (<frozen importlib._bootstrap>:488)",
+     0.0501
+    ],
+    [
+     "_compile_bytecode (<frozen importlib._bootstrap_external>:757)",
+     0.0416
+    ],
+    [
+     "__init__ (/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/typing.py:904)",
+     0.0334
+    ],
+    [
+     "load_tiktoken_bpe (/localdisk/deepanjm/agentic-core/swe-agent-venv/lib/python3.12/site-packages/tiktoken/load.py:168)",
+     0.0324
+    ],
+    [
+     "load_tiktoken_bpe (/localdisk/deepanjm/agentic-core/swe-agent-venv/lib/python3.12/site-packages/tiktoken/load.py:167)",
+     0.0213
+    ],
+    [
+     "__new__ (<frozen abc>:106)",
+     0.0178
+    ],
+    [
+     "_copy (/localdisk/deepanjm/agentic-core/swe-agent-venv/lib/python3.12/site-packages/pydantic/fields.py:825)",
+     0.0169
+    ],
+    [
+     "b64decode (/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/base64.py:88)",
+     0.0159
+    ],
+    [
+     "<no python frame>",
+     0.0153
+    ],
+    [
+     "get_origin (/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/typing.py:2364)",
+     0.0147
+    ],
+    [
+     "namedtuple (/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/collections/__init__.py:441)",
+     0.0129
+    ],
+    [
+     "__init__ (/localdisk/deepanjm/agentic-core/swe-agent-venv/lib/python3.12/site-packages/tiktoken/core.py:48)",
+     0.0102
+    ],
+    [
+     "__init__ (/localdisk/deepanjm/agentic-core/swe-agent-venv/lib/python3.12/site-packages/tiktoken/core.py:57)",
+     0.0097
+    ],
+    [
+     "_create_fn (/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/dataclasses.py:473)",
+     0.0095
+    ],
+    [
+     "create_schema_validator (/localdisk/deepanjm/agentic-core/swe-agent-venv/lib/python3.12/site-packages/pydantic/plugin/_schema_validator.py:53)",
+     0.0083
+    ],
+    [
+     "_dict_not_none (/localdisk/deepanjm/agentic-core/swe-agent-venv/lib/python3.12/site-packages/pydantic_core/core_schema.py:4350)",
+     0.0081
+    ],
+    [
+     "__getattr__ (/localdisk/deepanjm/agentic-core/swe-agent-venv/lib/python3.12/site-packages/pydantic/_internal/_config.py:156)",
+     0.0078
+    ],
+    [
+     "__getattr__ (/localdisk/deepanjm/agentic-core/swe-agent-venv/lib/python3.12/site-packages/pydantic/_internal/_config.py:159)",
+     0.0076
+    ],
+    [
+     "b64decode (/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/base64.py:83)",
+     0.007
+    ],
+    [
+     "_path_stat (<frozen importlib._bootstrap_external>:147)",
+     0.0068
+    ],
+    [
+     "__init__ (/localdisk/deepanjm/agentic-core/swe-agent-venv/lib/python3.12/site-packages/pydantic/fields.py:238)",
+     0.0066
+    ],
+    [
+     "collect_model_fields (/localdisk/deepanjm/agentic-core/swe-agent-venv/lib/python3.12/site-packages/pydantic/_internal/_fields.py:315)",
+     0.0064
+    ],
+    [
+     "complete_model_class (/localdisk/deepanjm/agentic-core/swe-agent-venv/lib/python3.12/site-packages/pydantic/_internal/_model_construction.py:700)",
+     0.0062
+    ],
+    [
+     "get_data (<frozen importlib._bootstrap_external>:1190)",
+     0.0062
+    ]
+   ]
+  },
+  "tool execution": {
+   "units": 211,
+   "procs": 187,
+   "traced_instrs": 5867677345,
+   "represented_instrs": 14868154876,
+   "by_process": [
+    [
+     "python3.8",
+     0.9728
+    ],
+    [
+     "git",
+     0.0123
+    ],
+    [
+     "find",
+     0.0083
+    ],
+    [
+     "bash",
+     0.0048
+    ],
+    [
+     "dash",
+     0.0013
+    ],
+    [
+     "grep",
+     0.0003
+    ],
+    [
+     "uname",
+     0.0001
+    ],
+    [
+     "head",
+     0.0001
+    ],
+    [
+     "rm",
+     0.0
+    ]
+   ],
+   "native_top": [
+    [
+     "libpython3.8.so.1.0:_PyEval_EvalFrameDefault",
+     0.1795
+    ],
+    [
+     "libpython3.8.so.1.0:lookdict_unicode_nodummy",
+     0.0738
+    ],
+    [
+     "libpython3.8.so.1.0:r_object",
+     0.0589
+    ],
+    [
+     "libpython3.8.so.1.0:type_new",
+     0.0568
+    ],
+    [
+     "libc.so.6:<no symbol>",
+     0.0431
+    ],
+    [
+     "libpython3.8.so.1.0:pysiphash",
+     0.0295
+    ],
+    [
+     "libpython3.8.so.1.0:lookdict_unicode",
+     0.0274
+    ],
+    [
+     "libpython3.8.so.1.0:_PyObject_Malloc",
+     0.0256
+    ],
+    [
+     "libpython3.8.so.1.0:_PyFunction_Vectorcall",
+     0.0238
+    ],
+    [
+     "libpython3.8.so.1.0:PyUnicode_InternInPlace",
+     0.0173
+    ],
+    [
+     "libpython3.8.so.1.0:_PyObject_Free",
+     0.0162
+    ],
+    [
+     "libpython3.8.so.1.0:collect",
+     0.0162
+    ],
+    [
+     "libpython3.8.so.1.0:visit_reachable",
+     0.0151
+    ],
+    [
+     "ld-linux-x86-64.so.2:<no symbol>",
+     0.0145
+    ],
+    [
+     "libpython3.8.so.1.0:frame_dealloc",
+     0.0131
+    ],
+    [
+     "libpython3.8.so.1.0:PyObject_GenericGetAttr",
+     0.0124
+    ],
+    [
+     "libpython3.8.so.1.0:parsetok",
+     0.0122
+    ],
+    [
+     "libpython3.8.so.1.0:PyType_Ready",
+     0.0117
+    ],
+    [
+     "libpython3.8.so.1.0:tupledealloc",
+     0.0111
+    ],
+    [
+     "libpython3.8.so.1.0:lookdict_split",
+     0.0096
+    ],
+    [
+     "libpython3.8.so.1.0:tupletraverse",
+     0.0091
+    ],
+    [
+     "libpython3.8.so.1.0:PyUnicode_DecodeUTF8Stateful",
+     0.0088
+    ],
+    [
+     "git:<no symbol>",
+     0.0088
+    ],
+    [
+     "libpython3.8.so.1.0:PyObject_GenericSetAttr",
+     0.0087
+    ],
+    [
+     "libpython3.8.so.1.0:visit_decref",
+     0.0086
+    ]
+   ],
+   "python_leaf_top": [
+    [
+     "<no python frame>",
+     0.2009
+    ],
+    [
+     "_compile_bytecode (<frozen importlib._bootstrap_external>:640)",
+     0.1253
+    ],
+    [
+     "_call_with_frames_removed (<frozen importlib._bootstrap>:219)",
+     0.1072
+    ],
+    [
+     "namedtuple (/root/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/lib/python3.8/collections/__init__.py:394)",
+     0.0551
+    ],
+    [
+     "__new__ (/root/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/lib/python3.8/abc.py:85)",
+     0.0465
+    ],
+    [
+     "_path_stat (<frozen importlib._bootstrap_external>:142)",
+     0.0332
+    ],
+    [
+     "addpackage (/root/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/lib/python3.8/site.py:177)",
+     0.0305
+    ],
+    [
+     "__init__ (/root/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/lib/python3.8/typing.py:500)",
+     0.0221
+    ],
+    [
+     "__new__ (/root/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/lib/python3.8/abc.py:86)",
+     0.0219
+    ],
+    [
+     "get_data (<frozen importlib._bootstrap_external>:1032)",
+     0.0218
+    ],
+    [
+     "_path_join (<frozen importlib._bootstrap_external>:123)",
+     0.0166
+    ],
+    [
+     "find_spec (<frozen importlib._bootstrap_external>:1537)",
+     0.0153
+    ],
+    [
+     "get_data (<frozen importlib._bootstrap_external>:1033)",
+     0.0132
+    ],
+    [
+     "_fill_cache (<frozen importlib._bootstrap_external>:1553)",
+     0.013
+    ],
+    [
+     "find_spec (<frozen importlib._bootstrap_external>:1538)",
+     0.0115
+    ],
+    [
+     "_parse (/root/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/lib/python3.8/sre_parse.py:852)",
+     0.0113
+    ],
+    [
+     "_find_and_load (<frozen importlib._bootstrap>:991)",
+     0.0109
+    ],
+    [
+     "find_spec (<frozen importlib._bootstrap_external>:1534)",
+     0.0098
+    ],
+    [
+     "_verbose_message (<frozen importlib._bootstrap>:224)",
+     0.0091
+    ],
+    [
+     "_get_exports_list (/root/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/lib/python3.8/os.py:46)",
+     0.0083
+    ],
+    [
+     "_init_module_attrs (<frozen importlib._bootstrap>:526)",
+     0.0076
+    ],
+    [
+     "__subclasscheck__ (/root/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/lib/python3.8/abc.py:102)",
+     0.0075
+    ],
+    [
+     "_path_split (<frozen importlib._bootstrap_external>:132)",
+     0.0072
+    ],
+    [
+     "find_spec (/localdisk/deepanjm/scaling-out/envs/django__django-13809/lib/python3.8/site-packages/_distutils_hack/__init__.py:108)",
+     0.0068
+    ],
+    [
+     "__new__ (/root/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/lib/python3.8/ssl.py:452)",
+     0.0062
+    ]
+   ]
+  },
+  "harness: agent loop": {
+   "units": 7,
+   "procs": 1,
+   "traced_instrs": 1000057255,
+   "represented_instrs": 10000572550,
+   "by_process": [
+    [
+     "python3.12",
+     1.0
+    ]
+   ],
+   "native_top": [
+    [
+     "python3.12:_PyEval_EvalFrameDefault",
+     0.2836
+    ],
+    [
+     "python3.12:py_encode_basestring_ascii",
+     0.0579
+    ],
+    [
+     "_tiktoken.cpython-312-x86_64-linux-gnu.so:fancy_regex::vm::run_with::<str, (usize, usize), fancy_regex::vm::run_spans<str>::{closure#0}>",
+     0.0318
+    ],
+    [
+     "python3.12:_PyObject_Free",
+     0.0232
+    ],
+    [
+     "python3.12:tupledealloc",
+     0.0232
+    ],
+    [
+     "_tiktoken.cpython-312-x86_64-linux-gnu.so:regex_automata::hybrid::search::find_fwd",
+     0.0214
+    ],
+    [
+     "python3.12:sre_ucs1_match",
+     0.0208
+    ],
+    [
+     "libc.so.6:<no symbol>",
+     0.0197
+    ],
+    [
+     "python3.12:_PyFrame_ClearExceptCode",
+     0.0181
+    ],
+    [
+     "python3.12:_PyObject_Malloc",
+     0.0168
+    ],
+    [
+     "_tiktoken.cpython-312-x86_64-linux-gnu.so:<fancy_regex::vm::State>::save",
+     0.0164
+    ],
+    [
+     "python3.12:unicode_repr",
+     0.0152
+    ],
+    [
+     "python3.12:type_new",
+     0.0148
+    ],
+    [
+     "_tiktoken.cpython-312-x86_64-linux-gnu.so:<regex_automata::meta::regex::Regex>::search_half",
+     0.0118
+    ],
+    [
+     "python3.12:object_recursive_isinstance",
+     0.0093
+    ],
+    [
+     "python3.12:PyDict_GetItemWithError",
+     0.0088
+    ],
+    [
+     "python3.12:_PyEval_Vector",
+     0.0085
+    ],
+    [
+     "python3.12:_PyObject_LookupAttr",
+     0.0085
+    ],
+    [
+     "python3.12:sre_ucs2_match",
+     0.0085
+    ],
+    [
+     "_tiktoken.cpython-312-x86_64-linux-gnu.so:<regex_automata::meta::strategy::Core as regex_automata::meta::strategy::Strategy>::search_half",
+     0.0073
+    ],
+    [
+     "_tiktoken.cpython-312-x86_64-linux-gnu.so:<fancy_regex::vm::State>::push",
+     0.0073
+    ],
+    [
+     "python3.12:_PyObject_GenericGetAttrWithDict",
+     0.0071
+    ],
+    [
+     "_tiktoken.cpython-312-x86_64-linux-gnu.so:tiktoken::byte_pair_encode",
+     0.007
+    ],
+    [
+     "python3.12:_PyErr_SetObject",
+     0.0066
+    ],
+    [
+     "python3.12:PyType_GenericAlloc",
+     0.0062
+    ]
+   ],
+   "python_leaf_top": [
+    [
+     "encode (/localdisk/deepanjm/agentic-core/swe-agent-venv/lib/python3.12/site-packages/tiktoken/core.py:127)",
+     0.1893
+    ],
+    [
+     "_iterencode_dict (/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/json/encoder.py:386)",
+     0.0688
+    ],
+    [
+     "highlight_regex (/localdisk/deepanjm/agentic-core/swe-agent-venv/lib/python3.12/site-packages/rich/text.py:618)",
+     0.0437
+    ],
+    [
+     "strip_control_codes (/localdisk/deepanjm/agentic-core/swe-agent-venv/lib/python3.12/site-packages/rich/control.py:192)",
+     0.0419
+    ],
+    [
+     "__init__ (/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/typing.py:904)",
+     0.0327
+    ],
+    [
+     "_transform_recursive (/localdisk/deepanjm/agentic-core/swe-agent-venv/lib/python3.12/site-packages/openai/_utils/_transform.py:172)",
+     0.0276
+    ],
+    [
+     "_compile_bytecode (<frozen importlib._bootstrap_external>:757)",
+     0.0238
+    ],
+    [
+     "get_origin (/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/typing.py:2364)",
+     0.0206
+    ],
+    [
+     "<genexpr> (/localdisk/deepanjm/agentic-core/swe-agent-venv/lib/python3.12/site-packages/rich/cells.py:132)",
+     0.0181
+    ],
+    [
+     "deepcopy (/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/copy.py:136)",
+     0.0168
+    ],
+    [
+     "_deepcopy_dict (/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/copy.py:221)",
+     0.0147
+    ],
+    [
+     "cell_len (/localdisk/deepanjm/agentic-core/swe-agent-venv/lib/python3.12/site-packages/rich/cells.py:109)",
+     0.014
+    ],
+    [
+     "_iterencode_dict (/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/json/encoder.py:406)",
+     0.0137
+    ],
+    [
+     "__hash__ (/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/typing.py:1286)",
+     0.0134
+    ],
+    [
+     "<lambda> (<string>:1)",
+     0.0132
+    ],
+    [
+     "_compile (/localdisk/deepanjm/agentic-core/swe-agent-venv/lib/python3.12/site-packages/jinja2/environment.py:709)",
+     0.0131
+    ],
+    [
+     "__hash__ (/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/typing.py:1641)",
+     0.0127
+    ],
+    [
+     "get_origin (/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/typing.py:2362)",
+     0.0109
+    ],
+    [
+     "__new__ (<frozen abc>:106)",
+     0.0109
+    ],
+    [
+     "parent (<frozen importlib._bootstrap>:649)",
+     0.0089
+    ],
+    [
+     "get_data (<frozen importlib._bootstrap_external>:1190)",
+     0.0088
+    ],
+    [
+     "deepcopy (/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/copy.py:127)",
+     0.0085
+    ],
+    [
+     "_iterencode_list (/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/json/encoder.py:326)",
+     0.0083
+    ],
+    [
+     "render (/localdisk/deepanjm/agentic-core/swe-agent-venv/lib/python3.12/site-packages/rich/text.py:774)",
+     0.0074
+    ],
+    [
+     "encode (/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/json/encoder.py:202)",
+     0.0073
+    ]
+   ]
+  },
+  "child outside tool spans": {
+   "units": 1,
+   "procs": 1,
+   "traced_instrs": 290121,
+   "represented_instrs": 290121,
+   "by_process": [
+    [
+     "uname",
+     1.0
+    ]
+   ],
+   "native_top": [
+    [
+     "ld-linux-x86-64.so.2:<no symbol>",
+     0.6805
+    ],
+    [
+     "libc.so.6:<no symbol>",
+     0.1959
+    ],
+    [
+     "libc.so.6:getenv@@GLIBC_2.2.5",
+     0.0678
+    ],
+    [
+     "libc.so.6:_IO_getline_info@@GLIBC_2.2.5",
+     0.018
+    ],
+    [
+     "libc.so.6:fgets_unlocked@@GLIBC_2.2.5",
+     0.0111
+    ],
+    [
+     "libc.so.6:malloc@@GLIBC_2.2.5",
+     0.0037
+    ],
+    [
+     "ld-linux-x86-64.so.2:__tunable_get_val@@GLIBC_PRIVATE",
+     0.0023
+    ],
+    [
+     "libc.so.6:setlocale@@GLIBC_2.2.5",
+     0.0021
+    ],
+    [
+     "uname:<no symbol>",
+     0.0011
+    ],
+    [
+     "libc.so.6:_IO_getline@@GLIBC_2.2.5",
+     0.0009
+    ],
+    [
+     "libc.so.6:free@@GLIBC_2.2.5",
+     0.0007
+    ],
+    [
+     "libc.so.6:fclose@@GLIBC_2.2.5",
+     0.0007
+    ],
+    [
+     "libc.so.6:_IO_file_close_it@@GLIBC_2.2.5",
+     0.0006
+    ],
+    [
+     "libc.so.6:pthread_rwlock_wrlock@GLIBC_2.2.5",
+     0.0005
+    ],
+    [
+     "libc.so.6:__open_nocancel@@GLIBC_PRIVATE",
+     0.0005
+    ],
+    [
+     "libc.so.6:_IO_setb@@GLIBC_2.2.5",
+     0.0005
+    ],
+    [
+     "libc.so.6:_IO_file_underflow@@GLIBC_2.2.5",
+     0.0004
+    ],
+    [
+     "libc.so.6:pthread_rwlock_unlock@GLIBC_2.2.5",
+     0.0004
+    ],
+    [
+     "libc.so.6:realloc@@GLIBC_2.2.5",
+     0.0004
+    ],
+    [
+     "libc.so.6:memmem@@GLIBC_2.2.5",
+     0.0004
+    ],
+    [
+     "libc.so.6:_IO_link_in@@GLIBC_2.2.5",
+     0.0004
+    ],
+    [
+     "libc.so.6:_IO_file_doallocate@@GLIBC_2.2.5",
+     0.0004
+    ],
+    [
+     "ld-linux-x86-64.so.2:_dl_allocate_tls_init@@GLIBC_PRIVATE",
+     0.0004
+    ],
+    [
+     "libc.so.6:fflush@@GLIBC_2.2.5",
+     0.0003
+    ],
+    [
+     "libc.so.6:_IO_file_fopen@@GLIBC_2.2.5",
+     0.0003
+    ]
+   ],
+   "python_leaf_top": []
+  }
+ }
+}

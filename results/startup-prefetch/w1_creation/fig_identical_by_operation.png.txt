@@ -1,0 +1,1 @@
+For each operation of the creation region of python3.8 _state_anthropic (26 creations, one per agent step): the share of creations whose instruction count in that operation equals the most common count exactly, the mean count, and the coefficient of variation. Dark bars: phases cut at symbol boundaries; light bars: activity categories within the region (lib/categories.py).

@@ -1,0 +1,1 @@
+Tool calls by type over 30 native SWE-agent runs of 5 SWE-bench tasks. Grey: all calls of the type; blue: calls during which a Python interpreter was exec'd (perf exec events). 'state: _state_anthropic' is SWE-agent's state probe after every action.

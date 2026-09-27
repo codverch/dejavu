@@ -1,0 +1,1 @@
+The ideal prefetcher fed with the record of the previous creation of the same script, rebased to the new process's library addresses (heap, stack and anonymous lines cannot be rebased and are dropped: median 49% of the record), against the oracle record of the same run. Of the rebased lines, a median 100.0% are touched by the new process; they cover 51.0% of its own lines.

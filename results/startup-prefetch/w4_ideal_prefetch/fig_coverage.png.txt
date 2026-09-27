@@ -1,0 +1,1 @@
+Median over creations of the share of demand misses at the prefetcher's destination level (L2 or LLC) that the ideal prefetcher removes.

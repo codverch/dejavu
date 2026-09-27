@@ -1,0 +1,1 @@
+(speedup - 1) / (bound - 1) for every ideal-prefetcher configuration, all Python creations: against perfect caches at every level, and against a perfect cache at the level the prefetcher fills (L2 or LLC).

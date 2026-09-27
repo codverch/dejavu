@@ -1,0 +1,1 @@
+CDF over 30 native runs of the per-run recall of predicting, at the end of response.parse, whether a tool call will create a Python process (all calls). P0: P0: always yes; P1: P1: rule on call type (leave-one-task-out); P2: P2: previous call of the same kind created Python; P3: P3: P1 or P2.

@@ -1,0 +1,52 @@
+task,phase,kind,instrs
+django__django-13809,child outside tool spans,other,290121
+django__django-13809,environment setup,other,4602557593
+django__django-13809,environment setup,python,12280729856
+django__django-13809,environment setup,shell,2030204361
+django__django-13809,harness start-up,harness,18021980380
+django__django-13809,harness: agent loop,harness,10000572550
+django__django-13809,tool execution,other,314359259
+django__django-13809,tool execution,python,14463477077
+django__django-13809,tool execution,shell,90318540
+psf__requests-1142,child outside tool spans,other,240227
+psf__requests-1142,environment setup,other,1216963023
+psf__requests-1142,environment setup,python,8295493959
+psf__requests-1142,environment setup,shell,1030945698
+psf__requests-1142,harness exit,harness,1000134460
+psf__requests-1142,harness start-up,harness,18036739050
+psf__requests-1142,harness: agent loop,harness,14001225450
+psf__requests-1142,tool execution,other,18361203
+psf__requests-1142,tool execution,python,27970294248
+psf__requests-1142,tool execution,shell,96251110
+pydata__xarray-2905,child outside tool spans,other,9678396
+pydata__xarray-2905,child outside tool spans,shell,304880
+pydata__xarray-2905,environment setup,other,2187567832
+pydata__xarray-2905,environment setup,python,8287812758
+pydata__xarray-2905,environment setup,shell,31498526
+pydata__xarray-2905,harness exit,harness,1000070820
+pydata__xarray-2905,harness start-up,harness,17044814690
+pydata__xarray-2905,harness: agent loop,harness,16001192490
+pydata__xarray-2905,tool execution,other,32747657
+pydata__xarray-2905,tool execution,python,58475584958
+pydata__xarray-2905,tool execution,shell,119443233
+sphinx-doc__sphinx-8459,child outside tool spans,other,18382050
+sphinx-doc__sphinx-8459,child outside tool spans,shell,304876
+sphinx-doc__sphinx-8459,environment setup,other,2241310183
+sphinx-doc__sphinx-8459,environment setup,python,9196432856
+sphinx-doc__sphinx-8459,environment setup,shell,1031272177
+sphinx-doc__sphinx-8459,harness exit,harness,1000101010
+sphinx-doc__sphinx-8459,harness start-up,harness,18036545280
+sphinx-doc__sphinx-8459,harness: agent loop,harness,31003219960
+sphinx-doc__sphinx-8459,tool execution,other,87608677
+sphinx-doc__sphinx-8459,tool execution,python,76570226198
+sphinx-doc__sphinx-8459,tool execution,shell,162508619
+sympy__sympy-11618,child outside tool spans,other,240225
+sympy__sympy-11618,environment setup,other,4179939508
+sympy__sympy-11618,environment setup,python,8294792449
+sympy__sympy-11618,environment setup,shell,1030894257
+sympy__sympy-11618,harness exit,harness,1000182610
+sympy__sympy-11618,harness start-up,harness,17038974330
+sympy__sympy-11618,harness: agent loop,harness,10001008830
+sympy__sympy-11618,tool execution,other,50753481
+sympy__sympy-11618,tool execution,python,30576399995
+sympy__sympy-11618,tool execution,shell,80970802

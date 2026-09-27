@@ -1,0 +1,1 @@
+Median over creations of the extra memory traffic the ideal prefetcher causes: the increase in LLC misses of all kinds (demand and prefetch) x 64 B.

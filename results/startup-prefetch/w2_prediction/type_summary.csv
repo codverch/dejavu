@@ -1,0 +1,20 @@
+type,calls,create_python,share
+state: _state_anthropic,1119,1119,1.0
+str_replace_editor view,263,263,1.0
+python <script>,186,186,1.0
+grep,147,0,0.0
+str_replace_editor create,145,145,1.0
+str_replace_editor str_replace,89,89,1.0
+python -c,68,68,1.0
+submit,52,52,1.0
+find,49,0,0.0
+rm,26,0,0.0
+python -m pytest,25,25,1.0
+git,20,0,0.0
+python -m unittest,5,5,1.0
+python -m django.core.management,4,4,1.0
+python -m py_compile,3,3,1.0
+sed,3,0,0.0
+ls,2,0,0.0
+python -m django.core.management.runserver,1,1,1.0
+python -m django,1,1,1.0

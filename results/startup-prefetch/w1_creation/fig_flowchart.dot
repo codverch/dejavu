@@ -1,0 +1,20 @@
+digraph creation {
+  rankdir=TB; node [shape=box, style=rounded, fontname=serif];
+  n0 [label="Harness sends the command to the SWE-ReX shell"];
+  n1 [label="sh -c 'env bash -n'  (tool-call wrapper) 0.30 M instr.   2.6 ms native"];
+  n0 -> n1;
+  n2 [label="env → bash -n  (runs the command) 1.28 M instr.   1.8 ms native"];
+  n1 -> n2;
+  n3 [label="exec python3 _state_anthropic  (after every action; the editor tool runs the same sequence)"];
+  n2 -> n3;
+  n4 [label="loader: ld.so maps libraries, relocates, resolves symbols (exec to the ELF entry point)"];
+  n3 -> n4;
+  n5 [label="process init: _start, libc start-up, to Py_BytesMain"];
+  n4 -> n5;
+  n6 [label="interpreter init: codecs, types, site, unmarshal .pyc, imports"];
+  n5 -> n6;
+  n7 [label="tool code: 6.2 M instr."];
+  n6 -> n7;
+  n8 [label="teardown: 7.8 M instr.   whole process 25 ms native"];
+  n7 -> n8;
+}

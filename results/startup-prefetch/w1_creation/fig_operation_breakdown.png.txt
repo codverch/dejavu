@@ -1,0 +1,1 @@
+Where the instructions of Python process creation go, drawn in the form of Fig. 21 of 'Agentic Coding in the Wild' (sorted bars, value above each, long tail as Others). That paper records only tool names and defines no taxonomy of the work inside a tool call, so the operation categories are this study's (lib/categories.py: function -> category rules).

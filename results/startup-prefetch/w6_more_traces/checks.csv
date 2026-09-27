@@ -1,0 +1,13 @@
+check,cid,ok,record_cycles,base_cycles
+record pass cycles == base cycles,psf-259,1,57132475,57132475
+record pass cycles == base cycles,pydata-1174,1,57241138,57241138
+record pass cycles == base cycles,psf-257,1,57481240,57481240
+record pass cycles == base cycles,pydata-1524,1,2959936,2959936
+record pass cycles == base cycles,sphinx-doc-824,1,52730261,52730261
+record pass cycles == base cycles,pydata-1150,1,54287514,54287514
+record pass cycles == base cycles,sphinx-doc-58,1,952050,952050
+record pass cycles == base cycles,pydata-19,1,942977,942977
+record pass cycles == base cycles,sphinx-doc-678,1,20097402,20097402
+record pass cycles == base cycles,pydata-1502,1,39079349,39079349
+record pass cycles == base cycles,psf-632,1,156035949,156035949
+record pass cycles == base cycles,pydata-1511,1,297367422,297367422

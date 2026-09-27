@@ -54,8 +54,8 @@ for k, (s, v) in enumerate(sorted(by.items(), key=lambda x: -len(x[1]))):
     v = np.sort(v)
     col = SCOL.get(s, "#7f7f7f")
     ax.step(np.r_[v[0], v], np.r_[0, np.arange(1, len(v) + 1) / len(v)], where="post", color=col, lw=1.1)
-    ax.text(v[0], 0.92 - 0.12 * k, f"{short(s)}: median {np.median(v):.3f}%, min {v.min():.3f}% (n={len(v)})",
-            color=col, fontsize=6.2, ha="left")
+    ax.text(1.03, 0.95 - 0.25 * k, f"{short(s)} (n={len(v)})\nmedian {np.median(v):.3f}%, min {v.min():.3f}%",
+            color=col, fontsize=6.2, ha="left", va="top", transform=ax.transAxes)   # labels beside the axes: the curves crowd 99.98
 ax.set_xlabel("Creation-region positions whose 32-instruction sequence\nalso ran in the previous creation of the script (%)")
 ax.set_ylabel("Fraction of pairs (CDF)"); ax.set_ylim(0, 1.02)
 st.save(fig, W1 / "fig_identical_cdf")

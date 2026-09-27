@@ -1,0 +1,15 @@
+{
+  "warmup_instrs": 0,
+  "window_instrs": 200000000,
+  "period_instrs": 2000000000,
+  "retrace_every_instrs": 1800000000,
+  "window_n_start_formula": "n * 2000000000 instructions into each process",
+  "scope": "harness + all child processes (DR follows children); model server not traced",
+  "counting": "executed instructions, all threads of a process (-count_fetched_instrs NOT set)",
+  "task": "django__django-13809",
+  "harness": "SWE-agent (swetrace.cli run, config/default.yaml), deployment=local",
+  "model": "qwen3-coder-30b",
+  "max_calls": 50,
+  "pyspy_rate_hz": 200,
+  "drroot": "/localdisk/deepanjm/agentic-core/scarab-work/drio/DynamoRIO-Linux-10.0.0"
+}

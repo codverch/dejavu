@@ -1,0 +1,46 @@
+script,source,config,speedup,p10,p90,n,recovered_of_perfect_all,recovered_of_perfect_level
+python3.8 _state_anthropic,self,instant_l2,1.0011,1.0006,1.0015,26,0.0043,0.0098
+python3.8 _state_anthropic,self,instant_llc,1.001,1.0006,1.0016,26,0.0041,0.0201
+python3.8 _state_anthropic,self,stream_l2_2k,1.0106,1.0099,1.0114,26,0.0435,0.0977
+python3.8 _state_anthropic,self,stream_l2_20k,1.0115,1.0109,1.0122,26,0.0473,0.1063
+python3.8 _state_anthropic,self,stream_l2_200k,1.0136,1.0131,1.0142,26,0.0562,0.1261
+python3.8 _state_anthropic,self,stream_l2_bulk,1.0014,1.0009,1.0019,26,0.0058,0.0131
+python3.8 _state_anthropic,self,stream_llc_2k,1.0177,1.0172,1.0181,26,0.0728,0.3531
+python3.8 _state_anthropic,self,stream_llc_20k,1.0193,1.0186,1.02,26,0.0794,0.3851
+python3.8 _state_anthropic,self,stream_llc_200k,1.0231,1.0224,1.0242,26,0.0952,0.4618
+python3.8 _state_anthropic,self,stream_llc_bulk,0.9955,0.993,0.9993,26,-0.0185,-0.0895
+python3.8 _state_anthropic,prev,stream_l2_20k,1.0196,1.0173,1.0221,25,,
+python3.8 _state_anthropic,prev,stream_l2_bulk,0.9966,0.996,0.9972,25,,
+python3.8 _state_anthropic,prev,stream_llc_20k,1.0147,1.0125,1.017,25,,
+python3.8 _state_anthropic,prev,stream_llc_bulk,1.0041,1.0035,1.0046,25,,
+python3.8 str_replace_editor,self,instant_l2,1.0011,1.001,1.0014,13,0.0047,0.0106
+python3.8 str_replace_editor,self,instant_llc,1.0011,1.0007,1.0015,13,0.0047,0.0229
+python3.8 str_replace_editor,self,stream_l2_2k,1.0111,1.0105,1.0118,13,0.0454,0.102
+python3.8 str_replace_editor,self,stream_l2_20k,1.0118,1.0111,1.0123,13,0.0486,0.1091
+python3.8 str_replace_editor,self,stream_l2_200k,1.014,1.0133,1.015,13,0.0576,0.1295
+python3.8 str_replace_editor,self,stream_l2_bulk,1.0015,1.0012,1.0018,13,0.0061,0.0138
+python3.8 str_replace_editor,self,stream_llc_2k,1.0177,1.0172,1.018,13,0.0727,0.3542
+python3.8 str_replace_editor,self,stream_llc_20k,1.0194,1.0186,1.02,13,0.0795,0.3875
+python3.8 str_replace_editor,self,stream_llc_200k,1.0235,1.0225,1.0245,13,0.0966,0.4706
+python3.8 str_replace_editor,self,stream_llc_bulk,0.9965,0.9934,0.9993,13,-0.0144,-0.07
+python3.8 str_replace_editor,prev,stream_l2_20k,1.018,1.0108,1.0219,12,,
+python3.8 str_replace_editor,prev,stream_l2_bulk,0.9967,0.9963,0.9971,12,,
+python3.8 str_replace_editor,prev,stream_llc_20k,1.013,1.0063,1.0168,12,,
+python3.8 str_replace_editor,prev,stream_llc_bulk,1.0041,1.0036,1.0046,12,,
+all Python creations,self,instant_l2,1.0011,1.0006,1.0015,45,0.0045,0.0101
+all Python creations,self,instant_llc,1.0011,1.0006,1.0015,45,0.0043,0.021
+all Python creations,self,stream_l2_2k,1.0107,1.0099,1.0115,45,0.0441,0.0989
+all Python creations,self,stream_l2_20k,1.0116,1.0109,1.0122,45,0.0476,0.1069
+all Python creations,self,stream_l2_200k,1.0137,1.0131,1.0143,45,0.0564,0.1267
+all Python creations,self,stream_l2_bulk,1.0014,1.0009,1.0019,45,0.0058,0.0131
+all Python creations,self,stream_llc_2k,1.0177,1.0172,1.0181,45,0.0728,0.3537
+all Python creations,self,stream_llc_20k,1.0193,1.0186,1.02,45,0.0795,0.3862
+all Python creations,self,stream_llc_200k,1.0232,1.0224,1.0243,45,0.0956,0.4644
+all Python creations,self,stream_llc_bulk,0.9957,0.9932,0.9993,45,-0.0178,-0.0863
+all Python creations,prev,stream_l2_20k,1.0191,1.0147,1.0222,39,,
+all Python creations,prev,stream_l2_bulk,0.9967,0.9962,0.9973,39,,
+all Python creations,prev,stream_llc_20k,1.0141,1.0098,1.0169,39,,
+all Python creations,prev,stream_llc_bulk,1.0041,1.0036,1.0048,39,,
+harness (false positive),pollution,instant_llc,1.0,,,5,,
+harness (false positive),pollution,stream_l2_bulk,0.9551,,,5,,
+harness (false positive),pollution,stream_llc_bulk,0.9833,,,5,,
