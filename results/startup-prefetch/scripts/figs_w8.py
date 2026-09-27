@@ -20,12 +20,14 @@ st.use()
 from anish_style import plt  # noqa: E402
 
 W8 = Path(sys.argv[1]) / "w8_headroom"
-LADDER = [("l1d_2x", "2× L1-D", "#e6e6e6"),
-          ("install_prev", "prefetch into L2+LLC at the model call", "#bdbdbd"),
-          ("ideal_l1i_prev", "ideal L1-I start-up prefetch", "#9ecae1"),
-          ("ideal_l1d_prev", "ideal L1-D start-up prefetch", "#4292c6"),
-          ("ideal_l1_prev", "ideal L1-I + L1-D start-up prefetch", "#08519c"),
-          ("ideal_l1_self", "perfect L1 (oracle)", "#252525")]
+# the user's palette (agentic-stuff/figscripts), in ladder order; dark pink marks the headline bar
+C_YEL, C_ORANGE, C_LIME, C_TEAL, C_PINK, C_NAVY = "#fff700", "#eb6f44", "#7ac141", "#1b7188", "#b02467", "#302f8d"
+LADDER = [("l1d_2x", "2× L1-D", C_YEL),
+          ("install_prev", "prefetch into L2+LLC at the model call", C_ORANGE),
+          ("ideal_l1i_prev", "ideal L1-I start-up prefetch", C_LIME),
+          ("ideal_l1d_prev", "ideal L1-D start-up prefetch", C_TEAL),
+          ("ideal_l1_prev", "ideal L1-I + L1-D start-up prefetch", C_PINK),
+          ("ideal_l1_self", "perfect L1 (oracle)", C_NAVY)]
 SHORT = {"django__django-13809": "django", "psf__requests-1142": "requests", "pydata__xarray-2905": "xarray",
          "sphinx-doc__sphinx-8459": "sphinx", "sympy__sympy-11618": "sympy"}
 
@@ -51,23 +53,30 @@ with open(W8 / "summary.csv", "w", newline="") as fh:
     w = csv.DictWriter(fh, fieldnames=list(dict.fromkeys(k for d in summ for k in d)), restval="")
     w.writeheader(); w.writerows(summ)
 
-# 1. geomean per task (Constable Fig. 7)
+# 1. geomean per task (Constable Fig. 7): boxed axes, dotted grid, boxed legend across the top
 groups = tasks + ["GEOMEAN"]
-fig, ax = plt.subplots(figsize=(7.0, 2.6))
+fig, ax = plt.subplots(figsize=(7.0, 3.0))
 bw = 0.8 / len(LADDER); x = np.arange(len(groups)) * 1.0
 top = 0
 for j, (c, lab, col) in enumerate(LADDER):
     v = np.array([pct(float(next(d[c] for d in summ if d["task"] == g))) for g in groups])
     xs = x + (j - (len(LADDER) - 1) / 2) * bw
-    ax.bar(xs, v, bw, color=col, edgecolor=st.INK, lw=0.4, label=lab)
-    ax.text(xs[-1], v[-1] + 0.6, f"{v[-1]:.1f}%", ha="center", va="bottom", fontsize=5.2, rotation=90)
+    ax.bar(xs, v, bw, color=col, edgecolor="black", lw=0.5, label=lab, zorder=3)
+    ax.text(xs[-1], v[-1] + 0.6, f"{v[-1]:.1f}", ha="center", va="bottom", fontsize=6.5, rotation=90, zorder=4)
     top = max(top, v.max())
-ax.axvline(x[-1] - 0.55, color=st.RULE, lw=0.6)
-ax.set_xticks(x); ax.set_xticklabels([SHORT.get(g, g) for g in groups])
-ax.set_ylabel("Geomean speedup\nover golden_cove (%)"); ax.set_ylim(0, top * 1.18)
-ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f"{y:g}%"))
-ax.legend(frameon=False, fontsize=6.2, loc="lower left", bbox_to_anchor=(0, 1.0), ncol=3, handlelength=1.2,
-          columnspacing=1.0)
+ax.axvline(x[-1] - 0.5, color="black", lw=0.6, ls="--", zorder=2)
+for side in ("top", "right"):
+    ax.spines[side].set_visible(True)
+for sp in ax.spines.values():
+    sp.set_color("black"); sp.set_linewidth(0.7)
+ax.grid(axis="y", color="#808080", lw=0.5, ls=(0, (1, 2)), zorder=0); ax.set_axisbelow(True)
+ax.tick_params(axis="both", length=0)
+ax.set_xlim(x[0] - 0.5, x[-1] + 0.5)
+ax.set_xticks(x); ax.set_xticklabels([SHORT.get(g, g) for g in groups], fontsize=8.5)
+ax.set_xlabel("SWE-Bench Tasks", fontsize=9.5)
+ax.set_ylabel("Geomean speedup (%)", fontsize=9.5); ax.set_ylim(0, top * 1.15)
+ax.legend(frameon=True, fancybox=False, edgecolor="black", framealpha=1, fontsize=8, loc="lower left", mode="expand",
+          bbox_to_anchor=(0, 1.02, 1, 0.2), ncol=2, handlelength=1.4, columnspacing=0.8, borderpad=0.5).get_frame().set_linewidth(0.6)
 st.save(fig, W8 / "fig_headroom_geomean")
 (W8 / "fig_headroom_geomean.png.txt").write_text(
     "Speedup of tool-call Python processes (first <=100M instructions: start-up, then the script's own work) "
