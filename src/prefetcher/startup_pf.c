@@ -10,15 +10,17 @@
      program first touches it, together with the index of that instruction.
 
    replay (spf_mode 2): the lines in spf_file are prefetched as the process runs.
-     spf_timing 0 (instant): before the first cycle, every line is installed in the destination
-       cache, the line needed first installed last. No bandwidth is charged. This bounds what a
-       prefetch issued at process creation can deliver: capacity limits it, timing does not.
+     spf_timing 0 (instant): before the first cycle, lines are installed in the destination
+       cache soonest-needed first, until each set is full; nothing installed is evicted. No
+       bandwidth is charged. This bounds a prefetch issued well before the process starts (while
+       the harness waits on the model): capacity limits it, timing does not.
      spf_timing 1 (stream): a line enters the destination's normal prefetch request queue once
        the frontend is within spf_lookahead instructions of the line's first use, at most
        spf_issue_width lines per cycle. A full queue stalls the stream; nothing is overwritten.
        Queueing, MSHRs and memory bandwidth are those of any other prefetch.
      spf_dest: 1 = L1 (data lines through the L1-D queue; instruction lines through the L2 queue,
-       the only queue that serves them), 2 = L2, 3 = LLC. Instant mode supports 2 and 3.
+       the only queue that serves them), 2 = L2, 3 = LLC, 4 = L2 and LLC (instant only: each
+       level is filled independently, soonest-needed first). Instant mode supports 2, 3 and 4.
        Streaming into L1 stops the core on our traces: the forward-progress watchdog in
        decoupled_frontend.cc fires at the same instruction for issue widths 1 and 4. The study
        uses 2 and 3.
@@ -65,7 +67,7 @@ static Spf_Rec* recs;
 static uint64_t n_recs, cap_recs;
 
 /* replay */
-static uint64_t next_rec, sent, late, stalls, installed, not_installed;
+static uint64_t next_rec, sent, late, stalls, installed, not_installed, set_full;
 static int installed_done;
 
 static uint64_t mix(uint64_t x) {
@@ -112,10 +114,10 @@ static void spf_exit(void) {
     printf("SPF record: lines=%lu instructions=%lu file=%s\n", (unsigned long)n_recs, (unsigned long)n_inst, spf_path);
   } else {
     printf("SPF replay: dest=%u timing=%u lookahead=%u width=%u records=%lu sent=%lu late_skipped=%lu queue_stalls=%lu "
-           "installed=%lu already_present=%lu instructions=%lu\n",
+           "installed=%lu already_present=%lu set_full=%lu instructions=%lu\n",
            SPF_DEST, SPF_TIMING, SPF_LOOKAHEAD, SPF_ISSUE_WIDTH, (unsigned long)n_recs, (unsigned long)sent,
            (unsigned long)late, (unsigned long)stalls, (unsigned long)installed, (unsigned long)not_installed,
-           (unsigned long)n_inst);
+           (unsigned long)set_full, (unsigned long)n_inst);
   }
   fflush(stdout);
 }
@@ -132,8 +134,9 @@ static void spf_init(void) {
     seen_mask = (1ULL << 24) - 1;
     seen_k = (uint64_t*)calloc(seen_mask + 1, sizeof(uint64_t));
   } else {
-    ASSERTM(0, SPF_DEST >= 1 && SPF_DEST <= 3, "spf: spf_dest must be 1, 2 or 3\n");
+    ASSERTM(0, SPF_DEST >= 1 && SPF_DEST <= 4, "spf: spf_dest must be 1, 2, 3 or 4\n");
     ASSERTM(0, SPF_TIMING == 1 || SPF_DEST >= 2, "spf: instant replay installs into L2 or LLC only\n");
+    ASSERTM(0, SPF_TIMING == 0 || SPF_DEST <= 3, "spf: spf_dest 4 is for instant replay only\n");
     ASSERTM(0, SPF_TIMING == 0 || PREF_FRAMEWORK_ON, "spf: stream replay needs --pref_framework_on 1\n");
     FILE* f = fopen(spf_path, "rb");
     ASSERTM(0, f, "spf: cannot read %s\n", spf_path);
@@ -181,11 +184,18 @@ void spf_tick(void) {
     return;
   if (SPF_TIMING == 0) {
     if (!installed_done) {
-      for (uint64_t i = n_recs; i-- > 0;) {
-        if (spf_install_line(recs[i].line & ~63ULL, SPF_DEST))
-          installed++;
-        else
-          not_installed++;
+      for (int lvl = 2; lvl <= 3; lvl++) {
+        if (SPF_DEST != 4 && SPF_DEST != (uns)lvl)
+          continue;
+        for (uint64_t i = 0; i < n_recs; i++) {
+          int r = spf_install_line(recs[i].line & ~63ULL, lvl);
+          if (r > 0)
+            installed++;
+          else if (r == 0)
+            not_installed++;
+          else
+            set_full++;
+        }
       }
       installed_done = 1;
     }

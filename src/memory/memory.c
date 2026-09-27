@@ -4756,13 +4756,20 @@ Mem_Req* mem_search_reqbuf_wrapper(uns8 proc_id, Addr addr, Mem_Req_Type type, u
 }
 
 /* Put one line in the L2 (level 2) or the LLC (level 3) as if it had been filled there, with no
-   timing and no bandwidth: the instant mode of the ideal creation-time prefetcher. Returns 0 if
-   the line was already present. */
+   timing and no bandwidth: the instant mode of the ideal creation-time prefetcher. Returns 1 if
+   installed, 0 if the line was already present, -1 if its set is full. A full set is left alone:
+   lines arrive soonest-needed first, so what the set holds is needed sooner. (Evicting would also
+   be wrong for another reason: every install happens in cycle 0, so all installed lines tie on
+   LRU age and the victim would always be way 0.) */
 int spf_install_line(uint64_t addr, int level) {
   Cache* c = level == 2 ? &MLC(0)->cache : &L1(0)->cache;
   Addr line_addr, repl_line_addr;
+  Flag victim_valid;
   if (cache_access(c, addr, &line_addr, FALSE))
     return 0;
+  get_next_repl_line(c, 0, addr, &repl_line_addr, &victim_valid);
+  if (victim_valid)
+    return -1;
   L1_Data* d = (L1_Data*)cache_insert(c, 0, addr, &line_addr, &repl_line_addr);
   memset(d, 0, sizeof(L1_Data));
   return 1;
