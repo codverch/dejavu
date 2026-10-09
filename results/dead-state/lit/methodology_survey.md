@@ -1,18 +1,57 @@
-# Simulation-methodology survey for the dead-cache-block characterization
+# Simulation methodology of the reference papers (verified)
 
-Compiled 2026-10-09. Rule zero: every number below was read in the cited source
-(paper PDF, artifact README, or official competition page). Where a field could not be
-verified it says "not stated" or "not found" and names where I looked. Quotes are
-verbatim unless marked [paraphrase].
+Collected 2026-10-09 by literature sub-agents from primary PDFs/repos; quotes verbatim; "not stated" = searched
+the full text for warm/simpoint/million/billion/geomean/confidence and found nothing.
 
-## (a) Methodology table
+## Cross-cutting
+- Replacement/dead-block papers: **no confidence intervals or error bars in any of them**; one deterministic run
+  per (policy, workload); geomean speedup over LRU; weighted speedup for multi-core; single SimPoint is the norm.
+- Warm-up/measure drifted from 100M/100M (CRC1) to 200M/1B (CRC2: Glider, Mockingjay).
+- Litz group: one 100M steady-state Intel-PT window per app (2020-22); since 2024 (Scarab 2.0 / scarab-infra)
+  10M SimPoints + 10M warm-up for DynamoRIO memtraces, 50M warm-up for PT traces.
+- **No paper models short-lived processes or cold start**, except Ignite (MICRO'23), which flushes
+  microarchitectural state between serverless invocations. scarab-infra keeps only the main thread of one process.
 
-| # | Paper | Venue/year | Simulator | Workloads | Trace method | Warm-up instrs | Measured instrs | Sampling | #samples | Stats reported | Source quote / section |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | scarab-infra (Litz lab; artifact, not a paper) — the pipeline that produced this study's postgres/mysql/mongodb/clang baselines | GitHub, commit 42d6ca6 (2026-09-21), local clone /h/deepanjm/agentic-stuff/scarab-infra | Scarab (trace-driven, DynamoRIO memtrace or Intel PT) | SPEC2006/2017/2026, "datacenter" (clang, gcc, mongodb, mysql, postgres, verilator, xgboost, cassandra, kafka, tomcat, ...), DCPerf, Google traces | DynamoRIO `libfpg.so` BBV fingerprint, SimPoint clustering, then `drrun ... -trace_after_instrs <roi_start> -trace_for_instrs <roi_length>` per segment | Default trace pipeline reserves `warmup_chunks = 5` x 10M = 50M before the ROI when room exists (`run_simpoint_trace.py` l.504-541). workloads_db.json warmup: 10,000,000 for datacenter memtrace (clang, gcc, mongodb, mysql, postgres, verilator, xgboost) and all 12 Google traces; 49,999,999 for the datacenter PT traces; 50,000,000 for SPEC06/17/26. `json/top_simpoint.json` uses `"warmup":10000000` | 10M (one segment) | SimPoint, "opt.p.lpt0.99 (99% coverage)"; only main-thread BBV clustered | per-workload, not fixed (`clustering_k: null = auto`); `top_simpoint` mode runs "only top 3 simpoints" | SimPoint-weighted aggregates (`finish_trace` "updates workloads_db.json with trace paths and SimPoint weights") | docs/README.trace.md: "The segment size is 10M instructions by default."; "Each zip contains only the chunks needed for warmup + simulation."; "The pipeline keeps only the main thread's raw file (the largest one) and removes all helper-thread files before raw2trace." |
-| 2 | I-SPY (Khan, Sriraman, Devietti, Pokam, Litz, Kasikci) | MICRO 2020 | ZSim, modified, "trace-driven execution mode, modeling an out-of-order processor"; Haswell config (L1I 32KiB/8w, L2 1MB/16w, L3 10MiB/20w) | 9 datacenter apps: Drupal, Mediawiki, Wordpress (HHVM OSS-perf); Cassandra, Kafka, Tomcat (DaCapo); Finagle-Chirper, Finagle-HTTP (Renaissance); Verilator | Intel LBR + PEBS (`frontend_retired.l1i_miss`) profile; instruction traces | not stated (no "warm" anywhere in the text; checked full PDF text, NSF PAR copy) | "up to 100 million instructions executed in steady-state" | none; one steady-state region per app | 1 per app | averages and maxima ("average of 15.5% (up to 45.9%) speedup"); input-generalization study on 5 inputs; sensitivity (Fig. 18 prefetch distance); no CIs | Sec. V "Evaluation Methodology": "We record up to 100 million instructions executed in steady-state." "We use ZSim in a trace-driven execution mode, modeling an out-of-order processor." |
-| 3 | Ripple (Khan, Zhang, Sriraman, Devietti, Pokam, Litz, Kasikci) | ISCA 2021 | ZSim, extended with an invalidate instruction; "trace-driven out-of-order ZSim simulation"; same Haswell config as I-SPY | same 9 datacenter apps as I-SPY; "different inputs for training (profile collection) and evaluation" | Intel PT, user + kernel | not stated (no "warm" in the text; NSF PAR copy purl/10274108) | "100 million instructions in the application's steady-state" | none; one steady-state region | 1 per app | averages and maxima ("average performance improvement of 1.6% (up to 2.13%)"); comparison to ideal (Belady-based) replacement; no CIs | Sec. IV: "We collect the execution trace of data center applications using Intel Processor Trace (PT). Specifically, we record traces for 100 million instructions in the application's steady-state containing both user and kernel mode instructions" |
-| 4 | UDP: Utility-Driven Fetch Directed Instruction Prefetching (Oh, Xu, Khan, Kasikci, Litz) | ISCA 2024 (artifact branch `ISCA2024-UDP` of scarab-infra) | Scarab, cycle-level, decoupled frontend + wrong-path; Sunny-Cove-like (L1I 32KiB/8w, L1D 48KiB/12w, L2 512KiB/8w, LLC 2MiB/core/16w) | 10 datacenter apps: MySQL, PostgreSQL (sysbench), Clang, GCC (building SPEC2017 imagick), drupal, Verilator, MongoDB (mongo-perf), tomcat, XGBoost, mediawiki | Execution-driven (PIN) "where possible"; otherwise DynamoRIO and Intel PT traces "for complex, multi-process, and Java-VM-based applications" | 10M per simpoint; 50M for PT workloads (used as training phase); separately "warming up the simulator with 50M instructions" makes wrong-path replay correct in 99% of cases | 10M per simpoint | SimPoint, weighted aggregation | Text: "10 (application-specific) 10M instruction simpoints"; artifact appendix: "The number of simpoints of the workloads for this artifact is from 2 to 36" (the two statements disagree) | per-app IPC speedup + geomean/average ("up to 16.1% IPC speedup and 3.6% on average"); trace-vs-exec frontend check "<1% IPC mismatch"; 80/20 train/test split of simpoints; no CIs | Sec. V-A: "For each application, we simulate 10 (application-specific) 10M instruction simpoints [26] which are aggregated according to their weight. Each simpoint is warmed up with 10M instructions." Sec. III: "We find that in 99% of the cases, the correct actual instructions are being replayed after warming up the simulator with 50M instructions." (NSF PAR purl/10512151) |
-| 5 | Thermometer: Profile-Guided BTB Replacement (Song, Khan, Litz, Kasikci et al.) | ISCA 2022 | ChampSim, modified to replay Intel PT traces; FDIP baseline (Table 1) | 13 datacenter apps (cassandra, kafka, tomcat, drupal, wordpress, mediawiki, finagle-chirper, finagle-http, clang, PostgreSQL/pgbench, Python/pyperformance, MySQL/TPC-C, verilator) + 663 CBP-5 traces + 50 IPC-1 traces | Intel PT | not stated (no "warm-up"/"warmup" in the methodology; only occurrence of "warmup" is a reference title; author-hosted PDF) | not stated (no instruction counts anywhere in the text) | none described | 1 trace per app; 663 CBP-5, 50 IPC-1 | averages with ranges ("average speedup of 8.7% (0.4%-64.9%)"); limit studies vs Belady/perfect BTB; "two-fold cross-validation" on CBP-5 profiles; no CIs | Sec. 2.1: "We simulate and evaluate Thermometer using the ChampSim [5] simulator and adjust simulation parameters to resemble a recent state-of-the-art industry FDIP baseline"; "We use traces collected via Intel PT [1] and modify ChampSim to simulate these traces." |
-| 6 | Whisper: Profile-Guided Branch Misprediction Elimination (Khan, Ugur, Nathella, Sunwoo, Litz, Jimenez, Kasikci) | MICRO 2022 (Best Paper) | Scarab, modified to replay Intel PT traces; 64KB TAGE-SC-L, L1i/L1d 32KB/8w, L2 1MB/16w, L3 10MB/20w | 12 datacenter apps (cassandra, clang, drupal, finagle-chirper, finagle-http, kafka, mediawiki, mysql, postgres, python, tomcat, wordpress) | Intel PT (+LBR for the profile) | not stated as an instruction count for the main result; sensitivity study varies warm-up "from 0% to 90%" of simulated instructions (Fig. 22) | "100 million representative, steady-state instructions for each application"; sensitivity up to 1 billion (Fig. 23) | none; one representative steady-state region | 1 per app | averages with ranges ("average speedup of 2.8% (0.4%-4.6%)"); warm-up sensitivity (17.5% reduction at 0% warm-up vs 16.8% at 50%); simulation-length sensitivity (14.7% at 1B); no CIs | Sec. V-A: "We also modify Scarab to simulate instruction traces collected via Intel PT and evaluate Whisper by simulating 100 million representative, steady-state instructions for each application". Sec. V-F: "We evaluate Whisper's sensitivity to baseline branch predictor's (TAGE-SC-L) state by varying % of warm-up instructions from 0% to 90%." (NSF PAR purl/10406459) |
-| 7 | CRISP: Critical Slice Prefetching (Litz, Ayers, Ranganathan) | ASPLOS 2022 | Scarab ("cycle-accurate", decoupled frontend, Ramulator); Skylake-like (Table 1) | memory-intensive SPEC2017, Xhpcg, Tailbench Moses, Memcached, Img-dnn | Scarab (execution-driven re-execution after a PMU+trace profiling run) | not stated (no "warm" in the text; author PDF people.ucsc.edu/~hlitz/papers/crisp.pdf) | "200M representative instructions" per app | "representative" region; selection method not stated | 1 per app | average and maximum IPC speedup ("average IPC speedup of 8.4% and a maximum speedup of 38%"); ROB-size and threshold sensitivity; train/ref input split; no CIs | Sec. 5.1: "For each application, we execute 200M representative instructions." "for profiling and slice-extraction we leverage SPEC's train inputs, while for evaluation we utilize the ref inputs." |
+## Dead-time quantification in prior work
+| paper | definition | number |
+|---|---|---|
+| Lai ISCA'01 | CDF of last-touch -> miss distance | "80% of the deadtimes ... 500 cycles or more" |
+| Cache Bursts MICRO'08 | efficiency E = sum U_i/(N*A*S) (time-averaged live fraction) | geomean efficiency L1D 0.08, L2 0.17 (64KB 2-way L1D, 1MB 16-way L2; SPEC2000 etc.) => ~92% / 83% dead |
+| SDBP MICRO'10 | live = placement..last reference; dead = last reference..eviction | "a cache block in a 2MB LRU-managed LLC is dead 86% of the time" (memory-intensive SPEC2006) |
+
+## Per paper
+| paper | simulator | workloads | warm-up | measured | sampling | stats |
+|---|---|---|---|---|---|---|
+| Lai ISCA'01 | SimpleScalar 3.0 | Olden + SPEC95/2K | skip 1B cycles | 3B cycles (6B equake) | none | averages |
+| Cache Bursts MICRO'08 | sim-alpha; MP-sauce | SPEC2000+, commercial | not stated | up to 2B (SimPoint) | SimPoint | geomean |
+| SDBP MICRO'10 | CMP$im (CRC1) | SPEC2006 | not stated | 1B | single SimPoint | geomean |
+| SHiP MICRO'11 | CMP$im | 24 mm/server/SPEC | not stated | 250M | PinPoints | averages |
+| Hawkeye ISCA'16 | CMP$im (CRC1) | SPEC2006 (28) | 50M | 200M | single SimPoint 250M | geomean |
+| Glider MICRO'19 | ChampSim (CRC2) | 33 SPEC06/17/GAP, LLC MPKI>1 | 200M | 1B | single SimPoint | average |
+| Mockingjay HPCA'22 | ChampSim | 33 SPEC/GAP + 25 CVP1 | 200M | 1B | single SimPoint | geomean |
+| Leeway PACT'17 | CMP$im | SPEC + CloudSuite | 500M | 1B | up to 6 SimPoints (weighted) | geomean |
+| CRC1 2010 | CMP$im | 65 workloads | 100M | 100M | SimPoint-like | geomean |
+| CRC2 2017 | ChampSim | 20 SPEC06 (LLC MPKI>=1) + CloudSuite | 200M | 1B | highest-weight SimPoint | geomean |
+| I-SPY MICRO'20 | ZSim | 9 datacenter | not stated | up to 100M steady state | one window | average |
+| Ripple ISCA'21 | ZSim | 9 datacenter | not stated | 100M PT (user+kernel) | one window | average |
+| Twig MICRO'21 | Scarab (PT) | 9 datacenter | not stated | 100M | one window | avg ± std across inputs |
+| Thermometer ISCA'22 | ChampSim (PT) | 13 datacenter + CBP5/IPC1 | artifact 50M | artifact 50M | one window | average |
+| Whisper MICRO'22 | Scarab (PT) | 12 datacenter | sensitivity 0-90% | 100M (sens. to 1B) | one window | average |
+| CRISP ASPLOS'22 | Scarab+Ramulator | SPEC17, Tailbench | not stated | 200M | "representative" | average |
+| PDede MICRO'21 | Intel in-house | 100+ apps | 100M+ | 10M+ | SimPoints | **validated to silicon within 5%** |
+| UDP ISCA'24 (Scarab 2.0) | Scarab | 10 datacenter | 10M (PT 50M) | 10 x 10M SimPoints | SimPoint, weighted | geomean |
+| ATR MICRO'25 | Scarab | SPEC2017 | 10M | 10M SimPoints (8 to >100) | SimPoint | not stated |
+| Ignite MICRO'23 | gem5 FS | 20 serverless fns | 20,000 invocations | per invocation | flush between invocations | PMU validation |
+
+## What this means for the dead-state study
+1. Our 100M windows (20M warm-up, 80M measured) exceed the Scarab-group convention (10M+10M) and match the
+   window length of Litz's PT studies; warm-up is below CRC2 (200M). Report agent20 (10M+10M) to match the
+   baselines exactly, and a warm-up sensitivity (cold vs 20M) for L2/LLC.
+2. Prior dead-time numbers (LLC 86% dead; L1D 92%, L2 83%) are on LLC-stressing SPEC; the agent's must be
+   compared to same-instrument baselines, never to these numbers directly.
+3. Our CIs (Horvitz-Thompson over 160 PPS units, paired per unit) exceed the field's norm; keep them.
+4. Our all-process, cold-start methodology goes beyond scarab-infra (main thread of one process) and the
+   steady-state-only convention; state this as a contribution and justify cold start as the agent's reality
+   (Ignite is the only precedent).
+5. Simulator validation: the field rarely validates against hardware (PDede only); we have a native Zen 2
+   L1-D refill check (within 2%) from the semsim study, and should add Scarab-vs-native for a few units.
