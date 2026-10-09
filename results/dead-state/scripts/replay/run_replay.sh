@@ -21,7 +21,7 @@ PY
 python3 $HERE/fake_llm.py $TRAJ $port --delay $delay --log $out/requests.ndjson > $out/fake_llm.log 2>&1 &
 FAKE=$!
 sleep 1
-export OPENAI_API_KEY=local-vllm-key PATH=$D/swe-agent-venv/bin:$PATH
+export OPENAI_API_KEY=local-vllm-key PATH=$D/swe-agent-venv/bin:$PATH PYTHONPATH=$HERE PHASE_LOG=$out/phases.log OPENBLAS_NUM_THREADS=${OPENBLAS_NUM_THREADS:-1}
 # private repo clone at the path the trajectory uses, and private /root/tools, in a private mount ns
 R=/localdisk/deepanjm/deadblock/replay/repo
 [ -d $R/.git ] || git clone -q $D/repos/django__django-11333 $R
@@ -30,7 +30,7 @@ mkdir -p /root/tools $out/roottools
 cd $D/SWE-agent
 t0=$(date +%s.%N)
 unshare -m --propagation private bash -c "mount --bind $R /django__django-11333 && mount --bind $out/roottools /root/tools && \
-  exec $* $D/swe-agent-venv/bin/sweagent run --config $out/config.json" > $out/sweagent.log 2>&1
+  exec $* $D/swe-agent-venv/bin/python3 -c \"import phasewrap; phasewrap.main()\" run --config $out/config.json" > $out/sweagent.log 2>&1
 echo "rc=$? wall=$(echo "$(date +%s.%N) - $t0" | bc)" > $out/rc
 kill $FAKE
 python3 $HERE/check_replay.py $TRAJ $out > $out/fidelity.txt 2>&1
