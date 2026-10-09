@@ -5,7 +5,8 @@ syntax: regexp
 
 # experiment result directories
 out/
-results/
+results/*
+!results/dead-state/
 rollups/
 
 # intermediate compilation files
